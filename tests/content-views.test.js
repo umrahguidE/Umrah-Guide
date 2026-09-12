@@ -188,6 +188,22 @@ test('the Miqat picker offers a detailed, grouped route list', () => {
   assert.ok((out.match(/<option value=/g) ?? []).length >= 25);
 });
 
+test('a dua with a recitation offers the reciter, not the phone voice', () => {
+  const ui = createUiState();
+  ui.recitations = {
+    reciter: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)',
+    source: 'everyayah.com',
+    files: { 'yemeni-corner': { reciter: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)', verse: 'Sūrat al-Baqarah 2:201' } },
+  };
+  const out = render({ ...ctx(initialState(), { ui }), route: { name: 'duas', arg: null } });
+  assert.match(out, /🎙 Listen to the recitation/);
+  assert.match(out, /Recited by Maḥmūd Khalīl al-Ḥuṣarī \(murattal\) · Sūrat al-Baqarah 2:201/);
+  // Duas without a recording keep the plain player.
+  assert.match(out, /🔊 Listen/);
+  const settings = render({ ...ctx(initialState(), { ui }), route: { name: 'settings', arg: null } });
+  assert.match(settings, /a real reciter, with tajwīd/);
+});
+
 test('every page renders without a session', () => {
   for (const name of ['', 'map', 'settings', 'prep', 'ihram', 'miqat', 'duas', 'offline', 'info', 'journey', 'about', 'more']) {
     assert.ok(render({ ...ctx(initialState()), route: { name, arg: null } }).length > 300, name);

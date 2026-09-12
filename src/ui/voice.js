@@ -80,6 +80,7 @@ export function createClipPlayer() {
   let audio = null;
   let currentId = null;
   const missing = new Set(); // don't ask the network twice for a recording that isn't there
+  let catalog = null; // audio/duas/index.json, when present, is the authoritative list
   const listeners = new Set();
   const notify = () => listeners.forEach((fn) => fn(currentId));
 
@@ -97,8 +98,11 @@ export function createClipPlayer() {
       currentId = null;
       notify();
     },
+    setCatalog(ids) {
+      catalog = new Set(ids);
+    },
     async play(id, url = duaClipUrl(id)) {
-      if (missing.has(id)) return false;
+      if (missing.has(id) || (catalog && !catalog.has(id))) return false;
       this.stop();
       audio = new Audio(url);
       currentId = id;

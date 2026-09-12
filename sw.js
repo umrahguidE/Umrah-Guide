@@ -1,6 +1,6 @@
 // Offline support: caches the whole app (the "Umrah offline pack") so the
 // ritual tracker keeps working with no connection. Bump CACHE when shipping new assets.
-const CACHE = 'guided-umrah-v2';
+const CACHE = 'guided-umrah-v3';
 const MANIFEST = './asset-manifest.json';
 
 async function loadManifest() {

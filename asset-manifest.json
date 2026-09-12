@@ -43,10 +43,14 @@
     },
     {
       "id": "audio",
-      "label": "Audio recitations",
+      "label": "Recitations & audio",
       "optional": true,
       "files": [
-        "./audio/talbiyah.mp3"
+        "./audio/talbiyah.mp3",
+        "./audio/duas/index.json",
+        "./audio/duas/yemeni-corner.mp3",
+        "./audio/duas/maqam.mp3",
+        "./audio/duas/safa-verse.mp3"
       ]
     }
   ]

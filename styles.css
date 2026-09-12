@@ -380,3 +380,5 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 5px; font-
 .map.focus-tawaf .map-masa-group { opacity: .5; }
 
 .credit { text-align: center; font-size: .8rem; color: var(--muted); padding: 8px 0 4px; }
+
+.dua .reciter { margin-top: 4px; font-size: .78rem; color: var(--accent); }

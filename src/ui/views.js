@@ -6,7 +6,7 @@ import { IHRAM_CHECKS, summarize } from '../engine/machine.js';
 import { HARAM_GEO } from '../engine/tracking.js';
 import { miqatRadiusKm } from '../engine/miqat.js';
 import * as C from '../data/content.js';
-import { duaCard, progressBar, reviewBadge, roundDots, saiTrack, tawafRing } from './components.js';
+import { duaCard, progressBar, reviewBadge, roundDots, saiTrack, setRecitations, tawafRing } from './components.js';
 import { haramMap } from './map.js';
 
 const G = C.GUIDANCE;
@@ -26,6 +26,7 @@ export function createUiState({ simulate = false } = {}) {
     miqatWatching: false,
     stepLengthM: null,
     sensors: { compass: false, steps: false },
+    recitations: null,
     sim: { enabled: simulate, dropped: false },
   };
 }
@@ -66,6 +67,7 @@ const PAGES = {
 };
 
 export function renderApp(ctx) {
+  setRecitations(ctx.ui.recitations?.files);
   const page = PAGES[ctx.route.name] ?? guidedPage;
   return html`
     ${topBar(ctx)}
@@ -926,9 +928,14 @@ function settingsPage(ctx) {
         : html`<p class="alert warn">This device or browser has no speech voice available.</p>`}
     </section>
     <section class="card">
-      <h2>🕌 Recited audio</h2>
-      <p>When a recording is present the app plays the reciter instead of the phone voice: <code>audio/talbiyah.mp3</code> for the Talbiyah, and <code>audio/duas/&lt;id&gt;.mp3</code> for each dua.</p>
-      <p class="muted">No recordings are included in this build. They have to come from a reciter whose recording you have permission to distribute — see audio/README.md.</p>
+      <h2>🎙 Recitation</h2>
+      ${ctx.ui.recitations
+        ? html`<p>The Qur’anic verses are recited by <b>${ctx.ui.recitations.reciter}</b> — a real reciter, with tajwīd, not the phone voice.</p>
+          <ul class="points">${Object.values(ctx.ui.recitations.files ?? {}).map((f) => html`<li>${f.verse ?? ''}</li>`)}</ul>
+          <p class="muted">Source: ${ctx.ui.recitations.source}. ${ctx.ui.recitations.licence ?? ''}</p>`
+        : html`<p class="muted">No recitation files on this device yet. Run <code>npm run audio:fetch</code> to download the Qur’anic verses recited by a reciter of your choice.</p>`}
+      <p>Everything else — the Talbiyah and the duas from hadith — has no verse recording. Record those with a reciter and save them under the names in <code>audio/README.md</code>; the app plays a recording whenever one exists, and only falls back to the phone voice when it does not.</p>
+      <p class="muted">Recordings belong to their reciters and publishers. Check the terms before distributing the app publicly.</p>
     </section>
     <section class="card">
       <h2>📡 Counting</h2>

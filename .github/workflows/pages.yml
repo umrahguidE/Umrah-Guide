@@ -27,6 +27,8 @@ jobs:
         with:
           node-version: '20'
       - run: npm test
+      # Recitation files are fetched at build time, not committed (see the APK workflow).
+      - run: npm run audio:fetch
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

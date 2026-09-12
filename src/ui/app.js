@@ -43,6 +43,18 @@ clips.onChange((id) => {
   render();
 });
 
+// Recitations on this device (audio/duas/index.json). When it exists it is the
+// authoritative list, so the app never probes for files that are not there.
+fetch('./audio/duas/index.json')
+  .then((r) => (r.ok ? r.json() : null))
+  .then((index) => {
+    if (!index?.files) return;
+    ui.recitations = index;
+    clips.setCatalog(Object.keys(index.files));
+    render();
+  })
+  .catch(() => {});
+
 function route() {
   const [name = '', arg = null] = location.hash.replace(/^#\/?/, '').split('/');
   return { name, arg };

@@ -35,6 +35,12 @@ jobs:
       - name: Install Capacitor
         run: npm install --no-audit --no-fund @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
 
+      # Real recitation (tajwīd) for the Qur'anic verses. The recordings belong
+      # to their reciters and publishers, so they are fetched at build time
+      # rather than committed — check the terms before publishing the app.
+      - name: Fetch the Qur'an recitations
+        run: npm run audio:fetch
+
       - name: Build the web app
         run: npm run build
 

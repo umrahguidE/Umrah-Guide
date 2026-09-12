@@ -3,6 +3,12 @@ import { BASIS_LABEL } from '../data/content.js';
 
 const f = (n) => n.toFixed(1);
 
+// Recitations present on this device (audio/duas/index.json), set once per render.
+let RECITATIONS = {};
+export const setRecitations = (map) => {
+  RECITATIONS = map ?? {};
+};
+
 export function progressBar(fraction, label) {
   const pct = Math.round(Math.max(0, Math.min(1, fraction)) * 100);
   return html`<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="${label}"><span style="width:${pct}%"></span></div>`;
@@ -27,9 +33,11 @@ export function reviewBadge(review) {
 export function duaCard(d, { highlight = false, playingId = null } = {}) {
   if (!d) return '';
   const playing = playingId === d.id;
+  const recitation = RECITATIONS[d.id];
   return html`<article class="dua ${highlight ? 'highlight' : ''}">
     <header><h3>${d.title}</h3>${d.basis ? html`<span class="pill">${BASIS_LABEL[d.basis]}</span>` : ''}</header>
-    <button class="btn small dua-play" data-action="play-dua" data-id="${d.id}">${playing ? '⏹ Stop' : '🔊 Listen'}</button>
+    <button class="btn small dua-play" data-action="play-dua" data-id="${d.id}">${playing ? '⏹ Stop' : recitation ? '🎙 Listen to the recitation' : '🔊 Listen'}</button>
+    ${recitation ? html`<small class="reciter">Recited by ${recitation.reciter}${recitation.verse ? ` · ${recitation.verse}` : ''}</small>` : ''}
     ${d.when ? html`<p class="when">${d.when}</p>` : ''}
     ${d.arabic ? html`<p class="arabic" lang="ar" dir="rtl">${d.arabic}</p>` : ''}
     ${d.transliteration ? html`<p class="translit">${d.transliteration}</p>` : ''}

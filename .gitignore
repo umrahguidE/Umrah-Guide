@@ -5,3 +5,5 @@ ios/
 *.log
 .DS_Store
 Thumbs.db
+audio/duas/
+audio/*.mp3
