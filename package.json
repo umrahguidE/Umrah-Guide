@@ -1,0 +1,19 @@
+{
+  "name": "guided-umrah",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Guided Umrah Mode: an offline-first companion that follows one pilgrim from preparation to the completion of Umrah.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test",
+    "build": "node scripts/build.mjs",
+    "review:export": "node scripts/export-content-review.mjs",
+    "mobile:sync": "node scripts/build.mjs && npx cap sync",
+    "mobile:android": "npx cap open android",
+    "mobile:ios": "npx cap open ios"
+  }
+}

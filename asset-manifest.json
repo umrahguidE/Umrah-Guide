@@ -1,0 +1,53 @@
+{
+  "groups": [
+    {
+      "id": "app",
+      "label": "App",
+      "files": [
+        "./",
+        "./index.html",
+        "./styles.css",
+        "./manifest.webmanifest",
+        "./icon.svg",
+        "./src/store.js",
+        "./src/ui/app.js",
+        "./src/ui/views.js",
+        "./src/ui/components.js",
+        "./src/ui/html.js",
+        "./src/ui/tracking-runtime.js",
+        "./src/ui/map.js",
+        "./src/ui/voice.js",
+        "./src/ui/sensors.js"
+      ]
+    },
+    {
+      "id": "steps",
+      "label": "Umrah steps, Tawaf & Sa'i guide",
+      "files": [
+        "./src/engine/stages.js",
+        "./src/engine/machine.js",
+        "./src/engine/tracking.js",
+        "./src/engine/geo.js",
+        "./src/engine/miqat.js",
+        "./src/engine/motion.js"
+      ]
+    },
+    {
+      "id": "content",
+      "label": "Guidance & duas",
+      "files": [
+        "./src/data/content.js",
+        "./src/data/routes.js",
+        "./src/data/voice-lines.js"
+      ]
+    },
+    {
+      "id": "audio",
+      "label": "Audio recitations",
+      "optional": true,
+      "files": [
+        "./audio/talbiyah.mp3"
+      ]
+    }
+  ]
+}

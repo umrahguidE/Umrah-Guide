@@ -1,0 +1,15 @@
+{
+  "name": "Guided Umrah",
+  "short_name": "Umrah",
+  "description": "Step-by-step, offline Umrah companion that tracks every Tawaf round and Sa'i lap.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f3ee",
+  "theme_color": "#0e6a44",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
