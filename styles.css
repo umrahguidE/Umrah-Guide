@@ -378,3 +378,5 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 5px; font-
 .map-scale { stroke: var(--muted); stroke-width: 2; }
 .map.focus-sai .map-mataf-group { opacity: .5; }
 .map.focus-tawaf .map-masa-group { opacity: .5; }
+
+.credit { text-align: center; font-size: .8rem; color: var(--muted); padding: 8px 0 4px; }

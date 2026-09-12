@@ -213,7 +213,8 @@ function homePage(ctx) {
       ${tile('#/info', '🆘', 'My info & emergency', 'Hotel, group, contacts')}
       ${tile('#/duas', '🤲', 'Duas', 'Arabic · transliteration · meaning')}
     </section>
-    ${ctx.state.archive.length ? html`<p class="center"><a href="#/journey">Past journeys (${ctx.state.archive.length})</a></p>` : ''}`;
+    ${ctx.state.archive.length ? html`<p class="center"><a href="#/journey">Past journeys (${ctx.state.archive.length})</a></p>` : ''}
+    <p class="credit">Designed and developed by Mhd Wasim</p>`;
 }
 
 function miqatPanel(ctx, routeId) {
@@ -864,7 +865,8 @@ function aboutPage() {
     <section class="card"><h2>Location assistance</h2>
       <p>Location can only <em>suggest</em> that a round or lap may be finished — it never marks one complete. GPS is often inaccurate inside and around the Haram, and the site geometry in this build is approximate until surveyed on site.</p></section>
     <section class="card"><h2>Privacy</h2>
-      <p>Your progress, notes and personal information stay on this device. Nothing is sent anywhere.</p></section>`;
+      <p>Your progress, notes and personal information stay on this device. Nothing is sent anywhere.</p></section>
+    <p class="credit">Designed and developed by Mhd Wasim</p>`;
 }
 
 function mapPage(ctx) {
