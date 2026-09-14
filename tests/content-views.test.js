@@ -28,7 +28,7 @@ test('nothing is marked scholar-reviewed in this draft', () => {
 });
 
 // Render every screen of a real journey, for both genders.
-const ctx = (state, extra = {}) => ({ state, prefs: defaultPrefs(), ui: createUiState(), route: { name: '', arg: null }, undoAvailable: true, ...extra });
+const ctx = (state, extra = {}) => ({ state, prefs: { ...defaultPrefs(), language: 'en' }, ui: createUiState(), route: { name: '', arg: null }, undoAvailable: true, ...extra });
 const render = (c) => String(renderApp(c));
 
 function* journey(gender) {
@@ -75,8 +75,8 @@ test('key screens say the right thing', () => {
   assert.match(find('TAWAF_ROUND_3'), /Kaaba is on your <b>LEFT<\/b>/);
   assert.match(find('TAWAF_ROUND_2'), /ramal/);
   assert.doesNotMatch(find('TAWAF_ROUND_4'), /ramal/);
-  assert.match(find('SAI_1'), /Confirm arrival at MARWAH/);
-  assert.match(find('SAI_2'), /Confirm arrival at SAFA/);
+  assert.match(find('SAI_1'), /I have reached Marwah/);
+  assert.match(find('SAI_2'), /I have reached Safa/);
   assert.match(find('SAI_7'), /final lap/);
   assert.match(find('SAI_4'), /Jog|jog/);
   assert.match(find('SAI_COMPLETE'), /END: MARWAH/);
@@ -107,7 +107,7 @@ test('pause and correction screens', () => {
   let st = [...journey('male')].find((s) => s.session.current_stage === 'TAWAF_ROUND_4');
   st = transition(st, { type: EV.PAUSE, now: '2026-09-11T09:00:00Z' });
   const paused = render(ctx(st));
-  assert.match(paused, /Tawaf Round 4 \/ 7/);
+  assert.match(paused, /Tawaf.*Round 4 \/ 7/);
   assert.match(paused, /data-action="resume"/);
   assert.doesNotMatch(paused, /data-action="confirm-round"/);
   const ui = createUiState();
@@ -119,7 +119,7 @@ test('pause and correction screens', () => {
 });
 
 test('user-entered text is escaped', () => {
-  const prefs = { ...defaultPrefs(), personalDuas: [{ id: 'x', text: '<img src=x onerror=alert(1)>' }], info: { hotelName: '"><script>alert(1)</script>' } };
+  const prefs = { ...defaultPrefs(), language: 'en', personalDuas: [{ id: 'x', text: '<img src=x onerror=alert(1)>' }], info: { hotelName: '"><script>alert(1)</script>' } };
   const duas = render({ ...ctx(initialState()), prefs, route: { name: 'duas', arg: null } });
   assert.ok(!duas.includes('<img src=x'));
   assert.ok(duas.includes('&lt;img src=x'));
@@ -179,7 +179,7 @@ test('the voice guide has a line for every stage and both genders', () => {
 });
 
 test('the Miqat picker offers a detailed, grouped route list', () => {
-  const prefs = { ...defaultPrefs(), miqatRoute: 'air-pakistan' };
+  const prefs = { ...defaultPrefs(), language: 'en', miqatRoute: 'air-pakistan' };
   const out = render({ ...ctx(initialState()), prefs, route: { name: 'miqat', arg: null } });
   assert.match(out, /<optgroup label="✈️ Flying"/);
   assert.match(out, /Pakistan \(Karachi, Lahore, Islamabad, Peshawar\)/);
@@ -188,20 +188,20 @@ test('the Miqat picker offers a detailed, grouped route list', () => {
   assert.ok((out.match(/<option value=/g) ?? []).length >= 25);
 });
 
-test('a dua with a recitation offers the reciter, not the phone voice', () => {
+test('a dua with a recitation offers the reciter — never the phone voice for Arabic', () => {
   const ui = createUiState();
   ui.recitations = {
-    reciter: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)',
-    source: 'everyayah.com',
-    files: { 'yemeni-corner': { reciter: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)', verse: 'Sūrat al-Baqarah 2:201' } },
+    quranReciter: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)',
+    sources: ['everyayah.com'],
+    files: { 'yemeni-corner': { kind: 'quran', reciter: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)', label: 'Qur’an 2:201' } },
   };
   const out = render({ ...ctx(initialState(), { ui }), route: { name: 'duas', arg: null } });
   assert.match(out, /🎙 Listen to the recitation/);
-  assert.match(out, /Recited by Maḥmūd Khalīl al-Ḥuṣarī \(murattal\) · Sūrat al-Baqarah 2:201/);
-  // Duas without a recording keep the plain player.
-  assert.match(out, /🔊 Listen/);
+  assert.match(out, /Recited by Maḥmūd Khalīl al-Ḥuṣarī \(murattal\) · Qur.an 2:201/);
+  // A dua with Arabic but no recording yet says so plainly, instead of falling back to text-to-speech.
+  assert.match(out, /No recitation recording for this dua yet\./);
   const settings = render({ ...ctx(initialState(), { ui }), route: { name: 'settings', arg: null } });
-  assert.match(settings, /a real reciter, with tajwīd/);
+  assert.match(settings, /1 recitations are on this device|recitations are on this device/);
 });
 
 test('every page renders without a session', () => {

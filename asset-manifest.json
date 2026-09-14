@@ -17,7 +17,11 @@
         "./src/ui/tracking-runtime.js",
         "./src/ui/map.js",
         "./src/ui/voice.js",
-        "./src/ui/sensors.js"
+        "./src/ui/sensors.js",
+        "./src/i18n/index.js",
+        "./src/i18n/hi.js",
+        "./src/i18n/ta.js",
+        "./src/i18n/ml.js"
       ]
     },
     {
@@ -46,11 +50,18 @@
       "label": "Recitations & audio",
       "optional": true,
       "files": [
-        "./audio/talbiyah.mp3",
         "./audio/duas/index.json",
         "./audio/duas/yemeni-corner.mp3",
         "./audio/duas/maqam.mp3",
-        "./audio/duas/safa-verse.mp3"
+        "./audio/duas/safa-verse.mp3",
+        "./audio/talbiyah.mp3",
+        "./audio/duas/enter-mosque.mp3",
+        "./audio/duas/leave-mosque.mp3",
+        "./audio/duas/black-stone.mp3",
+        "./audio/duas/safa-marwah-dhikr.mp3",
+        "./audio/duas/istighfar.mp3",
+        "./audio/duas/hawqala.mp3",
+        "./audio/duas/four-words.mp3"
       ]
     }
   ]

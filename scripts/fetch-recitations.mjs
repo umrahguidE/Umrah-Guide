@@ -1,19 +1,20 @@
 /**
- * Downloads real Qur'an recitation (tajwīd, by a human reciter) for the
- * Qur'anic verses the app shows, from everyayah.com, and writes an index the
- * app reads so it plays the recitation instead of the phone voice.
+ * Downloads real recitations — human voices, not the phone's speech engine —
+ * for the Arabic the app shows, and writes audio/duas/index.json, the list the
+ * app plays from.
  *
- *   node scripts/fetch-recitations.mjs            # default reciter
- *   node scripts/fetch-recitations.mjs alafasy    # pick another
+ *   node scripts/fetch-recitations.mjs            # Qur'an by al-Ḥuṣarī (default)
+ *   node scripts/fetch-recitations.mjs alafasy    # Qur'an by another reciter
  *
- * LICENCE: these recordings belong to their reciters and publishers. Using
- * them on your own phone is one thing; shipping them in a public app is
- * another. Check the terms for the reciter you choose before you publish, or
- * commission your own recording.
+ * Two sources:
+ *  - Qur'anic verses, verse by verse, from everyayah.com.
+ *  - The duas of the Sunnah as recorded for Ḥiṣn al-Muslim on hisnmuslim.com
+ *    (the site does not name the reciter). Some of these recordings read the
+ *    whole hadith, not only the words of the dua; the index says which.
  *
- * The duas that are NOT Qur'an (Talbiyah, the Safa/Marwah dhikr, and so on)
- * have no verse audio. Record those with a reciter and save them under the
- * names listed in audio/README.md.
+ * LICENCE: recordings belong to their reciters and publishers. They are
+ * fetched at build time rather than committed. Check the terms before
+ * publishing the app, or commission your own recordings.
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -26,12 +27,23 @@ export const RECITERS = {
   sudais: { name: 'ʿAbd ar-Raḥmān as-Sudais', path: 'Abdurrahmaan_As-Sudais_192kbps' },
 };
 
-// Which dua card gets which verse. The card shows part of the verse; the
-// recitation is the whole āyah, which is how it should be recited.
-export const VERSE_FOR_DUA = {
-  'yemeni-corner': { surah: 2, ayah: 201, label: 'Sūrat al-Baqarah 2:201' },
-  maqam: { surah: 2, ayah: 125, label: 'Sūrat al-Baqarah 2:125' },
-  'safa-verse': { surah: 2, ayah: 158, label: 'Sūrat al-Baqarah 2:158' },
+// Dua card → Qur'anic verse. The card may show part of the verse; the recitation is the whole āyah.
+export const QURAN = {
+  'yemeni-corner': { surah: 2, ayah: 201, label: 'Qur’an 2:201' },
+  maqam: { surah: 2, ayah: 125, label: 'Qur’an 2:125' },
+  'safa-verse': { surah: 2, ayah: 158, label: 'Qur’an 2:158' },
+};
+
+// Dua card → Ḥiṣn al-Muslim item (hisnmuslim.com/api). `narration` = the recording reads the hadith around the dua.
+export const HISN = {
+  talbiyah: { item: 233, file: 'audio/talbiyah.mp3', narration: false },
+  'enter-mosque': { item: 20, narration: false },
+  'leave-mosque': { item: 21, narration: false },
+  'black-stone': { item: 234, narration: true },
+  'safa-marwah-dhikr': { item: 236, narration: true },
+  istighfar: { item: 250, narration: true },
+  hawqala: { item: 260, narration: true },
+  'four-words': { item: 261, narration: true },
 };
 
 const key = (process.argv[2] ?? 'husary').toLowerCase();
@@ -42,33 +54,46 @@ if (!reciter) {
 }
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const dir = `${root}audio/duas`;
-await mkdir(dir, { recursive: true });
+await mkdir(`${root}audio/duas`, { recursive: true });
 
 const pad = (n, w) => String(n).padStart(w, '0');
 const files = {};
 
-for (const [id, verse] of Object.entries(VERSE_FOR_DUA)) {
-  const url = `https://everyayah.com/data/${reciter.path}/${pad(verse.surah, 3)}${pad(verse.ayah, 3)}.mp3`;
-  process.stdout.write(`${id} ← ${verse.label} … `);
-  const res = await fetch(url);
+async function download(id, url, target, entry) {
+  process.stdout.write(`${id.padEnd(18)} ← ${entry.label} … `);
+  const res = await fetch(url).catch((err) => ({ ok: false, status: err.message }));
   if (!res.ok) {
     console.log(`failed (${res.status})`);
-    continue;
+    return;
   }
   const bytes = Buffer.from(await res.arrayBuffer());
-  await writeFile(`${dir}/${id}.mp3`, bytes);
-  files[id] = { reciter: reciter.name, verse: verse.label, bytes: bytes.length, source: url };
+  await writeFile(`${root}${target}`, bytes);
+  files[id] = { ...entry, file: `./${target}`, bytes: bytes.length, source: url };
   console.log(`${Math.round(bytes.length / 1024)} KB`);
 }
 
+for (const [id, v] of Object.entries(QURAN)) {
+  const url = `https://everyayah.com/data/${reciter.path}/${pad(v.surah, 3)}${pad(v.ayah, 3)}.mp3`;
+  await download(id, url, `audio/duas/${id}.mp3`, { kind: 'quran', reciter: reciter.name, label: v.label });
+}
+
+for (const [id, h] of Object.entries(HISN)) {
+  const url = `https://www.hisnmuslim.com/audio/ar/${h.item}.mp3`;
+  await download(id, url, h.file ?? `audio/duas/${id}.mp3`, {
+    kind: 'hisn',
+    reciter: 'Ḥiṣn al-Muslim recording',
+    label: `Ḥiṣn al-Muslim no. ${h.item}`,
+    narration: h.narration,
+  });
+}
+
 await writeFile(
-  `${dir}/index.json`,
+  `${root}audio/duas/index.json`,
   `${JSON.stringify(
     {
-      note: 'Recitations the app can play instead of the phone voice. Generated by scripts/fetch-recitations.mjs.',
-      reciter: reciter.name,
-      source: 'everyayah.com',
+      note: 'Recitations the app plays for the Arabic. Generated by scripts/fetch-recitations.mjs.',
+      quranReciter: reciter.name,
+      sources: ['everyayah.com (Qur’an)', 'hisnmuslim.com (Ḥiṣn al-Muslim)'],
       licence: 'Recordings belong to their reciters and publishers — check the terms before distributing.',
       files,
     },
@@ -77,5 +102,4 @@ await writeFile(
   )}\n`,
 );
 
-console.log(`\nDone: ${Object.keys(files).length} recitations by ${reciter.name} in audio/duas/.`);
-console.log('Add them to the offline pack: they are listed automatically via audio/duas/index.json.');
+console.log(`\nDone: ${Object.keys(files).length} recitations. Qur'an by ${reciter.name}.`);

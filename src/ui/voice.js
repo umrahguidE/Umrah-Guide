@@ -1,22 +1,20 @@
-// Voice guide: speaks each step, round, corner and arrival out loud, using the
-// phone's built-in speech (works offline, no download).
+// Voice guide: speaks each step, round, corner and arrival out loud in the
+// pilgrim's language, using the phone's built-in speech (offline).
 //
-// For Arabic, a recorded reciter's file is always preferred: if
-// audio/duas/<id>.mp3 exists it is played instead of the speech engine.
-// Machine-spoken Arabic is off by default — it mispronounces, and Qur'an and
-// dua should be heard from a real reciter.
+// The phone voice NEVER reads Arabic. Duas and Qur'an are only ever played
+// from real recitations (audio/duas/index.json).
 
 const SAME_LINE_COOLDOWN_MS = 8000;
 
-export function createVoice({ synth = globalThis.speechSynthesis, lang = 'en-GB', rate = 0.95 } = {}) {
+export function createVoice({ synth = globalThis.speechSynthesis, lang = () => 'en-GB', rate = 0.95 } = {}) {
   let enabled = false;
-  let arabicEnabled = false;
   let lastKey = null;
   let lastAt = 0;
+  const language = () => (typeof lang === 'function' ? lang() : lang);
 
-  const voiceFor = (language) => {
+  const voiceFor = (code) => {
     const voices = synth?.getVoices?.() ?? [];
-    const want = language.toLowerCase();
+    const want = code.toLowerCase();
     return voices.find((v) => v.lang?.toLowerCase().replace('_', '-') === want) ?? voices.find((v) => v.lang?.toLowerCase().startsWith(want.slice(0, 2))) ?? null;
   };
 
@@ -31,35 +29,26 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = 'en-GB'
       enabled = Boolean(v && synth);
       if (!enabled) synth?.cancel();
     },
-    get arabicEnabled() {
-      return arabicEnabled;
-    },
-    set arabicEnabled(v) {
-      arabicEnabled = Boolean(v);
+    /** True when the phone has a voice for the current language. */
+    get hasVoiceForLanguage() {
+      return Boolean(voiceFor(language()));
     },
     /** Speaks a line. The same line is not repeated within a few seconds. */
-    say(text, { key = text, language = lang, interrupt = false, force = false } = {}) {
+    say(text, { key = text, interrupt = false, force = false } = {}) {
       if (!enabled || !text || !synth) return false;
       const now = Date.now();
       if (!force && key === lastKey && now - lastAt < SAME_LINE_COOLDOWN_MS) return false;
       lastKey = key;
       lastAt = now;
       if (interrupt) synth.cancel();
+      const code = language();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = language;
+      utterance.lang = code;
       utterance.rate = rate;
-      const voice = voiceFor(language);
+      const voice = voiceFor(code);
       if (voice) utterance.voice = voice;
       synth.speak(utterance);
       return true;
-    },
-    /** True when the device actually has an Arabic voice installed. */
-    get arabicVoiceAvailable() {
-      return Boolean(voiceFor('ar'));
-    },
-    sayArabic(text, options = {}) {
-      if (!arabicEnabled || !text || !voiceFor('ar')) return false;
-      return this.say(text, { language: 'ar-SA', rate: 0.8, ...options });
     },
     stop() {
       synth?.cancel();
@@ -73,8 +62,7 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = 'en-GB'
 export const duaClipUrl = (id) => (id === 'talbiyah' ? './audio/talbiyah.mp3' : `./audio/duas/${id}.mp3`);
 
 /**
- * Plays recorded recitations (an imam's voice) when the file is present.
- * Resolves false when there is no recording, so callers can fall back.
+ * Plays recorded recitations. Resolves false when there is no recording.
  */
 export function createClipPlayer() {
   let audio = null;
@@ -92,19 +80,19 @@ export function createClipPlayer() {
       listeners.add(fn);
       return () => listeners.delete(fn);
     },
+    setCatalog(entries) {
+      catalog = new Map(Object.entries(entries));
+    },
     stop() {
       audio?.pause();
       audio = null;
       currentId = null;
       notify();
     },
-    setCatalog(ids) {
-      catalog = new Set(ids);
-    },
-    async play(id, url = duaClipUrl(id)) {
+    async play(id) {
       if (missing.has(id) || (catalog && !catalog.has(id))) return false;
       this.stop();
-      audio = new Audio(url);
+      audio = new Audio(catalog?.get(id)?.file ?? duaClipUrl(id));
       currentId = id;
       notify();
       const done = () => {
@@ -122,7 +110,6 @@ export function createClipPlayer() {
         await audio.play();
         return true;
       } catch {
-        missing.add(id);
         done();
         return false;
       }

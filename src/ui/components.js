@@ -1,13 +1,17 @@
-import { html, raw } from './html.js';
+import { html, raw, esc } from './html.js';
 import { BASIS_LABEL } from '../data/content.js';
+import { t } from '../i18n/index.js';
 
 const f = (n) => n.toFixed(1);
 
 // Recitations present on this device (audio/duas/index.json), set once per render.
 let RECITATIONS = {};
-export const setRecitations = (map) => {
+let PLAYING = null;
+export const setRecitations = (map, playingId = null) => {
   RECITATIONS = map ?? {};
+  PLAYING = playingId;
 };
+export const hasRecitation = (id) => Boolean(RECITATIONS[id]);
 
 export function progressBar(fraction, label) {
   const pct = Math.round(Math.max(0, Math.min(1, fraction)) * 100);
@@ -15,7 +19,7 @@ export function progressBar(fraction, label) {
 }
 
 export function roundDots(completed, current, total) {
-  return html`<ol class="dots" aria-label="${completed} of ${total} completed">
+  return html`<ol class="dots" aria-label="${t('{done} of {total} completed', { done: completed, total })}">
     ${Array.from({ length: total }, (_, i) => {
       const n = i + 1;
       const cls = n <= completed ? 'done' : n === current ? 'current' : '';
@@ -26,24 +30,41 @@ export function roundDots(completed, current, total) {
 
 export function reviewBadge(review) {
   return review?.status === 'reviewed'
-    ? html`<span class="badge ok">Scholar-reviewed</span>`
-    : html`<span class="badge warn">Pending scholar review</span>`;
+    ? html`<span class="badge ok">${t('Scholar-reviewed')}</span>`
+    : html`<span class="badge warn">${t('Pending scholar review')}</span>`;
 }
 
-export function duaCard(d, { highlight = false, playingId = null } = {}) {
+/** Plays a real recitation when one exists; the phone voice never reads Arabic. */
+export function listenButton(id, { big = false } = {}) {
+  const recitation = RECITATIONS[id];
+  if (!recitation) return '';
+  const playing = PLAYING === id;
+  return html`<button class="btn ${big ? 'primary' : 'small'} listen ${playing ? 'playing' : ''}" data-action="play-dua" data-id="${id}">
+    ${playing ? `⏹ ${t('Stop')}` : `🎙 ${t('Listen to the recitation')}`}
+  </button>`;
+}
+
+export function duaCard(d, { highlight = false, audio = true } = {}) {
   if (!d) return '';
-  const playing = playingId === d.id;
-  const recitation = RECITATIONS[d.id];
+  const recitation = audio ? RECITATIONS[d.id] : null;
   return html`<article class="dua ${highlight ? 'highlight' : ''}">
-    <header><h3>${d.title}</h3>${d.basis ? html`<span class="pill">${BASIS_LABEL[d.basis]}</span>` : ''}</header>
-    <button class="btn small dua-play" data-action="play-dua" data-id="${d.id}">${playing ? '⏹ Stop' : recitation ? '🎙 Listen to the recitation' : '🔊 Listen'}</button>
-    ${recitation ? html`<small class="reciter">Recited by ${recitation.reciter}${recitation.verse ? ` · ${recitation.verse}` : ''}</small>` : ''}
-    ${d.when ? html`<p class="when">${d.when}</p>` : ''}
+    <header><h3>${t(d.title)}</h3>${d.basis ? html`<span class="pill">${t(BASIS_LABEL[d.basis])}</span>` : ''}</header>
+    ${d.when ? html`<p class="when">${t(d.when)}</p>` : ''}
     ${d.arabic ? html`<p class="arabic" lang="ar" dir="rtl">${d.arabic}</p>` : ''}
+    ${audio ? listenButton(d.id) : ''}
+    ${!audio
+      ? ''
+      : recitation
+      ? html`<small class="reciter">${recitation.kind === 'quran' ? t('Recited by {name}', { name: recitation.reciter }) : t(recitation.reciter)} · ${recitation.label}${
+          recitation.narration ? html`<br>${t('This recording reads the whole hadith, including the words of the dua.')}` : ''
+        }</small>`
+      : d.arabic
+        ? html`<small class="muted">${t('No recitation recording for this dua yet.')}</small>`
+        : ''}
     ${d.transliteration ? html`<p class="translit">${d.transliteration}</p>` : ''}
-    ${d.translation ? html`<p class="translation">${d.translation}</p>` : ''}
-    ${d.note ? html`<p class="note">${d.note}</p>` : ''}
-    <footer>${d.source ? html`<span class="source">Source: ${d.source}</span>` : ''}${reviewBadge(d.review)}</footer>
+    ${d.translation ? html`<p class="translation">${t(d.translation)}</p>` : ''}
+    ${d.note ? html`<p class="note">${t(d.note)}</p>` : ''}
+    <footer>${d.source ? html`<span class="source">${t('Source')}: ${d.source}</span>` : ''}${reviewBadge(d.review)}</footer>
   </article>`;
 }
 
@@ -51,7 +72,7 @@ export function duaCard(d, { highlight = false, playingId = null } = {}) {
  * Tawaf ring seen from above, north up. The start line points at the Black
  * Stone corner; progress is drawn anticlockwise (Kaaba on the pilgrim's left).
  */
-export function tawafRing({ progress = null, startBearing, label = 'START' }) {
+export function tawafRing({ progress = null, startBearing }) {
   const cx = 120;
   const cy = 120;
   const r = 92;
@@ -60,7 +81,7 @@ export function tawafRing({ progress = null, startBearing, label = 'START' }) {
     return [cx + radius * Math.sin(a), cy - radius * Math.cos(a)];
   };
   const [sx, sy] = pt(startBearing);
-  const [lx, ly] = pt(startBearing, r + 24);
+  const [lx, ly] = pt(startBearing, r + 26);
 
   let arc = '';
   let dot = '';
@@ -81,7 +102,7 @@ export function tawafRing({ progress = null, startBearing, label = 'START' }) {
     })
     .join('');
 
-  return raw(`<svg class="ring" viewBox="-28 -28 296 296" role="img" aria-label="Tawaf ring. Start at the Black Stone line; walk with the Kaaba on your left.">
+  return raw(`<svg class="ring" viewBox="-34 -34 308 308" role="img" aria-label="${esc(t('Tawaf ring. Start at the Black Stone line; walk with the Kaaba on your left.'))}">
     <circle cx="${cx}" cy="${cy}" r="${r}" class="ring-track"/>
     ${arc}
     <g transform="rotate(${f(startBearing - 45)} ${cx} ${cy})">
@@ -91,7 +112,7 @@ export function tawafRing({ progress = null, startBearing, label = 'START' }) {
     </g>
     <line x1="${cx}" y1="${cy}" x2="${f(sx)}" y2="${f(sy)}" class="start-line"/>
     <circle cx="${f(sx)}" cy="${f(sy)}" r="9" class="start-dot"/>
-    <text x="${f(lx)}" y="${f(ly)}" class="ring-label" text-anchor="middle" dominant-baseline="middle">${label}</text>
+    <text x="${f(lx)}" y="${f(ly)}" class="ring-label" text-anchor="middle" dominant-baseline="middle">${esc(t('START'))}</text>
     ${chevrons}
     ${dot}
   </svg>`);
@@ -103,22 +124,22 @@ export function saiTrack({ direction, fromSafa = null, greenZone }) {
   const top = 36;
   const bottom = 264;
   const len = bottom - top;
-  const y = (t) => top + t * len;
+  const y = (k) => top + k * len;
   const [g0, g1] = greenZone;
   const down = direction === 'SAFA_TO_MARWAH';
   const s = down ? 1 : -1;
   const chevrons = [0.1, 0.5, 0.8]
-    .map((t) => `<path class="chev" d="M${x - 7} ${f(y(t) - 4 * s)} L${x} ${f(y(t) + 4 * s)} L${x + 7} ${f(y(t) - 4 * s)}"/>`)
+    .map((k) => `<path class="chev" d="M${x - 7} ${f(y(k) - 4 * s)} L${x} ${f(y(k) + 4 * s)} L${x + 7} ${f(y(k) - 4 * s)}"/>`)
     .join('');
-  return raw(`<svg class="sai" viewBox="0 0 180 300" role="img" aria-label="Sa'i track, ${down ? 'Safa to Marwah' : 'Marwah to Safa'}">
+  return raw(`<svg class="sai" viewBox="0 0 180 300" role="img" aria-label="${esc(down ? t('Safa to Marwah') : t('Marwah to Safa'))}">
     <rect x="${x - 15}" y="${f(y(g0))}" width="30" height="${f((g1 - g0) * len)}" rx="5" class="green-zone"/>
     <line x1="${x}" y1="${top}" x2="${x}" y2="${bottom}" class="sai-line"/>
     ${chevrons}
     <circle cx="${x}" cy="${top}" r="10" class="hill ${down ? 'from' : 'to'}"/>
-    <text x="${x + 20}" y="${top + 5}" class="hill-label">SAFA</text>
+    <text x="${x + 20}" y="${top + 5}" class="hill-label">${esc(t('SAFA'))}</text>
     <circle cx="${x}" cy="${bottom}" r="10" class="hill ${down ? 'to' : 'from'}"/>
-    <text x="${x + 20}" y="${bottom + 5}" class="hill-label">MARWAH</text>
-    <text x="${x + 22}" y="${f(y((g0 + g1) / 2) + 4)}" class="green-label">green markers</text>
+    <text x="${x + 20}" y="${bottom + 5}" class="hill-label">${esc(t('MARWAH'))}</text>
+    <text x="${x + 22}" y="${f(y((g0 + g1) / 2) + 4)}" class="green-label">${esc(t('green markers'))}</text>
     ${fromSafa != null ? `<circle cx="${x}" cy="${f(y(fromSafa))}" r="8" class="pilgrim"/>` : ''}
   </svg>`);
 }

@@ -89,8 +89,9 @@ export const IHRAM_GUIDE = [
     id: 'intention',
     title: 'Intention (niyyah)',
     points: [
-      'The intention is in the heart.',
-      'The established wording is: Labbayka Allāhumma ʿumrah — "Here I am, O Allah, for Umrah."',
+      'The intention is made in the heart. Saying it in words helps, especially on your first Umrah.',
+      'Commonly taught wording: Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī — “O Allah, I intend to perform Umrah, so make it easy for me and accept it from me.”',
+      'Then begin the Talbiyah for Umrah: Labbayka Allāhumma ʿumratan — “Here I am, O Allah, for Umrah.”',
       'If you fear illness or an obstacle may stop you from completing Umrah, you may add the condition: Allāhumma maḥillī ḥaythu ḥabastanī.',
     ],
   },
@@ -154,7 +155,7 @@ export const GUIDANCE = {
     lead: 'Ihram is the sacred state you enter by making the intention for Umrah — not just the clothing.',
     checks: {
       prepared: { label: 'Prepared for Ihram', help: 'Ghusl (recommended) and Ihram clothing on. Men: any scent on the body only, before the intention — none on the garments.' },
-      intention: { label: 'Intention made', help: 'Intend Umrah in your heart and say: Labbayka Allāhumma ʿumrah.' },
+      intention: { label: 'Intention made', help: 'Intend Umrah in your heart. You may say: Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī.' },
       talbiyah: { label: 'Talbiyah started', help: 'Begin reciting the Talbiyah (shown on the next screen).' },
     },
   },
@@ -168,7 +169,6 @@ export const GUIDANCE = {
     lead: 'You are in Makkah and your Ihram is active. Next: Tawaf.',
     points: [
       'Enter with your right foot and say the dua for entering the mosque.',
-      'Make wudu before Tawaf — most scholars require ritual purity for Tawaf.',
       'Know your starting point: the line of the Black Stone corner, marked by a green light on the mosque wall opposite it.',
       'Keep the Kaaba on your LEFT the whole time.',
       'Follow the flow of the crowd. Do not push. Do not obstruct other pilgrims.',
@@ -177,12 +177,15 @@ export const GUIDANCE = {
   },
   TAWAF_READY: {
     lead: 'Go to the line of the Black Stone corner. Every round starts and ends here.',
+    ready: [
+      { id: 'wudu', label: 'I have wudu', help: 'Most scholars require wudu for Tawaf.' },
+      { id: 'talbiyah', label: 'I have stopped the Talbiyah', help: 'The Talbiyah ends when Tawaf begins.' },
+      { id: 'idtiba', label: 'Right shoulder uncovered', help: 'Men only, for this Tawaf: the upper sheet goes under the right arm and over the left shoulder (iḍṭibāʿ).', men: true },
+    ],
     points: [
       'Face the Black Stone. If it is easy and safe, touch or kiss it. If it is crowded, point towards it with your right hand from where you are and say “Allāhu akbar”. Never push or harm anyone to reach it — touching it is not required.',
       'Walk outside the low semicircular wall (Ḥijr Ismāʿīl / al-Ḥaṭīm). It is part of the Kaaba, so walking through it does not count.',
-      'Stop the Talbiyah once Tawaf begins.',
     ],
-    men: ['Iḍṭibāʿ: for this Tawaf, uncover your right shoulder — pass the upper sheet under your right arm and over your left shoulder.'],
   },
   TAWAF_ROUND: {
     points: [
@@ -218,7 +221,6 @@ export const GUIDANCE = {
     points: [
       'As you approach Safa, recite “Inna aṣ-Ṣafā wal-Marwata min shaʿā’irillāh…” and “Abda’u bimā bada’a Allāhu bih” — once, at the start of Sa’i only.',
       'Go up Safa if you can, face the Kaaba, raise your hands, say “Allāhu akbar” and the dhikr (below), and make dua — three times.',
-      'Wudu is recommended for Sa’i, but most scholars do not require it.',
     ],
   },
   SAI_LAP: {
@@ -255,6 +257,7 @@ export const BASIS_LABEL = {
   quran: 'Qur’an',
   hadith: 'Prophetic hadith',
   companion: 'Companions’ practice',
+  taught: 'Commonly taught wording',
   general: 'General guidance',
 };
 
@@ -282,19 +285,32 @@ export const DUAS = [
     arabic: 'لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ',
     transliteration: 'Labbayka Allāhumma labbayk. Labbayka lā sharīka laka labbayk. Inna al-ḥamda wan-niʿmata laka wal-mulk. Lā sharīka lak.',
     translation: 'Here I am, O Allah, here I am. Here I am — You have no partner — here I am. All praise, all grace and all sovereignty belong to You. You have no partner.',
-    source: 'Ṣaḥīḥ al-Bukhārī 1549; Ṣaḥīḥ Muslim 1184',
+    source: 'Ṣaḥīḥ al-Bukhārī 1549; Ṣaḥīḥ Muslim 1184; Ḥiṣn al-Muslim no. 233',
   },
   {
     id: 'intention',
     category: 'established',
-    basis: 'hadith',
+    basis: 'taught',
     contexts: ['ihram'],
     title: 'Intention for Umrah',
-    when: 'At the Miqat, when entering Ihram. The intention itself is in the heart.',
+    when: 'At the Miqat, when entering Ihram. The intention itself is made in the heart.',
+    arabic: 'اللَّهُمَّ إِنِّي أُرِيدُ الْعُمْرَةَ فَيَسِّرْهَا لِي وَتَقَبَّلْهَا مِنِّي',
+    transliteration: 'Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī.',
+    translation: 'O Allah, I intend to perform Umrah, so make it easy for me and accept it from me.',
+    source: 'The commonly taught wording of the intention for Umrah',
+    note: 'After making the intention, begin the Talbiyah for Umrah.',
+  },
+  {
+    id: 'labbayka-umrah',
+    category: 'established',
+    basis: 'hadith',
+    contexts: ['ihram'],
+    title: 'Talbiyah for Umrah',
+    when: 'Straight after the intention, to begin your Umrah.',
     arabic: 'لَبَّيْكَ اللَّهُمَّ عُمْرَةً',
     transliteration: 'Labbayka Allāhumma ʿumratan.',
     translation: 'Here I am, O Allah, for Umrah.',
-    source: 'Based on Ṣaḥīḥ Muslim 1251 (ḥadīth of Anas); wording for Umrah alone',
+    source: 'Ṣaḥīḥ Muslim 1251 (ḥadīth of Anas), wording for Umrah alone',
   },
   {
     id: 'ishtirat',
@@ -316,10 +332,10 @@ export const DUAS = [
     contexts: ['haram'],
     title: 'Entering the mosque',
     when: 'Entering Masjid al-Haram (or any mosque), right foot first.',
-    arabic: 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
-    transliteration: 'Allāhumma iftaḥ lī abwāba raḥmatik.',
-    translation: 'O Allah, open for me the gates of Your mercy.',
-    source: 'Ṣaḥīḥ Muslim 713',
+    arabic: 'أَعُوذُ بِاللَّهِ الْعَظِيمِ، وَبِوَجْهِهِ الْكَرِيمِ، وَسُلْطَانِهِ الْقَدِيمِ، مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ',
+    transliteration: 'Aʿūdhu billāhil-ʿaẓīm, wa bi-wajhihil-karīm, wa sulṭānihil-qadīm, minash-shayṭānir-rajīm. Bismillāh, waṣ-ṣalātu was-salāmu ʿalā rasūlillāh. Allāhumma iftaḥ lī abwāba raḥmatik.',
+    translation: 'I seek refuge in Allah the Almighty, in His noble Face and His eternal authority, from the accursed devil. In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, open for me the gates of Your mercy.',
+    source: 'Ḥiṣn al-Muslim no. 20 (Abū Dāwūd 466; Ibn as-Sunnī 88; Muslim 713)',
   },
   {
     id: 'black-stone',
@@ -331,7 +347,7 @@ export const DUAS = [
     arabic: 'اللَّهُ أَكْبَرُ',
     transliteration: 'Allāhu akbar.',
     translation: 'Allah is the Greatest.',
-    source: 'Ṣaḥīḥ al-Bukhārī 1613',
+    source: 'Ṣaḥīḥ al-Bukhārī 1613; Ḥiṣn al-Muslim no. 234',
     note: 'Some also say “Bismillāh” at the start of Tawaf, reported from Ibn ʿUmar. Never push or harm others to reach the Stone.',
   },
   {
@@ -344,7 +360,7 @@ export const DUAS = [
     arabic: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',
     transliteration: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār.',
     translation: 'Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.',
-    source: 'Sunan Abī Dāwūd 1892; the words are Qur’an 2:201',
+    source: 'Sunan Abī Dāwūd 1892; the words are Qur’an 2:201; Ḥiṣn al-Muslim no. 235',
   },
   {
     id: 'maqam',
@@ -394,7 +410,7 @@ export const DUAS = [
     arabic: 'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ، أَنْجَزَ وَعْدَهُ، وَنَصَرَ عَبْدَهُ، وَهَزَمَ الْأَحْزَابَ وَحْدَهُ',
     transliteration: 'Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa huwa ʿalā kulli shay’in qadīr. Lā ilāha illallāhu waḥdah, anjaza waʿdah, wa naṣara ʿabdah, wa hazamal-aḥzāba waḥdah.',
     translation: 'None has the right to be worshipped but Allah alone, without partner. His is the dominion and His is the praise, and He has power over all things. None has the right to be worshipped but Allah alone. He fulfilled His promise, gave victory to His servant, and alone defeated the confederates.',
-    source: 'Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir)',
+    source: 'Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir); Ḥiṣn al-Muslim no. 236',
   },
   {
     id: 'green-markers',
@@ -416,10 +432,10 @@ export const DUAS = [
     contexts: ['haram'],
     title: 'Leaving the mosque',
     when: 'Leaving Masjid al-Haram (or any mosque), left foot first.',
-    arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ',
-    transliteration: 'Allāhumma innī as’aluka min faḍlik.',
-    translation: 'O Allah, I ask You of Your bounty.',
-    source: 'Ṣaḥīḥ Muslim 713',
+    arabic: 'بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ، اللَّهُمَّ اعْصِمْنِي مِنَ الشَّيْطَانِ الرَّجِيمِ',
+    transliteration: 'Bismillāh, waṣ-ṣalātu was-salāmu ʿalā rasūlillāh. Allāhumma innī as’aluka min faḍlik. Allāhumma-ʿṣimnī minash-shayṭānir-rajīm.',
+    translation: 'In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, I ask You of Your bounty. O Allah, protect me from the accursed devil.',
+    source: 'Ḥiṣn al-Muslim no. 21 (Muslim 713; Ibn Mājah 773)',
   },
   {
     id: 'four-words',
@@ -430,7 +446,7 @@ export const DUAS = [
     arabic: 'سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ',
     transliteration: 'Subḥānallāh, wal-ḥamdu lillāh, wa lā ilāha illallāh, wallāhu akbar.',
     translation: 'Glory be to Allah, all praise is for Allah, none has the right to be worshipped but Allah, and Allah is the Greatest.',
-    source: 'Ṣaḥīḥ Muslim 2137',
+    source: 'Ṣaḥīḥ Muslim 2137; Ḥiṣn al-Muslim no. 261',
   },
   {
     id: 'istighfar',
@@ -438,10 +454,10 @@ export const DUAS = [
     basis: 'hadith',
     contexts: ['tawaf', 'sai'],
     title: 'Seeking forgiveness',
-    arabic: 'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ',
-    transliteration: 'Astaghfirullāha wa atūbu ilayh.',
-    translation: 'I seek Allah’s forgiveness and turn to Him in repentance.',
-    source: 'Ṣaḥīḥ al-Bukhārī 6307',
+    arabic: 'أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ',
+    transliteration: 'Astaghfirullāhal-ʿaẓīm, alladhī lā ilāha illā huwal-ḥayyul-qayyūm, wa atūbu ilayh.',
+    translation: 'I seek the forgiveness of Allah the Almighty, besides whom none has the right to be worshipped, the Ever-Living, the Sustainer of all, and I turn to Him in repentance.',
+    source: 'Ḥiṣn al-Muslim no. 250 (Abū Dāwūd 1517; at-Tirmidhī 3577)',
   },
   {
     id: 'hawqala',
@@ -452,7 +468,7 @@ export const DUAS = [
     arabic: 'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
     transliteration: 'Lā ḥawla wa lā quwwata illā billāh.',
     translation: 'There is no might and no power except with Allah.',
-    source: 'Ṣaḥīḥ al-Bukhārī 6384; Ṣaḥīḥ Muslim 2704',
+    source: 'Ṣaḥīḥ al-Bukhārī 6384; Ṣaḥīḥ Muslim 2704; Ḥiṣn al-Muslim no. 260',
   },
   {
     id: 'afw-afiyah',

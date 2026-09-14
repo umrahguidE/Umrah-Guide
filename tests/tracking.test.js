@@ -137,7 +137,7 @@ test('the tracker names the part of the Kaaba you are beside', () => {
   assert.equal(sectorAt(300).id, 'rabbana');
   assert.equal(offsetFrom(B - 90, B), 90);
   const tr = createTawafTracker({ now: clock });
-  walk(tr, { fromBearing: B, degrees: 120 });
+  walk(tr, { fromBearing: B, degrees: 145 });
   assert.equal(tr.reading.sector.id, 'hijr');
   assert.match(tr.reading.sector.tip, /OUTSIDE/);
 });

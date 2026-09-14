@@ -1,17 +1,45 @@
 import { normDeg, toLocalM } from './geo.js';
 
 /**
- * Site geometry. EVERY value here is an approximate placeholder and must be
- * surveyed on site before release (README -> "Calibration").
+ * Site geometry from OpenStreetMap (© OpenStreetMap contributors, ODbL),
+ * retrieved 2026-09-14:
+ *  - Kaaba outline with named corners ........ way 103914569
+ *  - marked Tawaf start/end line ............. way 671147142 (Black Stone → green light)
+ *  - Maqām Ibrāhīm ........................... way 473301379
+ *  - Ḥijr Ismāʿīl ............................ way 315911894
+ *  - Safa and Marwah hilltops ................ nodes 4589923995, 4589923996
+ * Mapped features can still be a few metres out; confirm on site before release.
+ * The green-marker section of the Mas'a is NOT mapped: its position is approximate.
  */
 export const HARAM_GEO = Object.freeze({
-  kaabaCenter: { lat: 21.422487, lng: 39.826206 },
-  // Bearing from the Kaaba's centre to the Black Stone corner, degrees clockwise from north.
-  blackStoneBearingDeg: 95,
-  safa: { lat: 21.42188, lng: 39.82746 },
-  marwah: { lat: 21.42537, lng: 39.82727 },
-  // Green-marker section as fractions of the Safa -> Marwah distance, measured from Safa.
-  greenZone: [0.19, 0.34],
+  kaabaCenter: { lat: 21.4225171, lng: 39.8261825 },
+  kaabaCorners: Object.freeze({
+    blackStone: { lat: 21.4224985, lng: 39.8262546 },
+    iraqi: { lat: 21.4225861, lng: 39.8261922 },
+    shami: { lat: 21.4225371, lng: 39.8261095 },
+    yemeni: { lat: 21.4224468, lng: 39.8261735 },
+  }),
+  // The start line is drawn on the Mataf floor from the Black Stone to the green light on the wall.
+  startLine: Object.freeze([
+    { lat: 21.4224985, lng: 39.8262546 },
+    { lat: 21.4224083, lng: 39.8265193 },
+    { lat: 21.4222904, lng: 39.8268401 },
+  ]),
+  // Bearing of that line seen from the Kaaba's centre, where pilgrims cross it (20–80 m out).
+  blackStoneBearingDeg: 110,
+  maqam: { lat: 21.4225789, lng: 39.8263055 },
+  hijr: Object.freeze([
+    [21.422607, 39.8261737], [21.4226204, 39.8261664], [21.4226305, 39.8261545], [21.422636, 39.8261395],
+    [21.4226362, 39.8261234], [21.4226311, 39.8261083], [21.4226209, 39.8260957], [21.4226071, 39.826088],
+    [21.4225916, 39.8260862], [21.4225766, 39.8260907], [21.4225642, 39.8261007], [21.4225575, 39.8260911],
+    [21.4225716, 39.8260797], [21.4225907, 39.826074], [21.4226104, 39.8260763], [21.4226279, 39.8260861],
+    [21.4226409, 39.8261021], [21.4226474, 39.8261214], [21.4226471, 39.8261419], [21.4226401, 39.8261609],
+    [21.4226273, 39.8261761], [21.4226121, 39.8261844], [21.422607, 39.8261737],
+  ].map(([lat, lng]) => ({ lat, lng }))),
+  safa: { lat: 21.4217996, lng: 39.8274307 },
+  marwah: { lat: 21.4251754, lng: 39.8271276 },
+  // Green-marker section (about 55 m) as fractions of the Safa -> Marwah distance, from Safa. APPROXIMATE.
+  greenZone: [0.2, 0.346],
 });
 
 export const STALE_AFTER_MS = 20_000;
@@ -31,16 +59,18 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 /** Anticlockwise degrees travelled from the start line to `bearing`, in [0, 360). */
 export const offsetFrom = (bearing, startBearing) => ((((startBearing - bearing) % 360) + 360) % 360);
 
-// Sides of the Kaaba in Tawaf order, as anticlockwise offsets from the Black Stone line.
+// Sides of the Kaaba in Tawaf order, as anticlockwise offsets from the start line.
+// Corner offsets measured from the mapped outline: ʿIrāqī ≈102°, Shāmī ≈184°, Yemeni ≈283°.
+// `duaId` links a stretch to the dua said there, so the app can offer its recitation.
 export const KAABA_SECTORS = Object.freeze([
-  { id: 'black-stone', from: 345, to: 15, label: 'Black Stone line', tip: 'Point towards the Black Stone and say “Allāhu akbar”.' },
-  { id: 'door', from: 15, to: 75, label: 'Kaaba door & Multazam', tip: 'Make dua as you wish.' },
-  { id: 'iraqi', from: 75, to: 105, label: 'ʿIrāqī corner', tip: 'Next: Ḥijr Ismāʿīl — keep outside its wall.' },
-  { id: 'hijr', from: 105, to: 165, label: 'Ḥijr Ismāʿīl', tip: 'Stay OUTSIDE the semicircular wall — it is part of the Kaaba.' },
-  { id: 'shami', from: 165, to: 195, label: 'Shāmī corner', tip: 'Make dua as you wish.' },
-  { id: 'west', from: 195, to: 255, label: 'West side', tip: 'Make dua as you wish.' },
-  { id: 'yemeni', from: 255, to: 285, label: 'Yemeni corner', tip: 'Touch it with your right hand only if easy — no kissing, no pushing.' },
-  { id: 'rabbana', from: 285, to: 345, label: 'Yemeni Corner → Black Stone', tip: 'Say: Rabbanā ātinā fid-dunyā ḥasanah, wa fil-ākhirati ḥasanah, wa qinā ʿadhāban-nār.' },
+  { id: 'black-stone', from: 345, to: 15, label: 'Black Stone line', tip: 'Point towards the Black Stone and say “Allāhu akbar”.', duaId: 'black-stone' },
+  { id: 'door', from: 15, to: 88, label: 'Kaaba door & Multazam', tip: 'Make dua as you wish.' },
+  { id: 'iraqi', from: 88, to: 117, label: 'ʿIrāqī corner', tip: 'Next: Ḥijr Ismāʿīl — keep outside its wall.' },
+  { id: 'hijr', from: 117, to: 170, label: 'Ḥijr Ismāʿīl', tip: 'Stay OUTSIDE the semicircular wall — it is part of the Kaaba.' },
+  { id: 'shami', from: 170, to: 198, label: 'Shāmī corner', tip: 'Make dua as you wish.' },
+  { id: 'west', from: 198, to: 268, label: 'West side', tip: 'Make dua as you wish.' },
+  { id: 'yemeni', from: 268, to: 298, label: 'Yemeni corner', tip: 'Touch it with your right hand only if easy — no kissing, no pushing.' },
+  { id: 'rabbana', from: 298, to: 345, label: 'Yemeni Corner → Black Stone', tip: 'Say: Rabbanā ātinā fid-dunyā ḥasanah, wa fil-ākhirati ḥasanah, wa qinā ʿadhāban-nār.', duaId: 'yemeni-corner' },
 ]);
 
 export function sectorAt(offset) {

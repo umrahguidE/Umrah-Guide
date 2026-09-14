@@ -17,7 +17,7 @@ Then set `review: { status: 'reviewed', by, at }` on the approved items in `cont
 ### IHRAM
 - [ ] **Lead:** Ihram is the sacred state you enter by making the intention for Umrah — not just the clothing.
 - [ ] **Check “prepared”:** Prepared for Ihram — Ghusl (recommended) and Ihram clothing on. Men: any scent on the body only, before the intention — none on the garments.
-- [ ] **Check “intention”:** Intention made — Intend Umrah in your heart and say: Labbayka Allāhumma ʿumrah.
+- [ ] **Check “intention”:** Intention made — Intend Umrah in your heart. You may say: Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī.
 - [ ] **Check “talbiyah”:** Talbiyah started — Begin reciting the Talbiyah (shown on the next screen).
 
 ### TALBIYAH
@@ -30,7 +30,6 @@ Then set `review: { status: 'reviewed', by, at }` on the approved items in `cont
 ### ENTER_HARAM
 - [ ] **Lead:** You are in Makkah and your Ihram is active. Next: Tawaf.
 - [ ] Enter with your right foot and say the dua for entering the mosque.
-- [ ] Make wudu before Tawaf — most scholars require ritual purity for Tawaf.
 - [ ] Know your starting point: the line of the Black Stone corner, marked by a green light on the mosque wall opposite it.
 - [ ] Keep the Kaaba on your LEFT the whole time.
 - [ ] Follow the flow of the crowd. Do not push. Do not obstruct other pilgrims.
@@ -40,8 +39,6 @@ Then set `review: { status: 'reviewed', by, at }` on the approved items in `cont
 - [ ] **Lead:** Go to the line of the Black Stone corner. Every round starts and ends here.
 - [ ] Face the Black Stone. If it is easy and safe, touch or kiss it. If it is crowded, point towards it with your right hand from where you are and say “Allāhu akbar”. Never push or harm anyone to reach it — touching it is not required.
 - [ ] Walk outside the low semicircular wall (Ḥijr Ismāʿīl / al-Ḥaṭīm). It is part of the Kaaba, so walking through it does not count.
-- [ ] Stop the Talbiyah once Tawaf begins.
-- [ ] **Men:** Iḍṭibāʿ: for this Tawaf, uncover your right shoulder — pass the upper sheet under your right arm and over your left shoulder.
 
 ### TAWAF_ROUND
 - [ ] There is no fixed dua that must be said in each round. Make dhikr and dua and recite Qur’an as you wish.
@@ -74,7 +71,6 @@ Then set `review: { status: 'reviewed', by, at }` on the approved items in `cont
 - [ ] **Lead:** Sa’i starts at Safa — not Marwah.
 - [ ] As you approach Safa, recite “Inna aṣ-Ṣafā wal-Marwata min shaʿā’irillāh…” and “Abda’u bimā bada’a Allāhu bih” — once, at the start of Sa’i only.
 - [ ] Go up Safa if you can, face the Kaaba, raise your hands, say “Allāhu akbar” and the dhikr (below), and make dua — three times.
-- [ ] Wudu is recommended for Sa’i, but most scholars do not require it.
 
 ### SAI_LAP
 - [ ] There is no fixed dua for each lap. Make dhikr and dua and recite Qur’an as you wish.
@@ -116,8 +112,9 @@ Then set `review: { status: 'reviewed', by, at }` on the approved items in `cont
 - [ ] Many scholars allow lowering a cloth over the face in the presence of non-mahram men.
 
 ### Intention (niyyah)
-- [ ] The intention is in the heart.
-- [ ] The established wording is: Labbayka Allāhumma ʿumrah — "Here I am, O Allah, for Umrah."
+- [ ] The intention is made in the heart. Saying it in words helps, especially on your first Umrah.
+- [ ] Commonly taught wording: Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī — “O Allah, I intend to perform Umrah, so make it easy for me and accept it from me.”
+- [ ] Then begin the Talbiyah for Umrah: Labbayka Allāhumma ʿumratan — “Here I am, O Allah, for Umrah.”
 - [ ] If you fear illness or an obstacle may stop you from completing Umrah, you may add the condition: Allāhumma maḥillī ḥaythu ḥabastanī.
 
 ### Talbiyah
@@ -222,14 +219,22 @@ Coordinates are approximate and must also be verified.
 - [ ] **Arabic:** لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ
 - [ ] **Transliteration:** Labbayka Allāhumma labbayk. Labbayka lā sharīka laka labbayk. Inna al-ḥamda wan-niʿmata laka wal-mulk. Lā sharīka lak.
 - [ ] **Translation:** Here I am, O Allah, here I am. Here I am — You have no partner — here I am. All praise, all grace and all sovereignty belong to You. You have no partner.
-- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 1549; Ṣaḥīḥ Muslim 1184
+- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 1549; Ṣaḥīḥ Muslim 1184; Ḥiṣn al-Muslim no. 233
 
-### Intention for Umrah — _Prophetic hadith_ (established)
-- [ ] **When:** At the Miqat, when entering Ihram. The intention itself is in the heart.
+### Intention for Umrah — _Commonly taught wording_ (established)
+- [ ] **When:** At the Miqat, when entering Ihram. The intention itself is made in the heart.
+- [ ] **Arabic:** اللَّهُمَّ إِنِّي أُرِيدُ الْعُمْرَةَ فَيَسِّرْهَا لِي وَتَقَبَّلْهَا مِنِّي
+- [ ] **Transliteration:** Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī.
+- [ ] **Translation:** O Allah, I intend to perform Umrah, so make it easy for me and accept it from me.
+- [ ] **Source:** The commonly taught wording of the intention for Umrah
+- [ ] **Note:** After making the intention, begin the Talbiyah for Umrah.
+
+### Talbiyah for Umrah — _Prophetic hadith_ (established)
+- [ ] **When:** Straight after the intention, to begin your Umrah.
 - [ ] **Arabic:** لَبَّيْكَ اللَّهُمَّ عُمْرَةً
 - [ ] **Transliteration:** Labbayka Allāhumma ʿumratan.
 - [ ] **Translation:** Here I am, O Allah, for Umrah.
-- [ ] **Source:** Based on Ṣaḥīḥ Muslim 1251 (ḥadīth of Anas); wording for Umrah alone
+- [ ] **Source:** Ṣaḥīḥ Muslim 1251 (ḥadīth of Anas), wording for Umrah alone
 
 ### Condition when entering Ihram (optional) — _Prophetic hadith_ (established)
 - [ ] **When:** For someone who fears illness or an obstacle may prevent them completing Umrah.
@@ -241,17 +246,17 @@ Coordinates are approximate and must also be verified.
 
 ### Entering the mosque — _Prophetic hadith_ (established)
 - [ ] **When:** Entering Masjid al-Haram (or any mosque), right foot first.
-- [ ] **Arabic:** اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ
-- [ ] **Transliteration:** Allāhumma iftaḥ lī abwāba raḥmatik.
-- [ ] **Translation:** O Allah, open for me the gates of Your mercy.
-- [ ] **Source:** Ṣaḥīḥ Muslim 713
+- [ ] **Arabic:** أَعُوذُ بِاللَّهِ الْعَظِيمِ، وَبِوَجْهِهِ الْكَرِيمِ، وَسُلْطَانِهِ الْقَدِيمِ، مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ
+- [ ] **Transliteration:** Aʿūdhu billāhil-ʿaẓīm, wa bi-wajhihil-karīm, wa sulṭānihil-qadīm, minash-shayṭānir-rajīm. Bismillāh, waṣ-ṣalātu was-salāmu ʿalā rasūlillāh. Allāhumma iftaḥ lī abwāba raḥmatik.
+- [ ] **Translation:** I seek refuge in Allah the Almighty, in His noble Face and His eternal authority, from the accursed devil. In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, open for me the gates of Your mercy.
+- [ ] **Source:** Ḥiṣn al-Muslim no. 20 (Abū Dāwūd 466; Ibn as-Sunnī 88; Muslim 713)
 
 ### At the Black Stone — _Prophetic hadith_ (established)
 - [ ] **When:** At the start of Tawaf and each time you pass the Black Stone — touching it if easy, otherwise pointing to it with your right hand from where you are.
 - [ ] **Arabic:** اللَّهُ أَكْبَرُ
 - [ ] **Transliteration:** Allāhu akbar.
 - [ ] **Translation:** Allah is the Greatest.
-- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 1613
+- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 1613; Ḥiṣn al-Muslim no. 234
 - [ ] **Note:** Some also say “Bismillāh” at the start of Tawaf, reported from Ibn ʿUmar. Never push or harm others to reach the Stone.
 
 ### Between the Yemeni Corner and the Black Stone — _Prophetic hadith_ (established)
@@ -259,7 +264,7 @@ Coordinates are approximate and must also be verified.
 - [ ] **Arabic:** رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ
 - [ ] **Transliteration:** Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār.
 - [ ] **Translation:** Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.
-- [ ] **Source:** Sunan Abī Dāwūd 1892; the words are Qur’an 2:201
+- [ ] **Source:** Sunan Abī Dāwūd 1892; the words are Qur’an 2:201; Ḥiṣn al-Muslim no. 235
 
 ### At Maqām Ibrāhīm — _Qur’an_ (established)
 - [ ] **When:** Going to pray the two rak’ahs after Tawaf.
@@ -289,7 +294,7 @@ Coordinates are approximate and must also be verified.
 - [ ] **Arabic:** لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ، أَنْجَزَ وَعْدَهُ، وَنَصَرَ عَبْدَهُ، وَهَزَمَ الْأَحْزَابَ وَحْدَهُ
 - [ ] **Transliteration:** Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa huwa ʿalā kulli shay’in qadīr. Lā ilāha illallāhu waḥdah, anjaza waʿdah, wa naṣara ʿabdah, wa hazamal-aḥzāba waḥdah.
 - [ ] **Translation:** None has the right to be worshipped but Allah alone, without partner. His is the dominion and His is the praise, and He has power over all things. None has the right to be worshipped but Allah alone. He fulfilled His promise, gave victory to His servant, and alone defeated the confederates.
-- [ ] **Source:** Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir)
+- [ ] **Source:** Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir); Ḥiṣn al-Muslim no. 236
 
 ### Between the green markers — _Companions’ practice_ (established)
 - [ ] **When:** Reported as said between the green markers during Sa’i.
@@ -301,28 +306,28 @@ Coordinates are approximate and must also be verified.
 
 ### Leaving the mosque — _Prophetic hadith_ (established)
 - [ ] **When:** Leaving Masjid al-Haram (or any mosque), left foot first.
-- [ ] **Arabic:** اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ
-- [ ] **Transliteration:** Allāhumma innī as’aluka min faḍlik.
-- [ ] **Translation:** O Allah, I ask You of Your bounty.
-- [ ] **Source:** Ṣaḥīḥ Muslim 713
+- [ ] **Arabic:** بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ، اللَّهُمَّ اعْصِمْنِي مِنَ الشَّيْطَانِ الرَّجِيمِ
+- [ ] **Transliteration:** Bismillāh, waṣ-ṣalātu was-salāmu ʿalā rasūlillāh. Allāhumma innī as’aluka min faḍlik. Allāhumma-ʿṣimnī minash-shayṭānir-rajīm.
+- [ ] **Translation:** In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, I ask You of Your bounty. O Allah, protect me from the accursed devil.
+- [ ] **Source:** Ḥiṣn al-Muslim no. 21 (Muslim 713; Ibn Mājah 773)
 
 ### The four most beloved words — _Prophetic hadith_ (dhikr)
 - [ ] **Arabic:** سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ
 - [ ] **Transliteration:** Subḥānallāh, wal-ḥamdu lillāh, wa lā ilāha illallāh, wallāhu akbar.
 - [ ] **Translation:** Glory be to Allah, all praise is for Allah, none has the right to be worshipped but Allah, and Allah is the Greatest.
-- [ ] **Source:** Ṣaḥīḥ Muslim 2137
+- [ ] **Source:** Ṣaḥīḥ Muslim 2137; Ḥiṣn al-Muslim no. 261
 
 ### Seeking forgiveness — _Prophetic hadith_ (dhikr)
-- [ ] **Arabic:** أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ
-- [ ] **Transliteration:** Astaghfirullāha wa atūbu ilayh.
-- [ ] **Translation:** I seek Allah’s forgiveness and turn to Him in repentance.
-- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 6307
+- [ ] **Arabic:** أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ
+- [ ] **Transliteration:** Astaghfirullāhal-ʿaẓīm, alladhī lā ilāha illā huwal-ḥayyul-qayyūm, wa atūbu ilayh.
+- [ ] **Translation:** I seek the forgiveness of Allah the Almighty, besides whom none has the right to be worshipped, the Ever-Living, the Sustainer of all, and I turn to Him in repentance.
+- [ ] **Source:** Ḥiṣn al-Muslim no. 250 (Abū Dāwūd 1517; at-Tirmidhī 3577)
 
 ### A treasure of Paradise — _Prophetic hadith_ (dhikr)
 - [ ] **Arabic:** لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ
 - [ ] **Transliteration:** Lā ḥawla wa lā quwwata illā billāh.
 - [ ] **Translation:** There is no might and no power except with Allah.
-- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 6384; Ṣaḥīḥ Muslim 2704
+- [ ] **Source:** Ṣaḥīḥ al-Bukhārī 6384; Ṣaḥīḥ Muslim 2704; Ḥiṣn al-Muslim no. 260
 
 ### Pardon and well-being — _Prophetic hadith_ (general)
 - [ ] **Arabic:** اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ
@@ -364,8 +369,8 @@ Transliterations here are spelled for the speech engine, not for the screen.
 - [ ] **MIQAT:** Approaching the Miqat. Get ready to enter Ihram.
 - [ ] **IHRAM:** Ihram check. Confirm you are prepared, that you have made the intention, and that you have begun the Talbiyah.
 - [ ] **TALBIYAH:** Recite the Talbiyah often, until you begin Tawaf.
-- [ ] **ENTER_HARAM:** You are at Masjid al Haram. Next is Tawaf. Make wudu, and keep the Kaaba on your left.
-- [ ] **TAWAF_READY:** Go to the Black Stone line. Every round starts and ends here. Stop the Talbiyah when Tawaf begins.
+- [ ] **ENTER_HARAM:** You are at Masjid al Haram. Next is Tawaf. Keep the Kaaba on your left.
+- [ ] **TAWAF_READY:** Go to the Black Stone line. Check that you have wudu. Every round starts and ends at this line.
 - [ ] **TAWAF_COMPLETE:** Tawaf complete. Seven rounds. Next, pray two rak-ahs.
 - [ ] **TWO_RAKAH:** Pray two rak-ahs. Behind Maqam Ibrahim if there is space, otherwise anywhere in the mosque.
 - [ ] **ZAMZAM:** Drink Zamzam if it is available, and make your own dua.

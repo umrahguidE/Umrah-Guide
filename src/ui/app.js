@@ -1,11 +1,13 @@
 // Controller: owns the state, turns taps into engine events, persists after
-// every change, and keeps tracking, sensors, voice, map and wake lock in sync.
+// every change, and keeps tracking, sensors, voice, recitations, map and wake
+// lock in sync.
 import { transition, EV, RitualError, toRecords } from '../engine/machine.js';
 import { parseStage, saiDirection } from '../engine/stages.js';
 import { miqatStatus } from '../engine/miqat.js';
 import { calibrateStepLength } from '../engine/motion.js';
-import { MIQATS, DUAS, routeById } from '../data/content.js';
+import { MIQATS, routeById } from '../data/content.js';
 import * as L from '../data/voice-lines.js';
+import { setLanguage, languageInfo, getLanguage, t } from '../i18n/index.js';
 import { loadState, saveState, loadPrefs, savePrefs, pushUndo, popUndo, undoDepth } from '../store.js';
 import { renderApp, createUiState } from './views.js';
 import { createTrackingRuntime } from './tracking-runtime.js';
@@ -14,43 +16,41 @@ import { createVoice, createClipPlayer } from './voice.js';
 import { createTrail, localOf } from './map.js';
 
 const root = document.getElementById('app');
-const audio = document.getElementById('talbiyah-audio');
+const talbiyahAudio = document.getElementById('talbiyah-audio');
 const simulate = new URLSearchParams(location.search).has('sim');
 
 let state = loadState();
 const prefs = loadPrefs();
 const ui = createUiState({ simulate });
+setLanguage(prefs.language ?? 'en');
+document.documentElement.lang = getLanguage();
 
 // Errors that just mean "that tap was a duplicate" — ignore silently.
 const QUIET_ERRORS = new Set(['STALE', 'ALREADY_PAUSED', 'NOT_PAUSED']);
 const TAP_GUARD_MS = 700;
 const QUICK_CONFIRM_MS = 15_000;
+const LIVE_RENDER_MS = 700;
 
 const nowIso = () => new Date().toISOString();
 const trail = createTrail();
 
-const voice = createVoice();
+const voice = createVoice({ lang: () => languageInfo().speech });
 const clips = createClipPlayer();
-ui.voice.available = voice.available;
 voice.enabled = prefs.voice.enabled;
-voice.arabicEnabled = prefs.voice.arabic;
-ui.voice.enabled = voice.enabled;
-ui.voice.arabic = voice.arabicEnabled;
-ui.voice.arabicVoice = voice.arabicVoiceAvailable;
+Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled });
 ui.stepLengthM = prefs.stepLengthM;
 clips.onChange((id) => {
   ui.voice.clip = id;
   render();
 });
 
-// Recitations on this device (audio/duas/index.json). When it exists it is the
-// authoritative list, so the app never probes for files that are not there.
+// Recitations on this device. When the index exists it is the authoritative list.
 fetch('./audio/duas/index.json')
   .then((r) => (r.ok ? r.json() : null))
   .then((index) => {
     if (!index?.files) return;
     ui.recitations = index;
-    clips.setCatalog(Object.keys(index.files));
+    clips.setCatalog(index.files);
     render();
   })
   .catch(() => {});
@@ -61,10 +61,29 @@ function route() {
 }
 
 function render() {
+  pendingLiveRender = false;
   root.innerHTML = String(renderApp({ state, prefs, ui, route: route(), undoAvailable: undoDepth() > 0 }));
 }
 
-const say = (text, options) => text && voice.say(text, options);
+// GPS and sensor updates arrive many times a second; redraw at a calm pace so
+// buttons stay tappable and the screen does not flicker.
+let pendingLiveRender = false;
+let lastLiveRenderAt = 0;
+function renderLive() {
+  if (pendingLiveRender || ui.modal) return;
+  const wait = Math.max(0, LIVE_RENDER_MS - (Date.now() - lastLiveRenderAt));
+  pendingLiveRender = true;
+  setTimeout(() => {
+    lastLiveRenderAt = Date.now();
+    if (pendingLiveRender) render();
+  }, wait);
+}
+
+// Spoken guidance never talks over a recitation.
+const say = (text, options) => {
+  if (!text || clips.playingId || !talbiyahAudio.paused) return false;
+  return voice.say(text, options);
+};
 
 // ───────────────────────── State changes ─────────────────────────
 
@@ -75,26 +94,29 @@ function dispatch(event, { remember = true } = {}) {
   } catch (err) {
     if (!(err instanceof RitualError)) {
       console.error(err);
-      ui.error = 'Something went wrong. Your last saved progress is kept.';
+      ui.error = t('Something went wrong. Your last saved progress is kept.');
     } else if (!QUIET_ERRORS.has(err.code)) {
-      ui.error = err.message;
+      ui.error = t(err.message);
     }
     render();
     return false;
   }
   if (remember) pushUndo(before);
-  ui.notice = saveState(state) ? null : 'Warning: progress could not be saved on this device (storage full or blocked).';
+  ui.notice = saveState(state) ? null : t('Warning: progress could not be saved on this device (storage full or blocked).');
   ui.error = null;
   ui.justCompleted =
     event.type === EV.CONFIRM_TAWAF_ROUND ? { kind: 'tawaf', n: event.round } : event.type === EV.CONFIRM_SAI_LAP ? { kind: 'sai', n: event.lap } : null;
-  if (event.type === EV.START_TAWAF && !audio.paused) audio.pause(); // Talbiyah stops when Tawaf begins.
+  if (event.type === EV.START_TAWAF && !talbiyahAudio.paused) talbiyahAudio.pause(); // Talbiyah stops when Tawaf begins.
+  const stageChanged = before.session?.current_stage !== state.session?.current_stage;
+  if (stageChanged) {
+    trail.clear();
+    ui.map.trail = [];
+    ui.readyChecks = {};
+  }
   announce(before, event);
   syncSideEffects();
   render();
-  if (before.session?.current_stage !== state.session?.current_stage) {
-    trail.clear();
-    window.scrollTo(0, 0);
-  }
+  if (stageChanged) window.scrollTo(0, 0);
   return true;
 }
 
@@ -106,16 +128,16 @@ function announce(before, event) {
   if (event.type === EV.CONFIRM_SAI_LAP) return void say(L.lapConfirmed(event.lap), { interrupt: true, force: true });
   if (event.type === EV.CORRECT_TAWAF_ROUND) return void say(L.corrected('tawaf', event.round), { interrupt: true, force: true });
   if (event.type === EV.CORRECT_SAI_LAP) return void say(L.corrected('sai', event.lap), { interrupt: true, force: true });
-  if (event.type === EV.PAUSE) return void say(L.PAUSED, { interrupt: true });
-  if (event.type === EV.RESUME) return void say(L.RESUMED, { interrupt: true });
+  if (event.type === EV.PAUSE) return void say(L.paused(), { interrupt: true });
+  if (event.type === EV.RESUME) return void say(L.resumed(), { interrupt: true });
   if (stageChanged) say(L.stageLine(s.current_stage, s), { key: `stage:${s.current_stage}`, interrupt: true });
 }
 
 let lastTapAt = 0;
 function guarded(fn) {
-  const t = Date.now();
-  if (t - lastTapAt < TAP_GUARD_MS) return;
-  lastTapAt = t;
+  const now = Date.now();
+  if (now - lastTapAt < TAP_GUARD_MS) return;
+  lastTapAt = now;
   fn();
 }
 
@@ -125,8 +147,8 @@ function confirmCounted(el, type, field) {
     const ritual = field === 'round' ? s?.tawaf : s?.sai;
     const startedAt = field === 'round' ? ritual?.current_round_started_at : ritual?.current_lap_started_at;
     const n = Number(el.dataset.n);
-    const noun = field === 'round' ? 'Round' : 'Lap';
-    if (startedAt && Date.now() - Date.parse(startedAt) < QUICK_CONFIRM_MS && !window.confirm(`${noun} ${n} started only a few seconds ago. Mark it complete anyway?`)) return;
+    const message = field === 'round' ? t('Round {n} started only a few seconds ago. Mark it complete anyway?', { n }) : t('Lap {n} started only a few seconds ago. Mark it complete anyway?', { n });
+    if (startedAt && Date.now() - Date.parse(startedAt) < QUICK_CONFIRM_MS && !window.confirm(message)) return;
     const r = ui.reading;
     const assisted = s?.tracking_mode === 'assisted';
     const confidence = assisted && r?.status === 'ok' && r.suggestCompletion ? r.confidence : 'manual';
@@ -145,6 +167,12 @@ function learnStepLength(reading) {
   savePrefs(prefs);
 }
 
+// Starting a ritual is a tap, which is when iOS lets us ask for the compass and step sensors.
+async function startCounted(event) {
+  if (state.session?.tracking_mode === 'assisted' && !simulate) await requestMotionPermission();
+  dispatch(event);
+}
+
 // ───────────────────────── Side effects ─────────────────────────
 
 const tracking = createTrackingRuntime({
@@ -157,22 +185,22 @@ const tracking = createTrackingRuntime({
   onReading(reading) {
     const before = ui.reading;
     ui.reading = reading;
-    if (reading?.position) ui.map.trail = trail.add(reading.position);
+    if (reading?.position) ui.map.trail = [...trail.add(reading.position)];
     reactToReading(before, reading);
-    if (!ui.modal) render();
+    renderLive();
   },
 });
 
 function reactToReading(before, r) {
   const s = state.session;
   if (!s || !r || r.status !== 'ok') {
-    if (s && r && before?.status === 'ok' && (r.status === 'weak' || r.status === 'out_of_area')) say(L.WEAK_SIGNAL, { key: 'weak', interrupt: true });
+    if (s && r && before?.status === 'ok' && (r.status === 'weak' || r.status === 'out_of_area')) say(L.weakSignal(), { key: 'weak', interrupt: true });
     return;
   }
   if (r.suggestCompletion && !before?.suggestCompletion) {
     navigator.vibrate?.(200);
     const p = parseStage(s.current_stage);
-    say(p.kind === 'sai' ? L.saiSuggestion(saiDirection(p.n).to) : L.TAWAF_SUGGESTION, { key: 'suggest', interrupt: true, force: true });
+    say(p.kind === 'sai' ? L.saiSuggestion(saiDirection(p.n).to) : L.tawafSuggestion(), { key: 'suggest', interrupt: true, force: true });
   }
   if (r.sector && r.sector.id !== before?.sector?.id) say(L.sectorLine(r.sector), { key: `sector:${r.sector.id}` });
   if (r.green === 'inside' && before?.green !== 'inside') {
@@ -234,8 +262,8 @@ function startMapWatch() {
       const point = localOf({ lat: p.coords.latitude, lng: p.coords.longitude });
       ui.map.position = point;
       ui.map.accuracyM = p.coords.accuracy;
-      ui.map.trail = trail.add(point);
-      render();
+      ui.map.trail = [...trail.add(point)];
+      renderLive();
     },
     (err) => {
       ui.map.error = err.code === 1 ? 'Location permission was denied.' : 'Could not get your location.';
@@ -291,7 +319,7 @@ function startMiqatWatch() {
 
 async function offlineRequest(type) {
   if (!('serviceWorker' in navigator) || !location.protocol.startsWith('http')) {
-    ui.offline = { error: 'Offline mode needs the app to be opened from a web address (http/https), not as a local file.' };
+    ui.offline = { error: t('Offline mode needs the app to be opened from a web address (http/https), not as a local file.') };
     render();
     return;
   }
@@ -307,11 +335,11 @@ async function offlineRequest(type) {
             reg.active.postMessage({ type }, [channel.port2]);
           }),
       ),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('the offline service did not respond')), 30000)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 30000)),
     ]);
-    ui.offline = result.ok ? { groups: result.groups } : { error: `Download failed: ${result.error}` };
+    ui.offline = result.ok ? { groups: result.groups } : { error: `${t('Download failed')}: ${result.error}` };
   } catch (err) {
-    ui.offline = { error: `Could not update the offline pack: ${err.message}` };
+    ui.offline = { error: `${t('Could not update the offline pack')}: ${err.message}` };
   }
   render();
 }
@@ -329,22 +357,29 @@ function exportJourney(id) {
 
 // ───────────────────────── Actions ─────────────────────────
 
-// Starting a ritual is a tap, which is the moment iOS lets us ask for the
-// compass and step sensors.
-async function startCounted(event) {
-  if (state.session?.tracking_mode === 'assisted' && !simulate) await requestMotionPermission();
-  dispatch(event);
-}
-
 const actions = {
+  'set-language'(el) {
+    prefs.language = setLanguage(el.dataset.code);
+    document.documentElement.lang = prefs.language;
+    savePrefs(prefs);
+    voice.stop();
+    if (location.hash.startsWith('#/language')) location.hash = '#/';
+    render();
+    const s = state.session;
+    say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true });
+  },
   start(form, data) {
-    if (dispatch({ type: EV.START, gender: data.get('gender'), language: 'en' }) && prefs.miqatRoute) {
+    if (dispatch({ type: EV.START, gender: data.get('gender'), language: getLanguage() }) && prefs.miqatRoute) {
       dispatch({ type: EV.SET_MIQAT, routeId: prefs.miqatRoute }, { remember: false });
     }
     location.hash = '#/';
   },
   next: (el) => guarded(() => dispatch({ type: EV.NEXT, expect: el.dataset.expect })),
   check: (el) => dispatch({ type: EV.TOGGLE_CHECK, key: el.dataset.key, value: el.checked }, { remember: false }),
+  'ready-check'(el) {
+    ui.readyChecks = { ...ui.readyChecks, [el.dataset.key]: el.checked };
+    render();
+  },
   'start-tawaf': (el) => guarded(() => startCounted({ type: EV.START_TAWAF, expect: el.dataset.expect })),
   'confirm-round': (el) => confirmCounted(el, EV.CONFIRM_TAWAF_ROUND, 'round'),
   'start-sai': (el) => guarded(() => startCounted({ type: EV.START_SAI, expect: el.dataset.expect })),
@@ -369,7 +404,6 @@ const actions = {
   },
   async tracking(el) {
     const mode = el.dataset.mode;
-    // iOS only grants compass and step access from a tap like this one.
     if (mode === 'assisted' && !simulate) await requestMotionPermission();
     dispatch({ type: EV.SET_TRACKING_MODE, mode }, { remember: false });
   },
@@ -384,11 +418,19 @@ const actions = {
     render();
   },
   'end-session'() {
-    if (!window.confirm('End this Umrah session? It will be kept in your journey history.')) return;
+    if (!window.confirm(t('End this Umrah session? It will be kept in your journey history.'))) return;
     if (dispatch({ type: EV.RESET })) location.hash = '#/';
   },
   'new-umrah'() {
     if (dispatch({ type: EV.RESET })) location.hash = '#/';
+  },
+
+  // The browser opens and closes <details> itself; remember it so live redraws keep it.
+  'toggle-details'(el) {
+    const key = el.dataset.key;
+    const wasOpen = el.closest('details')?.open;
+    if (wasOpen) ui.openDetails.delete(key);
+    else ui.openDetails.add(key);
   },
 
   'miqat-route'(el) {
@@ -428,61 +470,45 @@ const actions = {
   },
   'map-clear'() {
     trail.clear();
-    ui.map.trail = trail.points;
+    ui.map.trail = [];
     render();
-  },
-  // The browser toggles <details> itself; just remember the state so a re-render keeps it.
-  'toggle-map'(el) {
-    ui.map.open = !el.closest('details')?.open;
   },
 
-  'voice-toggle'(el) {
-    voice.enabled = el.checked;
-    ui.voice.enabled = voice.enabled;
-    prefs.voice.enabled = voice.enabled;
-    savePrefs(prefs);
-    if (voice.enabled) voice.say('Voice guide on.', { force: true });
-    render();
-  },
   'voice-quick'() {
     voice.enabled = !voice.enabled;
     ui.voice.enabled = voice.enabled;
     prefs.voice.enabled = voice.enabled;
     savePrefs(prefs);
     const s = state.session;
-    if (voice.enabled) voice.say(s ? L.stageLine(s.current_stage, s) : 'Voice guide on.', { force: true, interrupt: true });
+    if (voice.enabled) say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true, interrupt: true });
     else voice.stop();
     render();
   },
-  'voice-arabic'(el) {
-    voice.arabicEnabled = el.checked;
-    ui.voice.arabic = voice.arabicEnabled;
-    prefs.voice.arabic = voice.arabicEnabled;
+  'voice-toggle'(el) {
+    voice.enabled = el.checked;
+    ui.voice.enabled = voice.enabled;
+    prefs.voice.enabled = voice.enabled;
     savePrefs(prefs);
+    if (voice.enabled) say(t('Voice guide on.'), { force: true });
     render();
   },
   'voice-test'() {
     const s = state.session;
     voice.enabled = true;
     ui.voice.enabled = true;
-    voice.say(s ? L.stageLine(s.current_stage, s) : 'Voice guide ready. It will announce every step, round and arrival.', { force: true, interrupt: true });
+    say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true, interrupt: true });
     render();
   },
-  // Recording first, then the phone's Arabic voice, then the transliteration,
-  // then the meaning — so every dua can always be heard aloud.
+  // Recitations only: a real reciter's recording, never the phone voice.
   async 'play-dua'(el) {
-    const d = DUAS.find((x) => x.id === el.dataset.id);
-    if (!d) return;
-    if (clips.playingId === d.id) return clips.stop();
+    const id = el.dataset.id;
+    if (clips.playingId === id) return clips.stop();
     voice.stop();
-    if (await clips.play(d.id)) return; // a reciter's recording is present
-    voice.enabled = true;
-    ui.voice.enabled = true;
-    const recited = voice.sayArabic(d.arabic, { force: true, interrupt: true });
-    if (!recited && d.transliteration) voice.say(d.transliteration, { key: `translit:${d.id}`, force: true, interrupt: true });
-    if (d.translation) voice.say(d.translation, { key: `meaning:${d.id}`, force: true });
-    else if (!recited && !d.transliteration) voice.say(L.duaIntro(d), { force: true, interrupt: true });
-    render();
+    if (!talbiyahAudio.paused) talbiyahAudio.pause();
+    if (!(await clips.play(id))) {
+      ui.notice = t('This recitation could not be played. Check that the offline pack is downloaded.');
+      render();
+    }
   },
   'reset-step-length'() {
     prefs.stepLengthM = null;
@@ -498,7 +524,7 @@ const actions = {
   },
   'save-info'(form, data) {
     for (const [k, v] of data.entries()) prefs.info[k] = String(v).trim();
-    ui.notice = savePrefs(prefs) ? 'Saved on this device.' : 'Could not save — device storage is full or blocked.';
+    ui.notice = savePrefs(prefs) ? t('Saved on this device.') : t('Could not save — device storage is full or blocked.');
     render();
     window.scrollTo(0, 0);
   },
@@ -507,10 +533,10 @@ const actions = {
       const pos = await getPosition();
       Object.assign(prefs.info, { hotelLat: pos.lat, hotelLng: pos.lng });
       savePrefs(prefs);
-      ui.notice = `Hotel location saved (±${Math.round(pos.accuracy)} m).`;
+      ui.notice = t('Hotel location saved (±{m} m).', { m: Math.round(pos.accuracy) });
       ui.error = null;
     } catch (err) {
-      ui.error = err.message;
+      ui.error = t(err.message);
     }
     render();
   },
@@ -529,12 +555,15 @@ const actions = {
   scroll: (el) => document.getElementById(el.dataset.target)?.scrollIntoView({ behavior: 'smooth' }),
 
   'audio-toggle'() {
-    if (audio.paused) audio.play().catch(() => ((ui.audio.missing = true), render()));
-    else audio.pause();
+    if (talbiyahAudio.paused) {
+      clips.stop();
+      voice.stop();
+      talbiyahAudio.play().catch(() => ((ui.audio.missing = true), render()));
+    } else talbiyahAudio.pause();
   },
   'audio-loop'(el) {
     ui.audio.loop = el.checked;
-    audio.loop = el.checked;
+    talbiyahAudio.loop = el.checked;
     render();
   },
   'offline-download': () => offlineRequest('CACHE_ALL'),
@@ -583,17 +612,14 @@ window.addEventListener('hashchange', () => {
 
 document.addEventListener('visibilitychange', syncWakeLock);
 
-audio.addEventListener('play', () => ((ui.audio.playing = true), render()));
-audio.addEventListener('pause', () => ((ui.audio.playing = false), render()));
-audio.addEventListener('error', () => ((ui.audio.missing = true), (ui.audio.playing = false), render()));
+talbiyahAudio.addEventListener('play', () => ((ui.audio.playing = true), render()));
+talbiyahAudio.addEventListener('pause', () => ((ui.audio.playing = false), render()));
+talbiyahAudio.addEventListener('error', () => ((ui.audio.missing = true), (ui.audio.playing = false), render()));
 if ('mediaSession' in navigator && 'MediaMetadata' in window) {
   navigator.mediaSession.metadata = new MediaMetadata({ title: 'Talbiyah', artist: 'Guided Umrah' });
 }
-// Voices load asynchronously in some browsers.
 globalThis.speechSynthesis?.addEventListener?.('voiceschanged', () => {
   ui.voice.available = voice.available;
-  ui.voice.arabicVoice = voice.arabicVoiceAvailable;
-  render();
 });
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

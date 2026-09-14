@@ -36,7 +36,8 @@ export const defaultPrefs = () => ({
   info: {},
   personalDuas: [],
   miqatRoute: null,
-  voice: { enabled: true, arabic: true },
+  language: null,
+  voice: { enabled: true },
   stepLengthM: null,
 });
 

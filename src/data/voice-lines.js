@@ -1,19 +1,20 @@
 /**
- * What the voice guide says out loud. Short, plain sentences — a spoken version
- * of what is already on screen, so it carries the same draft status and goes
- * through the same scholar review.
+ * What the voice guide says out loud, in the pilgrim's language. Short, plain
+ * sentences — a spoken version of what is already on screen, so it carries the
+ * same draft status and goes through the same review.
  *
- * Transliterations are spelled the way a speech engine pronounces them best
- * ("rak-ahs", "Sa-i"), not the way they are written on screen.
+ * The English is written for the speech engine ("rak-ahs", "Sa-i"). Arabic
+ * duas are never spoken by the phone voice: only real recitations play Arabic.
  */
 import { PLACE_LABEL, parseStage, saiDirection, TAWAF_ROUNDS, SAI_LAPS } from '../engine/stages.js';
+import { t } from '../i18n/index.js';
 
 export const STAGE_LINES = {
   MIQAT: 'Approaching the Miqat. Get ready to enter Ihram.',
   IHRAM: 'Ihram check. Confirm you are prepared, that you have made the intention, and that you have begun the Talbiyah.',
   TALBIYAH: 'Recite the Talbiyah often, until you begin Tawaf.',
-  ENTER_HARAM: 'You are at Masjid al Haram. Next is Tawaf. Make wudu, and keep the Kaaba on your left.',
-  TAWAF_READY: 'Go to the Black Stone line. Every round starts and ends here. Stop the Talbiyah when Tawaf begins.',
+  ENTER_HARAM: 'You are at Masjid al Haram. Next is Tawaf. Keep the Kaaba on your left.',
+  TAWAF_READY: 'Go to the Black Stone line. Check that you have wudu. Every round starts and ends at this line.',
   TAWAF_COMPLETE: 'Tawaf complete. Seven rounds. Next, pray two rak-ahs.',
   TWO_RAKAH: 'Pray two rak-ahs. Behind Maqam Ibrahim if there is space, otherwise anywhere in the mosque.',
   ZAMZAM: 'Drink Zamzam if it is available, and make your own dua.',
@@ -24,45 +25,59 @@ export const STAGE_LINES = {
   UMRAH_COMPLETE: 'Your Umrah is complete. Al hamdu lillah.',
 };
 
+const place = (id) => t(PLACE_LABEL[id]);
+
 export function stageLine(stage, session) {
   const p = parseStage(stage);
   if (p.kind === 'tawaf') {
-    const last = p.n === TAWAF_ROUNDS ? ' This is the final round.' : '';
-    return `Round ${p.n} of ${TAWAF_ROUNDS}. Keep the Kaaba on your left.${last}`;
+    const line = t('Round {n} of {total}. Keep the Kaaba on your left.', { n: p.n, total: TAWAF_ROUNDS });
+    return p.n === TAWAF_ROUNDS ? `${line} ${t('This is the final round.')}` : line;
   }
   if (p.kind === 'sai') {
     const d = saiDirection(p.n);
-    const last = p.n === SAI_LAPS ? ' This is the final lap. It ends at Marwah.' : '';
-    return `Lap ${p.n} of ${SAI_LAPS}. ${PLACE_LABEL[d.from]} to ${PLACE_LABEL[d.to]}.${last}`;
+    const line = t('Lap {n} of {total}. {from} to {to}.', { n: p.n, total: SAI_LAPS, from: place(d.from), to: place(d.to) });
+    return p.n === SAI_LAPS ? `${line} ${t('This is the final lap. It ends at Marwah.')}` : line;
   }
-  if (stage === 'IHRAM' && session?.gender === 'female') return `${STAGE_LINES.IHRAM} Women recite the Talbiyah quietly.`;
-  return STAGE_LINES[stage] ?? null;
+  if (!STAGE_LINES[stage]) return null;
+  const line = t(STAGE_LINES[stage]);
+  return stage === 'IHRAM' && session?.gender === 'female' ? `${line} ${t('Women recite the Talbiyah quietly.')}` : line;
 }
 
 export const roundConfirmed = (n) =>
-  n >= TAWAF_ROUNDS ? 'Round seven confirmed. Tawaf complete.' : `Round ${n} confirmed. ${TAWAF_ROUNDS - n} to go. Begin round ${n + 1}.`;
+  n >= TAWAF_ROUNDS
+    ? t('Round seven confirmed. Tawaf complete.')
+    : t('Round {n} confirmed. {left} to go. Begin round {next}.', { n, left: TAWAF_ROUNDS - n, next: n + 1 });
 
 export function lapConfirmed(n) {
-  if (n >= SAI_LAPS) return 'Lap seven confirmed at Marwah. Sa-i complete.';
+  if (n >= SAI_LAPS) return t('Lap seven confirmed at Marwah. Sa-i complete.');
   const next = saiDirection(n + 1);
-  return `Lap ${n} confirmed at ${PLACE_LABEL[saiDirection(n).to]}. ${SAI_LAPS - n} to go. Now ${PLACE_LABEL[next.from]} to ${PLACE_LABEL[next.to]}.`;
+  return t('Lap {n} confirmed at {at}. {left} to go. Now {from} to {to}.', {
+    n,
+    at: place(saiDirection(n).to),
+    left: SAI_LAPS - n,
+    from: place(next.from),
+    to: place(next.to),
+  });
 }
 
-export const TAWAF_SUGGESTION = 'You appear to be back at the Black Stone line. Confirm the round if you have completed it.';
-export const saiSuggestion = (place) => `You appear to have reached ${PLACE_LABEL[place]}. Confirm when you have arrived.`;
+export const tawafSuggestion = () => t('You appear to be back at the Black Stone line. Confirm the round if you have completed it.');
+export const saiSuggestion = (to) => t('You appear to have reached {place}. Confirm when you have arrived.', { place: place(to) });
 
-export const sectorLine = (sector) => (sector?.tip ? `${sector.label}. ${sector.tip}` : (sector?.label ?? null));
+export const sectorLine = (sector) => (sector ? [t(sector.label), t(sector.tip)].filter(Boolean).join('. ') : null);
 
 export const greenMarkers = (gender) =>
-  gender === 'male' ? 'Green markers. Jog between them if you are able.' : 'Green markers. Keep walking at your normal pace.';
+  gender === 'male' ? t('Green markers. Jog between them if you are able.') : t('Green markers. Keep walking at your normal pace.');
 
+export const weakSignal = () => t('Tracking signal is weak. Please keep count yourself, and confirm each round by hand.');
+export const paused = () => t('Tracking paused.');
+export const resumed = () => t('Tracking resumed.');
+export const corrected = (kind, n) =>
+  kind === 'tawaf' ? t('Round count corrected. You are now on round {n}.', { n }) : t('Lap count corrected. You are now on lap {n}.', { n });
+
+export const miqatApproaching = (km, name) =>
+  t('Miqat approaching. About {km} kilometres to the line of {name}. Enter Ihram now if you have not.', { km: Math.round(km), name });
+export const miqatReached = (name) => t('You have reached the {name} Miqat line. You should be in Ihram now.', { name });
+
+// Kept for the content review sheet, which lists every spoken line in English.
+export const TAWAF_SUGGESTION = 'You appear to be back at the Black Stone line. Confirm the round if you have completed it.';
 export const WEAK_SIGNAL = 'Tracking signal is weak. Please keep count yourself, and confirm each round by hand.';
-export const PAUSED = 'Tracking paused.';
-export const RESUMED = 'Tracking resumed.';
-export const corrected = (kind, n) => `${kind === 'tawaf' ? 'Round' : 'Lap'} count corrected. You are now on ${kind === 'tawaf' ? 'round' : 'lap'} ${n}.`;
-
-export const miqatApproaching = (km, name) => `Miqat approaching. About ${Math.round(km)} kilometres to the line of ${name}. Enter Ihram now if you have not.`;
-export const miqatReached = (name) => `You have reached the ${name} Miqat line. You should be in Ihram now.`;
-
-/** Spoken introduction for a dua card when there is no recorded recitation. */
-export const duaIntro = (dua) => `${dua.title}. ${dua.translation ?? dua.note ?? ''}`.trim();
