@@ -12,7 +12,7 @@ import { loadState, saveState, loadPrefs, savePrefs, pushUndo, popUndo, undoDept
 import { renderApp, createUiState } from './views.js';
 import { createTrackingRuntime } from './tracking-runtime.js';
 import { requestMotionPermission } from './sensors.js';
-import { createVoice, createClipPlayer } from './voice.js';
+import { createVoice, createClipPlayer, PLAYBACK_RATES } from './voice.js';
 import { createTrail, localOf } from './map.js';
 
 const root = document.getElementById('app');
@@ -24,6 +24,7 @@ const prefs = loadPrefs();
 const ui = createUiState({ simulate });
 setLanguage(prefs.language ?? 'en');
 document.documentElement.lang = getLanguage();
+document.documentElement.dir = languageInfo().dir;
 
 // Errors that just mean "that tap was a duplicate" — ignore silently.
 const QUIET_ERRORS = new Set(['STALE', 'ALREADY_PAUSED', 'NOT_PAUSED']);
@@ -39,9 +40,13 @@ const clips = createClipPlayer();
 voice.enabled = prefs.voice.enabled;
 Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled });
 ui.stepLengthM = prefs.stepLengthM;
-clips.onChange((id) => {
-  ui.voice.clip = id;
-  render();
+// Playback ticks several times a second (the seek bar); redraw at the same
+// calm pace as GPS updates rather than on every tick — and never while a
+// finger is actively dragging the seek bar, or the redraw would fight the drag.
+let scrubbingSeekBar = false;
+clips.onChange((playback) => {
+  ui.playback = playback;
+  if (!scrubbingSeekBar) renderLive();
 });
 
 // Recitations on this device. When the index exists it is the authoritative list.
@@ -361,6 +366,7 @@ const actions = {
   'set-language'(el) {
     prefs.language = setLanguage(el.dataset.code);
     document.documentElement.lang = prefs.language;
+    document.documentElement.dir = languageInfo().dir;
     savePrefs(prefs);
     voice.stop();
     if (location.hash.startsWith('#/language')) location.hash = '#/';
@@ -510,6 +516,24 @@ const actions = {
       render();
     }
   },
+  // "Play all" for a whole section — every recitation in it, back to back, like a playlist.
+  async 'play-all-duas'(el) {
+    const ids = el.dataset.ids.split(',');
+    if (clips.playingId && ids.includes(clips.playingId)) return clips.stop();
+    voice.stop();
+    if (!talbiyahAudio.paused) talbiyahAudio.pause();
+    if (!(await clips.playAll(ids))) {
+      ui.notice = t('These recitations could not be played. Check that the offline pack is downloaded.');
+      render();
+    }
+  },
+  'seek-dua'(el) {
+    clips.seek(Number(el.value));
+  },
+  'rate-dua'() {
+    const i = PLAYBACK_RATES.indexOf(ui.playback.rate);
+    clips.setRate(PLAYBACK_RATES[(i + 1) % PLAYBACK_RATES.length]);
+  },
   'reset-step-length'() {
     prefs.stepLengthM = null;
     ui.stepLengthM = null;
@@ -590,7 +614,16 @@ root.addEventListener('click', (e) => {
 root.addEventListener('change', (e) => {
   const el = e.target;
   if (el.tagName === 'FORM' || !el.dataset?.action) return;
+  if (el.dataset.action === 'seek-dua') scrubbingSeekBar = false;
   actions[el.dataset.action]?.(el);
+});
+
+// While the seek bar is held, keep the label live without letting a redraw yank it from under a finger.
+root.addEventListener('input', (e) => {
+  const el = e.target;
+  if (el.dataset?.action !== 'seek-dua') return;
+  scrubbingSeekBar = true;
+  ui.playback = { ...ui.playback, currentTime: Number(el.value) };
 });
 
 root.addEventListener('submit', (e) => {

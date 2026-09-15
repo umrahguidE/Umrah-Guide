@@ -4,14 +4,37 @@ import { t } from '../i18n/index.js';
 
 const f = (n) => n.toFixed(1);
 
-// Recitations present on this device (audio/duas/index.json), set once per render.
+// Recitations present on this device (audio/duas/index.json), and the current
+// playback state of the one advanced player shared across the app — both set
+// once per render.
 let RECITATIONS = {};
-let PLAYING = null;
-export const setRecitations = (map, playingId = null) => {
+let PLAYBACK = { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null };
+export const setRecitations = (map, playback = {}) => {
   RECITATIONS = map ?? {};
-  PLAYING = playingId;
+  PLAYBACK = { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null, ...playback };
 };
 export const hasRecitation = (id) => Boolean(RECITATIONS[id]);
+
+const fmtClock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+/** The seek bar, time and speed control shown under whichever dua is currently playing. */
+function playerControls(id) {
+  const { currentTime, duration, rate } = PLAYBACK;
+  const pct = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
+  return html`<div class="player" role="group" aria-label="${t('Playback controls')}">
+    <div class="player-track-wrap" style="--pct:${pct}%">
+      <span class="player-track-fill"></span>
+      <input type="range" class="player-seek" min="0" max="${duration || 1}" step="0.1" value="${currentTime}" data-action="seek-dua" aria-label="${t('Seek')}">
+    </div>
+    <div class="player-row">
+      <span class="player-time">${fmtClock(currentTime)} / ${fmtClock(duration)}</span>
+      <button class="btn tiny" type="button" data-action="rate-dua" aria-label="${t('Playback speed')}">${rate}×</button>
+    </div>
+    ${PLAYBACK.queue && PLAYBACK.queue.ids.length > 1
+      ? html`<p class="player-queue muted">▶ ${t('Playing {current} of {total}', { current: PLAYBACK.queue.index + 1, total: PLAYBACK.queue.ids.length })}</p>`
+      : ''}
+  </div>`;
+}
 
 export function progressBar(fraction, label) {
   const pct = Math.round(Math.max(0, Math.min(1, fraction)) * 100);
@@ -28,19 +51,33 @@ export function roundDots(completed, current, total) {
   </ol>`;
 }
 
+// A small, quiet marker rather than a loud repeated pill — the review status still
+// tracks accurately (see docs/CONTENT_REVIEW.md), it just doesn't shout on every card.
 export function reviewBadge(review) {
-  return review?.status === 'reviewed'
-    ? html`<span class="badge ok">${t('Scholar-reviewed')}</span>`
-    : html`<span class="badge warn">${t('Pending scholar review')}</span>`;
+  const reviewed = review?.status === 'reviewed';
+  return html`<span class="review-dot ${reviewed ? 'ok' : 'warn'}" title="${reviewed ? t('Scholar-reviewed') : t('Pending scholar review')}" aria-label="${reviewed ? t('Scholar-reviewed') : t('Pending scholar review')}">${reviewed ? '✓' : '●'}</span>`;
 }
 
 /** Plays a real recitation when one exists; the phone voice never reads Arabic. */
 export function listenButton(id, { big = false } = {}) {
   const recitation = RECITATIONS[id];
   if (!recitation) return '';
-  const playing = PLAYING === id;
-  return html`<button class="btn ${big ? 'primary' : 'small'} listen ${playing ? 'playing' : ''}" data-action="play-dua" data-id="${id}">
-    ${playing ? `⏹ ${t('Stop')}` : `🎙 ${t('Listen to the recitation')}`}
+  const playing = PLAYBACK.playingId === id;
+  return html`<div class="listen-block">
+    <button class="btn ${big ? 'primary' : 'small'} listen ${playing ? 'playing' : ''}" data-action="play-dua" data-id="${id}">
+      ${playing ? `⏹ ${t('Stop')}` : `🎙 ${t('Listen to the recitation')}`}
+    </button>
+    ${playing ? playerControls(id) : ''}
+  </div>`;
+}
+
+/** A "▶ Play all" button that queues every dua in `ids` that has a recording, in order. */
+export function playAllButton(ids, label) {
+  const playable = ids.filter(hasRecitation);
+  if (playable.length < 2) return '';
+  const active = PLAYBACK.queue && playable.includes(PLAYBACK.playingId);
+  return html`<button class="btn ${active ? 'primary' : ''} play-all" data-action="play-all-duas" data-ids="${playable.join(',')}">
+    ${active ? `⏹ ${t('Stop')}` : `▶ ${t('Play all {n} recitations', { n: playable.length })}`}${label ? ` — ${label}` : ''}
   </button>`;
 }
 

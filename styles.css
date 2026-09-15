@@ -405,3 +405,53 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 5px; font-
 .card.sector .btn.listen { margin-top: 10px; }
 h2 { margin-top: 4px; }
 main[lang="ta"], main[lang="ml"] { font-size: 15px; }
+
+/* ── Advanced recitation player ── */
+.listen-block { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; }
+.player { width: 100%; display: flex; flex-direction: column; gap: 4px; padding: 8px 2px 2px; }
+/*
+ * A plain, guaranteed-to-render track (no reliance on a custom property
+ * inheriting into a vendor pseudo-element, which some engines paint
+ * inconsistently) plus a separately positioned fill bar sized from --pct.
+ */
+.player-track-wrap { position: relative; width: 100%; height: 28px; }
+.player-track-fill {
+  position: absolute; left: 0; top: 11px; height: 6px; border-radius: 999px 0 0 999px;
+  width: var(--pct, 0%); max-width: 100%; background: var(--accent); pointer-events: none;
+}
+.player-seek {
+  position: absolute; inset: 0; width: 100%; height: 28px; margin: 0;
+  -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer;
+}
+.player-seek::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: var(--border); }
+.player-seek::-moz-range-track { height: 6px; border-radius: 999px; background: var(--border); }
+.player-seek::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--surface); margin-top: -5px; box-shadow: var(--shadow); position: relative; z-index: 1;
+}
+.player-seek::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); }
+.player-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.player-time { font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.btn.tiny { min-height: 28px; padding: 2px 10px; font-size: .78rem; font-weight: 700; border-radius: 999px; }
+.player-queue { margin: 0; font-size: .78rem; }
+.btn.play-all { width: 100%; margin-bottom: 4px; }
+
+/* ── Review status: a quiet dot instead of a loud repeated pill ── */
+.review-dot { display: inline-block; font-size: .7rem; line-height: 1; cursor: default; vertical-align: middle; }
+.review-dot.warn { color: var(--warn-line); }
+.review-dot.ok { color: var(--ok-ink); font-size: .85rem; }
+
+/* ── Right-to-left languages (Urdu) ── */
+main[dir="rtl"] { direction: rtl; text-align: right; }
+main[dir="rtl"] .dua .arabic { text-align: center; }
+main[dir="rtl"] .row, main[dir="rtl"] .row.actions, main[dir="rtl"] .lang-grid,
+main[dir="rtl"] .tiles, main[dir="rtl"] .grid-buttons, main[dir="rtl"] .segmented,
+main[dir="rtl"] .steps, main[dir="rtl"] .corners, main[dir="rtl"] .sources,
+main[dir="rtl"] .chips { direction: ltr; }
+main[dir="rtl"] .row > *, main[dir="rtl"] .tiles > *, main[dir="rtl"] .grid-buttons > *,
+main[dir="rtl"] .chips > * { direction: rtl; }
+main[dir="rtl"] .check { flex-direction: row; }
+main[dir="rtl"] .summary { direction: ltr; }
+main[dir="rtl"] .summary dt, main[dir="rtl"] .summary dd { text-align: right; direction: rtl; }
+main[dir="rtl"] .status-current, main[dir="rtl"] .direction { direction: ltr; }
+main[dir="rtl"] .status-current > *, main[dir="rtl"] .direction > * { direction: rtl; }

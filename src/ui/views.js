@@ -11,7 +11,7 @@ import { HARAM_GEO } from '../engine/tracking.js';
 import { miqatRadiusKm } from '../engine/miqat.js';
 import * as C from '../data/content.js';
 import { t, tList, LANGUAGES, getLanguage, languageInfo } from '../i18n/index.js';
-import { duaCard, hasRecitation, listenButton, progressBar, reviewBadge, roundDots, saiTrack, setRecitations, tawafRing } from './components.js';
+import { duaCard, hasRecitation, listenButton, playAllButton, progressBar, reviewBadge, roundDots, saiTrack, setRecitations, tawafRing } from './components.js';
 import { haramMap } from './map.js';
 
 const G = C.GUIDANCE;
@@ -26,7 +26,8 @@ export function createUiState({ simulate = false } = {}) {
     miqatReading: null,
     offline: null,
     audio: { playing: false, loop: false, missing: false },
-    voice: { available: false, enabled: false, clip: null },
+    voice: { available: false, enabled: false },
+    playback: { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null },
     map: { live: false, trail: [], position: null, accuracyM: null, error: null },
     miqatWatching: false,
     stepLengthM: null,
@@ -96,13 +97,13 @@ const PAGES = {
 };
 
 export function renderApp(ctx) {
-  setRecitations(ctx.ui.recitations?.files, ctx.ui.voice.clip);
+  setRecitations(ctx.ui.recitations?.files, ctx.ui.playback);
   const chooseLanguage = !ctx.prefs.language;
   const page = chooseLanguage ? languagePage : (PAGES[ctx.route.name] ?? guidedPage);
   return html`
     ${topBar(ctx)}
     <a class="review-strip" href="#/about">⚠ ${t(C.REVIEW_NOTICE)}</a>
-    <main class="page" lang="${getLanguage()}">
+    <main class="page" lang="${getLanguage()}" dir="${languageInfo().dir}">
       ${ctx.ui.notice ? html`<p class="alert info" role="status">${ctx.ui.notice}</p>` : ''}
       ${page(ctx)}
     </main>
@@ -794,6 +795,7 @@ function duasPage(ctx) {
       const items = C.DUAS.filter((d) => d.category === cat.id).sort((a, b) => relevant(b) - relevant(a));
       return html`<section id="dua-${cat.id}" class="dua-section">
         <h2>${cat.icon} ${t(cat.label)}</h2><p class="muted">${t(cat.intro)}</p>
+        ${playAllButton(items.map((d) => d.id), t(cat.label))}
         ${items.map((d) => duaCard(d, { highlight: relevant(d) === 1 }))}
       </section>`;
     })}`;
@@ -949,7 +951,7 @@ function guidePage(ctx) {
 function aboutPage() {
   return html`${pageHeader(t('About this guide'))}
     <section class="card"><h2>${t('Content review status')}</h2>
-      <p>${reviewBadge(C.CONTENT_META.review)} ${t('Version')} ${C.CONTENT_META.version}</p>
+      <p>${reviewBadge(C.CONTENT_META.review)} ${C.CONTENT_META.review.status === 'reviewed' ? t('Scholar-reviewed') : t('Pending scholar review')} · ${t('Version')} ${C.CONTENT_META.version}</p>
       <p>${t(C.CONTENT_META.note)}</p></section>
     <section class="card"><h2>${t('Your count is what counts')}</h2>
       <p>${t('The app keeps a record of your rounds and laps to help you. It is never an authority over your own count. If the app and your memory disagree, go with what you are certain of and correct the app.')}</p></section>

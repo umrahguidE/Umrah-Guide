@@ -12,10 +12,24 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
   let lastAt = 0;
   const language = () => (typeof lang === 'function' ? lang() : lang);
 
+  // Devices often ship several voices per language — a small on-device
+  // "compact" one and a much better network/neural one. speechSynthesis
+  // gives no quality field, so we rank by naming and delivery hints that
+  // reliably correlate with quality across Android, iOS/Safari and desktop
+  // Chrome/Edge, and pick the best match instead of the first one found.
+  const QUALITY_HINTS = [/neural/i, /natural/i, /enhanced/i, /premium/i, /wavenet/i, /online/i, /google/i, /siri/i];
+  const rank = (v) => {
+    let score = v.localService === false ? 5 : 0; // a network voice is almost always the better one
+    if (QUALITY_HINTS.some((re) => re.test(v.name))) score += 3;
+    if (v.default) score += 1;
+    return score;
+  };
   const voiceFor = (code) => {
     const voices = synth?.getVoices?.() ?? [];
     const want = code.toLowerCase();
-    return voices.find((v) => v.lang?.toLowerCase().replace('_', '-') === want) ?? voices.find((v) => v.lang?.toLowerCase().startsWith(want.slice(0, 2))) ?? null;
+    const exact = voices.filter((v) => v.lang?.toLowerCase().replace('_', '-') === want);
+    const sameFamily = exact.length ? exact : voices.filter((v) => v.lang?.toLowerCase().startsWith(want.slice(0, 2)));
+    return sameFamily.length ? sameFamily.reduce((best, v) => (rank(v) > rank(best) ? v : best)) : null;
   };
 
   return {
@@ -61,20 +75,50 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
 // has its own file under audio/duas/.
 export const duaClipUrl = (id) => (id === 'talbiyah' ? './audio/talbiyah.mp3' : `./audio/duas/${id}.mp3`);
 
+export const PLAYBACK_RATES = Object.freeze([0.75, 1, 1.25]);
+
 /**
- * Plays recorded recitations. Resolves false when there is no recording.
+ * Plays real recitations only (never the phone voice). One clip at a time,
+ * with a seek bar, a speed control, and a queue so a whole section — every
+ * established dua for Tawaf, say — can play back to back like a playlist.
+ * Resolves false from play() when there is no recording for that id.
  */
 export function createClipPlayer() {
   let audio = null;
   let currentId = null;
+  let rate = 1;
+  let queue = null; // { ids, index } while playing "Play all" for a section
   const missing = new Set(); // don't ask the network twice for a recording that isn't there
   let catalog = null; // audio/duas/index.json, when present, is the authoritative list
   const listeners = new Set();
-  const notify = () => listeners.forEach((fn) => fn(currentId));
+  const notify = () =>
+    listeners.forEach((fn) =>
+      fn({
+        playingId: currentId,
+        currentTime: audio?.currentTime ?? 0,
+        duration: Number.isFinite(audio?.duration) ? audio.duration : 0,
+        rate,
+        queue: queue ? { ...queue } : null,
+      }),
+    );
 
-  return {
+  function teardown() {
+    if (!audio) return;
+    audio.pause();
+    audio.removeEventListener('timeupdate', notify);
+    audio.removeEventListener('loadedmetadata', notify);
+    audio = null;
+  }
+
+  const player = {
     get playingId() {
       return currentId;
+    },
+    get duration() {
+      return Number.isFinite(audio?.duration) ? audio.duration : 0;
+    },
+    get currentTime() {
+      return audio?.currentTime ?? 0;
     },
     onChange(fn) {
       listeners.add(fn);
@@ -83,36 +127,65 @@ export function createClipPlayer() {
     setCatalog(entries) {
       catalog = new Map(Object.entries(entries));
     },
+    hasRecording(id) {
+      return Boolean(catalog?.has(id)) && !missing.has(id);
+    },
     stop() {
-      audio?.pause();
-      audio = null;
+      teardown();
       currentId = null;
+      queue = null;
       notify();
     },
-    async play(id) {
-      if (missing.has(id) || (catalog && !catalog.has(id))) return false;
-      this.stop();
-      audio = new Audio(catalog?.get(id)?.file ?? duaClipUrl(id));
-      currentId = id;
+    seek(seconds) {
+      if (audio) audio.currentTime = Math.max(0, Math.min(seconds, audio.duration || seconds));
+    },
+    setRate(next) {
+      rate = next;
+      if (audio) audio.playbackRate = rate;
       notify();
-      const done = () => {
-        if (currentId === id) {
+    },
+    /** Plays one recitation. Pass `queueIds` to chain into the next one on end (for "Play all"). */
+    async play(id, { queueIds = null } = {}) {
+      if (missing.has(id) || (catalog && !catalog.has(id))) return false;
+      teardown();
+      audio = new Audio(catalog?.get(id)?.file ?? duaClipUrl(id));
+      audio.playbackRate = rate;
+      currentId = id;
+      queue = queueIds ? { ids: queueIds, index: queueIds.indexOf(id) } : null;
+      notify();
+      audio.addEventListener('timeupdate', notify);
+      audio.addEventListener('loadedmetadata', notify);
+      const advance = async () => {
+        const q = queue;
+        const next = q && q.index >= 0 ? q.ids.slice(q.index + 1).find((next) => player.hasRecording(next)) : null;
+        if (next) await player.play(next, { queueIds: q.ids });
+        else {
           currentId = null;
+          queue = null;
           notify();
         }
       };
-      audio.addEventListener('ended', done);
+      audio.addEventListener('ended', advance);
       audio.addEventListener('error', () => {
         missing.add(id);
-        done();
+        advance();
       });
       try {
         await audio.play();
         return true;
       } catch {
-        done();
+        currentId = null;
+        queue = null;
+        notify();
         return false;
       }
     },
+    /** Plays every id in order that has a recording, skipping the rest — a "Play all" for a section. */
+    async playAll(ids) {
+      const playable = ids.filter((id) => player.hasRecording(id));
+      if (!playable.length) return false;
+      return player.play(playable[0], { queueIds: playable });
+    },
   };
+  return player;
 }
