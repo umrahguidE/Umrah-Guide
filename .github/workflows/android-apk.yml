@@ -28,6 +28,11 @@ jobs:
           java-version: '17'
 
       - uses: android-actions/setup-android@v3
+        with:
+          # Google removed the legacy standalone "tools" SDK package; the
+          # action's default ("tools platform-tools") now fails outright.
+          # Gradle downloads whatever platform/build-tools it needs itself.
+          packages: 'platform-tools'
 
       - name: Unit tests
         run: npm test
