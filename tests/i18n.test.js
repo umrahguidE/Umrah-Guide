@@ -18,6 +18,25 @@ test('every non-English pack translates every string actually used by the app', 
     for (const route of ['', 'map', 'settings', 'prep', 'ihram', 'miqat', 'duas', 'offline', 'info', 'journey', 'about', 'more', 'language']) {
       renderApp({ ...ctx(st), route: { name: route, arg: null } });
     }
+    // Settings with the voice guide on and several installed voices, so the
+    // manual voice-picker (a real UI branch, not just the toggle) is exercised.
+    const withVoices = ctx(st);
+    withVoices.ui.voice = {
+      available: true,
+      enabled: true,
+      voiceURI: null,
+      voices: [
+        { uri: 'a', name: 'Voice A', isDefault: true },
+        { uri: 'b', name: 'Voice B', isDefault: false },
+      ],
+    };
+    renderApp({ ...withVoices, route: { name: 'settings', arg: null } });
+    // Settings when the phone has zero voices for the app's language at all —
+    // the exact case that silently fell back to a foreign voice before this
+    // was surfaced with an explanation.
+    const noVoice = ctx(st);
+    noVoice.ui.voice = { available: true, enabled: true, voiceURI: null, voices: [] };
+    renderApp({ ...noVoice, route: { name: 'settings', arg: null } });
     renderApp(ctx(st));
     step({ type: EV.NEXT });
     for (const key of IHRAM_CHECKS) step({ type: EV.TOGGLE_CHECK, key, value: true });

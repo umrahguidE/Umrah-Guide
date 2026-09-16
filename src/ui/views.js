@@ -26,7 +26,7 @@ export function createUiState({ simulate = false } = {}) {
     miqatReading: null,
     offline: null,
     audio: { playing: false, loop: false, missing: false },
-    voice: { available: false, enabled: false },
+    voice: { available: false, enabled: false, voiceURI: null, voices: [] },
     playback: { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null },
     map: { live: false, trail: [], position: null, accuracyM: null, error: null },
     miqatWatching: false,
@@ -1034,6 +1034,16 @@ function settingsPage(ctx) {
       ${v.available
         ? html`<label class="check"><input type="checkbox" data-action="voice-toggle" ${v.enabled ? 'checked' : ''}>
             <span><b>${t('Voice guide')}</b><small>${t('The phone voice never reads Arabic — duas are played from real recitations.')}</small></span></label>
+          ${(v.voices ?? []).length === 0
+            ? html`<p class="alert warn">${t('Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.', { language: languageInfo().native })}</p>`
+            : v.voices.length > 1
+              ? html`<label class="field"><span>${t('Voice')}</span>
+                  <select data-action="voice-select">
+                    <option value="" ${!v.voiceURI ? 'selected' : ''}>${t('Automatic (recommended)')}</option>
+                    ${v.voices.map((opt) => html`<option value="${opt.uri}" ${opt.uri === v.voiceURI ? 'selected' : ''}>${opt.name}${opt.isDefault ? ` — ${t('suggested')}` : ''}</option>`)}
+                  </select></label>
+                  <p class="muted">${t('Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.')}</p>`
+              : html`<p class="muted">${t('Your phone only offers one voice for this language.')}</p>`}
           <button class="btn" data-action="voice-test">▶ ${t('Test the voice')}</button>`
         : html`<p class="alert warn">${t('This device or browser has no speech voice available.')}</p>`}
     </section>

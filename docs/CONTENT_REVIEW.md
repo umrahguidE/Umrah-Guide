@@ -346,12 +346,34 @@ Coordinates are approximate and must also be verified.
 - [ ] **Tawaf note:** There is no fixed dua that must be said in each of the seven rounds. Booklets that give a special dua for “Round 1”, “Round 2” and so on are not a requirement. Make dhikr and dua and recite Qur’an; the items marked for Tawaf below belong to particular places.
 - [ ] **Sa’i note:** There is no fixed dua for each lap of Sa’i. The established words are said at Safa and Marwah; between them, make any dua, dhikr or Qur’an.
 
-## 5. Hair
+## 5. Audio recitations
+
+Every clip below is a real reciter’s recording, fetched at build time — never the phone’s speech engine. **Please listen to each one and confirm it actually recites the Arabic shown on its card, in full and correctly** — this is the one thing in this sheet that cannot be checked by reading, only by ear.
+
+### Qur’an (by surah:ayah — unambiguous, but still worth a listen)
+- [ ] **Between the Yemeni Corner and the Black Stone** (Qur’an 2:201) — reciter: Maḥmūd Khalīl al-Ḥuṣarī (murattal). Card Arabic: رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ
+- [ ] **At Maqām Ibrāhīm** (Qur’an 2:125) — reciter: Maḥmūd Khalīl al-Ḥuṣarī (murattal). Card Arabic: وَاتَّخِذُوا مِنْ مَقَامِ إِبْرَاهِيمَ مُصَلًّى
+- [ ] **Approaching Safa** (Qur’an 2:158) — reciter: Maḥmūd Khalīl al-Ḥuṣarī (murattal). Card Arabic: إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَائِرِ اللَّهِ ۝ أَبْدَأُ بِمَا بَدَأَ اللَّهُ بِهِ
+
+### Ḥiṣn al-Muslim duas
+
+⚠️ **Numbering caution:** hisnmuslim.com publishes at least two different numbering schemes — a ~132-chapter index and this flat per-recording audio numbering (`hisnmuslim.com/audio/ar/{item}.mp3`), and they do **not** line up. The item numbers below follow the flat audio numbering used by long-established Hisn al-Muslim apps, but this could not be independently re-confirmed against an authoritative published mapping during this update. Treat every item below as unverified until a reviewer has listened to it.
+
+- [ ] **Talbiyah** — Ḥiṣn al-Muslim item 233 (`hisnmuslim.com/audio/ar/233.mp3`). Card Arabic: لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ
+- [ ] **Entering the mosque** — Ḥiṣn al-Muslim item 20 (`hisnmuslim.com/audio/ar/20.mp3`). Card Arabic: أَعُوذُ بِاللَّهِ الْعَظِيمِ، وَبِوَجْهِهِ الْكَرِيمِ، وَسُلْطَانِهِ الْقَدِيمِ، مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ
+- [ ] **Leaving the mosque** — Ḥiṣn al-Muslim item 21 (`hisnmuslim.com/audio/ar/21.mp3`). Card Arabic: بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ، اللَّهُمَّ اعْصِمْنِي مِنَ الشَّيْطَانِ الرَّجِيمِ
+- [ ] **At the Black Stone** — Ḥiṣn al-Muslim item 234 (`hisnmuslim.com/audio/ar/234.mp3`) — recording reads the surrounding hadith, not only the dua. Card Arabic: اللَّهُ أَكْبَرُ
+- [ ] **On Safa and on Marwah** — Ḥiṣn al-Muslim item 236 (`hisnmuslim.com/audio/ar/236.mp3`) — recording reads the surrounding hadith, not only the dua. Card Arabic: لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ، أَنْجَزَ وَعْدَهُ، وَنَصَرَ عَبْدَهُ، وَهَزَمَ الْأَحْزَابَ وَحْدَهُ
+- [ ] **Seeking forgiveness** — Ḥiṣn al-Muslim item 250 (`hisnmuslim.com/audio/ar/250.mp3`) — recording reads the surrounding hadith, not only the dua. Card Arabic: أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ
+- [ ] **A treasure of Paradise** — Ḥiṣn al-Muslim item 260 (`hisnmuslim.com/audio/ar/260.mp3`) — recording reads the surrounding hadith, not only the dua. Card Arabic: لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ
+- [ ] **The four most beloved words** — Ḥiṣn al-Muslim item 261 (`hisnmuslim.com/audio/ar/261.mp3`) — recording reads the surrounding hadith, not only the dua. Card Arabic: سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ
+
+## 6. Hair
 - [ ] **male:** Shave (ḥalq) — Shave the whole head. This is more virtuous for men.
 - [ ] **male:** Shorten (taqṣīr) — Shorten hair from all over the head, not just a few strands.
 - [ ] **female:** Shorten hair — Gather the hair and cut about a fingertip’s length (around 2 cm) from the ends. Women do not shave.
 
-## 6. Practical information
+## 7. Practical information
 - [ ] Unified emergency number: 911
 - [ ] Ambulance (Saudi Red Crescent): 997
 - [ ] Police: 999
@@ -362,7 +384,7 @@ Coordinates are approximate and must also be verified.
 - [ ] **Makkah guide:** Carry a card with your name, hotel, group and leader’s phone number.
 - [ ] **Madinah guide:** Visiting Madinah is not part of the Umrah rites — your Umrah is complete without it.
 
-## 7. Voice guide (spoken aloud)
+## 8. Voice guide (spoken aloud)
 
 Transliterations here are spelled for the speech engine, not for the screen.
 

@@ -616,4 +616,12 @@ export default {
   "MARWAH": "MARWAH",
   "START": "START",
   "Maqām Ibrāhīm": "Maqām Ibrāhīm",
+  // Manual voice-picker in Settings (English/other narration voice, never Arabic).
+  "Voice": "آواز",
+  "Automatic (recommended)": "خودکار (تجویز کردہ)",
+  "suggested": "تجویز کردہ",
+  "Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.": "آواز پسند نہیں آئی؟ آپ کا فون اس زبان کے لیے کئی آوازیں پیش کر سکتا ہے — اوپر کوئی اور آزمائیں۔",
+  "Your phone only offers one voice for this language.": "آپ کا فون اس زبان کے لیے صرف ایک آواز پیش کرتا ہے۔",
+  // Honest explanation when the phone has zero voices for the app language.
+  "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "آپ کے فون میں {language} کی کوئی آواز انسٹال نہیں ہے، اس لیے یہ اس کے بجائے آپ کے فون کی ڈیفالٹ زبان میں بولے گا۔ اسے ٹھیک کرنے کے لیے، اپنے فون کی سیٹنگز → زبان اور ان پٹ → ٹیکسٹ ٹو اسپیچ آؤٹ پٹ → وائس ڈیٹا انسٹال کریں میں جا کر {language} شامل کریں۔",
 };

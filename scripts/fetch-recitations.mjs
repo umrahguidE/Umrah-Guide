@@ -18,33 +18,7 @@
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-
-export const RECITERS = {
-  husary: { name: 'Maḥmūd Khalīl al-Ḥuṣarī (murattal)', path: 'Husary_128kbps' },
-  alafasy: { name: 'Mishary Rāshid al-ʿAfāsy', path: 'Alafasy_128kbps' },
-  abdulbasit: { name: 'ʿAbd al-Bāsiṭ ʿAbd aṣ-Ṣamad (murattal)', path: 'Abdul_Basit_Murattal_192kbps' },
-  minshawi: { name: 'Muḥammad Ṣiddīq al-Minshāwī (murattal)', path: 'Minshawy_Murattal_128kbps' },
-  sudais: { name: 'ʿAbd ar-Raḥmān as-Sudais', path: 'Abdurrahmaan_As-Sudais_192kbps' },
-};
-
-// Dua card → Qur'anic verse. The card may show part of the verse; the recitation is the whole āyah.
-export const QURAN = {
-  'yemeni-corner': { surah: 2, ayah: 201, label: 'Qur’an 2:201' },
-  maqam: { surah: 2, ayah: 125, label: 'Qur’an 2:125' },
-  'safa-verse': { surah: 2, ayah: 158, label: 'Qur’an 2:158' },
-};
-
-// Dua card → Ḥiṣn al-Muslim item (hisnmuslim.com/api). `narration` = the recording reads the hadith around the dua.
-export const HISN = {
-  talbiyah: { item: 233, file: 'audio/talbiyah.mp3', narration: false },
-  'enter-mosque': { item: 20, narration: false },
-  'leave-mosque': { item: 21, narration: false },
-  'black-stone': { item: 234, narration: true },
-  'safa-marwah-dhikr': { item: 236, narration: true },
-  istighfar: { item: 250, narration: true },
-  hawqala: { item: 260, narration: true },
-  'four-words': { item: 261, narration: true },
-};
+import { RECITERS, QURAN, HISN } from './recitation-sources.mjs';
 
 const key = (process.argv[2] ?? 'husary').toLowerCase();
 const reciter = RECITERS[key];

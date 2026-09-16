@@ -616,4 +616,12 @@ export default {
   "MARWAH": "MARWAH",
   "START": "START",
   "Maqām Ibrāhīm": "Maqām Ibrāhīm",
+  // Manual voice-picker in Settings (English/other narration voice, never Arabic).
+  "Voice": "Suara",
+  "Automatic (recommended)": "Otomatis (disarankan)",
+  "suggested": "disarankan",
+  "Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.": "Tidak suka dengan suaranya? Ponsel Anda mungkin menawarkan beberapa suara untuk bahasa ini — coba yang lain di atas.",
+  "Your phone only offers one voice for this language.": "Ponsel Anda hanya menawarkan satu suara untuk bahasa ini.",
+  // Honest explanation when the phone has zero voices for the app language.
+  "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "Ponsel Anda tidak memiliki suara {language} yang terpasang, jadi ini akan berbicara dalam bahasa default ponsel Anda. Untuk memperbaikinya, tambahkan {language} di Pengaturan ponsel Anda → Bahasa & masukan → Keluaran text-to-speech → Instal data suara.",
 };

@@ -10,6 +10,7 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
   let enabled = false;
   let lastKey = null;
   let lastAt = 0;
+  let preferredURI = null; // pilgrim's manual pick for the current language, if any
   const language = () => (typeof lang === 'function' ? lang() : lang);
 
   // Devices often ship several voices per language — a small on-device
@@ -17,6 +18,9 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
   // gives no quality field, so we rank by naming and delivery hints that
   // reliably correlate with quality across Android, iOS/Safari and desktop
   // Chrome/Edge, and pick the best match instead of the first one found.
+  // This is only a starting guess: the pilgrim can always override it from
+  // Settings, because no heuristic can know which installed voice actually
+  // sounds good to a given ear on a given device.
   const QUALITY_HINTS = [/neural/i, /natural/i, /enhanced/i, /premium/i, /wavenet/i, /online/i, /google/i, /siri/i];
   const rank = (v) => {
     let score = v.localService === false ? 5 : 0; // a network voice is almost always the better one
@@ -24,12 +28,20 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
     if (v.default) score += 1;
     return score;
   };
-  const voiceFor = (code) => {
+  const voicesForLanguage = (code) => {
     const voices = synth?.getVoices?.() ?? [];
     const want = code.toLowerCase();
     const exact = voices.filter((v) => v.lang?.toLowerCase().replace('_', '-') === want);
-    const sameFamily = exact.length ? exact : voices.filter((v) => v.lang?.toLowerCase().startsWith(want.slice(0, 2)));
-    return sameFamily.length ? sameFamily.reduce((best, v) => (rank(v) > rank(best) ? v : best)) : null;
+    return exact.length ? exact : voices.filter((v) => v.lang?.toLowerCase().startsWith(want.slice(0, 2)));
+  };
+  const voiceFor = (code) => {
+    const candidates = voicesForLanguage(code);
+    if (!candidates.length) return null;
+    if (preferredURI) {
+      const chosen = candidates.find((v) => v.voiceURI === preferredURI);
+      if (chosen) return chosen;
+    }
+    return candidates.reduce((best, v) => (rank(v) > rank(best) ? v : best));
   };
 
   return {
@@ -46,6 +58,20 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
     /** True when the phone has a voice for the current language. */
     get hasVoiceForLanguage() {
       return Boolean(voiceFor(language()));
+    },
+    /** Every installed voice for the current language, best guess first. */
+    listVoices() {
+      return voicesForLanguage(language())
+        .slice()
+        .sort((a, b) => rank(b) - rank(a))
+        .map((v) => ({ uri: v.voiceURI, name: v.name, isDefault: v.voiceURI === voiceFor(language())?.voiceURI }));
+    },
+    get preferredVoiceURI() {
+      return preferredURI;
+    },
+    /** Pilgrim's manual override. Pass null to go back to automatic ranking. */
+    set preferredVoiceURI(uri) {
+      preferredURI = uri || null;
     },
     /** Speaks a line. The same line is not repeated within a few seconds. */
     say(text, { key = text, interrupt = false, force = false } = {}) {

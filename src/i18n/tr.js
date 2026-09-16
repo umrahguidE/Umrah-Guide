@@ -616,4 +616,12 @@ export default {
   "MARWAH": "MARWAH",
   "START": "START",
   "Maqām Ibrāhīm": "Maqām Ibrāhīm",
+  // Manual voice-picker in Settings (English/other narration voice, never Arabic).
+  "Voice": "Ses",
+  "Automatic (recommended)": "Otomatik (önerilen)",
+  "suggested": "önerilen",
+  "Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.": "Sesini beğenmediniz mi? Telefonunuz bu dil için birkaç ses sunabilir — yukarıdan başka birini deneyin.",
+  "Your phone only offers one voice for this language.": "Telefonunuz bu dil için yalnızca bir ses sunuyor.",
+  // Honest explanation when the phone has zero voices for the app language.
+  "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "Telefonunuzda {language} sesi yüklü değil, bu yüzden bunun yerine telefonunuzun varsayılan dilinde konuşacak. Bunu düzeltmek için telefonunuzun Ayarlar → Dil ve giriş → Metinden sese çıkışı → Ses verisi yükle bölümünden {language} ekleyin.",
 };

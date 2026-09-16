@@ -4,6 +4,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import * as C from '../src/data/content.js';
 import * as V from '../src/data/voice-lines.js';
 import * as T from '../src/engine/tracking.js';
+import { RECITERS, QURAN, HISN } from './recitation-sources.mjs';
 
 const out = [];
 const line = (s = '') => out.push(s);
@@ -72,16 +73,36 @@ item(`**Tawaf note:** ${C.TAWAF_DUA_NOTE}`);
 item(`**Sa’i note:** ${C.SAI_DUA_NOTE}`);
 
 line();
-line('## 5. Hair');
+line('## 5. Audio recitations');
+line();
+line('Every clip below is a real reciter’s recording, fetched at build time — never the phone’s speech engine. **Please listen to each one and confirm it actually recites the Arabic shown on its card, in full and correctly** — this is the one thing in this sheet that cannot be checked by reading, only by ear.');
+line();
+line('### Qur’an (by surah:ayah — unambiguous, but still worth a listen)');
+for (const [id, v] of Object.entries(QURAN)) {
+  const d = C.DUAS.find((x) => x.id === id);
+  item(`**${d?.title ?? id}** (${v.label}) — reciter: ${RECITERS.husary.name}. Card Arabic: ${d?.arabic ?? '(not found in content.js)'}`);
+}
+line();
+line('### Ḥiṣn al-Muslim duas');
+line();
+line('⚠️ **Numbering caution:** hisnmuslim.com publishes at least two different numbering schemes — a ~132-chapter index and this flat per-recording audio numbering (`hisnmuslim.com/audio/ar/{item}.mp3`), and they do **not** line up. The item numbers below follow the flat audio numbering used by long-established Hisn al-Muslim apps, but this could not be independently re-confirmed against an authoritative published mapping during this update. Treat every item below as unverified until a reviewer has listened to it.');
+line();
+for (const [id, h] of Object.entries(HISN)) {
+  const d = C.DUAS.find((x) => x.id === id);
+  item(`**${d?.title ?? id}** — Ḥiṣn al-Muslim item ${h.item} (\`hisnmuslim.com/audio/ar/${h.item}.mp3\`)${h.narration ? ' — recording reads the surrounding hadith, not only the dua' : ''}. Card Arabic: ${d?.arabic ?? '(not found in content.js)'}`);
+}
+
+line();
+line('## 6. Hair');
 for (const [gender, opts] of Object.entries(C.HAIR_OPTIONS)) for (const o of opts) item(`**${gender}:** ${o.label} — ${o.note}`);
 
 line();
-line('## 6. Practical information');
+line('## 7. Practical information');
 for (const e of C.EMERGENCY_NUMBERS) item(`${e.label}: ${e.number}`);
 for (const g of Object.values(C.GUIDES)) for (const p of g.points) item(`**${g.title}:** ${p}`);
 
 line();
-line('## 7. Voice guide (spoken aloud)');
+line('## 8. Voice guide (spoken aloud)');
 line();
 line('Transliterations here are spelled for the speech engine, not for the screen.');
 line();

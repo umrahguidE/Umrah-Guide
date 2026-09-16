@@ -616,4 +616,12 @@ export default {
   "MARWAH": "MARWAH",
   "START": "START",
   "Maqām Ibrāhīm": "Maqām Ibrāhīm",
+  // Manual voice-picker in Settings (English/other narration voice, never Arabic).
+  "Voice": "குரல்",
+  "Automatic (recommended)": "தானியங்கி (பரிந்துரைக்கப்படுகிறது)",
+  "suggested": "பரிந்துரைக்கப்பட்டது",
+  "Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.": "குரல் பிடிக்கவில்லையா? உங்கள் தொலைபேசி இந்த மொழிக்கு பல குரல்களை வழங்கக்கூடும் — மேலே வேறொன்றை முயற்சிக்கவும்.",
+  "Your phone only offers one voice for this language.": "உங்கள் தொலைபேசி இந்த மொழிக்கு ஒரே ஒரு குரலை மட்டுமே வழங்குகிறது.",
+  // Honest explanation when the phone has zero voices for the app language.
+  "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "உங்கள் தொலைபேசியில் {language} குரல் நிறுவப்படவில்லை, எனவே இது அதற்குப் பதிலாக உங்கள் தொலைபேசியின் இயல்புமொழியில் பேசும். இதைச் சரிசெய்ய, உங்கள் தொலைபேசியின் அமைப்புகள் → மொழி & உள்ளீடு → எழுத்திலிருந்து-பேச்சு வெளியீடு → குரல் தரவை நிறுவவும் என்பதில் {language} சேர்க்கவும்.",
 };

@@ -38,7 +38,16 @@ const trail = createTrail();
 const voice = createVoice({ lang: () => languageInfo().speech });
 const clips = createClipPlayer();
 voice.enabled = prefs.voice.enabled;
-Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled });
+voice.preferredVoiceURI = prefs.voice.voiceURI;
+Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled, voiceURI: prefs.voice.voiceURI, voices: [] });
+// The device may report its voice list asynchronously (Chrome/Edge fire
+// "voiceschanged" once loaded); refresh ours whenever that happens or the
+// spoken language changes, so the picker in Settings is never stale.
+function refreshVoiceList() {
+  ui.voice.available = voice.available;
+  ui.voice.voices = voice.listVoices();
+}
+refreshVoiceList();
 ui.stepLengthM = prefs.stepLengthM;
 // Playback ticks several times a second (the seek bar); redraw at the same
 // calm pace as GPS updates rather than on every tick — and never while a
@@ -369,6 +378,7 @@ const actions = {
     document.documentElement.dir = languageInfo().dir;
     savePrefs(prefs);
     voice.stop();
+    refreshVoiceList();
     if (location.hash.startsWith('#/language')) location.hash = '#/';
     render();
     const s = state.session;
@@ -503,6 +513,20 @@ const actions = {
     voice.enabled = true;
     ui.voice.enabled = true;
     say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true, interrupt: true });
+    render();
+  },
+  // Automatic ranking is only a best guess at which installed voice sounds
+  // good; the pilgrim can pick a specific one for their language instead.
+  'voice-select'(el) {
+    const uri = el.value || null;
+    voice.preferredVoiceURI = uri;
+    ui.voice.voiceURI = uri;
+    prefs.voice.voiceURI = uri;
+    savePrefs(prefs);
+    refreshVoiceList();
+    voice.enabled = true;
+    ui.voice.enabled = true;
+    say(t('Voice guide on.'), { force: true, interrupt: true });
     render();
   },
   // Recitations only: a real reciter's recording, never the phone voice.
@@ -652,7 +676,8 @@ if ('mediaSession' in navigator && 'MediaMetadata' in window) {
   navigator.mediaSession.metadata = new MediaMetadata({ title: 'Talbiyah', artist: 'Guided Umrah' });
 }
 globalThis.speechSynthesis?.addEventListener?.('voiceschanged', () => {
-  ui.voice.available = voice.available;
+  refreshVoiceList();
+  render();
 });
 
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
