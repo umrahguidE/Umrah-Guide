@@ -116,6 +116,16 @@ export function createClipPlayer() {
   let queue = null; // { ids, index } while playing "Play all" for a section
   const missing = new Set(); // don't ask the network twice for a recording that isn't there
   let catalog = null; // audio/duas/index.json, when present, is the authoritative list
+  let preferredReciter = null; // pilgrim's choice of Qur'an reciter, when the clip offers alternates
+
+  /** The file to actually play for `id` — the pilgrim's preferred reciter's
+   * recording if this clip offers one, else whatever the catalog names, else
+   * the conventional path (for a device with no catalog loaded yet). */
+  function urlFor(id) {
+    const entry = catalog?.get(id);
+    const alt = preferredReciter && entry?.alternates?.[preferredReciter];
+    return alt?.file ?? entry?.file ?? duaClipUrl(id);
+  }
   const listeners = new Set();
   const notify = () =>
     listeners.forEach((fn) =>
@@ -156,6 +166,16 @@ export function createClipPlayer() {
     hasRecording(id) {
       return Boolean(catalog?.has(id)) && !missing.has(id);
     },
+    get preferredReciter() {
+      return preferredReciter;
+    },
+    set preferredReciter(key) {
+      preferredReciter = key || null;
+    },
+    /** Reciters offering an alternate recording of this specific clip, if any. */
+    recitersFor(id) {
+      return catalog?.get(id)?.alternates ?? null;
+    },
     stop() {
       teardown();
       currentId = null;
@@ -174,7 +194,7 @@ export function createClipPlayer() {
     async play(id, { queueIds = null } = {}) {
       if (missing.has(id) || (catalog && !catalog.has(id))) return false;
       teardown();
-      audio = new Audio(catalog?.get(id)?.file ?? duaClipUrl(id));
+      audio = new Audio(urlFor(id));
       audio.playbackRate = rate;
       currentId = id;
       queue = queueIds ? { ids: queueIds, index: queueIds.indexOf(id) } : null;

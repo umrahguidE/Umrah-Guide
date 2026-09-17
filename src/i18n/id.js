@@ -624,4 +624,12 @@ export default {
   "Your phone only offers one voice for this language.": "Ponsel Anda hanya menawarkan satu suara untuk bahasa ini.",
   // Honest explanation when the phone has zero voices for the app language.
   "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "Ponsel Anda tidak memiliki suara {language} yang terpasang, jadi ini akan berbicara dalam bahasa default ponsel Anda. Untuk memperbaikinya, tambahkan {language} di Pengaturan ponsel Anda → Bahasa & masukan → Keluaran text-to-speech → Instal data suara.",
+  // Qur'an reciter picker and text-size option in Settings.
+  "Qur’an reciter": "Qari Al-Qur'an",
+  "Default ({name})": "Bawaan ({name})",
+  "Applies to the 3 Qur’anic verses (Yemeni Corner, Maqām Ibrāhīm, Safa). The Sunnah duas are a single fixed recording each.": "Berlaku untuk 3 ayat Al-Qur'an (Rukun Yamani, Maqam Ibrahim, Safa). Doa-doa Sunnah masing-masing hanya memiliki satu rekaman tetap.",
+  "Text size": "Ukuran teks",
+  "Normal": "Normal",
+  "Large": "Besar",
+  "Extra large": "Sangat besar",
 };

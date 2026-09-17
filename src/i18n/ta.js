@@ -624,4 +624,12 @@ export default {
   "Your phone only offers one voice for this language.": "உங்கள் தொலைபேசி இந்த மொழிக்கு ஒரே ஒரு குரலை மட்டுமே வழங்குகிறது.",
   // Honest explanation when the phone has zero voices for the app language.
   "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "உங்கள் தொலைபேசியில் {language} குரல் நிறுவப்படவில்லை, எனவே இது அதற்குப் பதிலாக உங்கள் தொலைபேசியின் இயல்புமொழியில் பேசும். இதைச் சரிசெய்ய, உங்கள் தொலைபேசியின் அமைப்புகள் → மொழி & உள்ளீடு → எழுத்திலிருந்து-பேச்சு வெளியீடு → குரல் தரவை நிறுவவும் என்பதில் {language} சேர்க்கவும்.",
+  // Qur'an reciter picker and text-size option in Settings.
+  "Qur’an reciter": "குர்ஆன் ஓதுநர்",
+  "Default ({name})": "இயல்பிருப்பு ({name})",
+  "Applies to the 3 Qur’anic verses (Yemeni Corner, Maqām Ibrāhīm, Safa). The Sunnah duas are a single fixed recording each.": "இது 3 குர்ஆன் வசனங்களுக்கு (யமனி மூலை, மகாமு இப்ராஹீம், ஸஃபா) பொருந்தும். சுன்னாவின் ஒவ்வொரு துஆவுக்கும் ஒரே ஒரு நிலையான பதிவு உள்ளது.",
+  "Text size": "எழுத்து அளவு",
+  "Normal": "இயல்பு",
+  "Large": "பெரிது",
+  "Extra large": "மிகப் பெரிது",
 };

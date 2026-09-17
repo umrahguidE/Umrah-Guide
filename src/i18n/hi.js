@@ -624,4 +624,12 @@ export default {
   "Your phone only offers one voice for this language.": "आपका फ़ोन इस भाषा के लिए केवल एक ही आवाज़ देता है।",
   // Honest explanation when the phone has zero voices for the app language.
   "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "आपके फ़ोन में {language} की कोई आवाज़ इंस्टॉल नहीं है, इसलिए यह इसके बजाय आपके फ़ोन की डिफ़ॉल्ट भाषा में बोलेगा। इसे ठीक करने के लिए, अपने फ़ोन की सेटिंग्स → भाषा और इनपुट → टेक्स्ट-टू-स्पीच आउटपुट → वॉइस डेटा इंस्टॉल करें में जाकर {language} जोड़ें।",
+  // Qur'an reciter picker and text-size option in Settings.
+  "Qur’an reciter": "क़ुरआन पाठक",
+  "Default ({name})": "डिफ़ॉल्ट ({name})",
+  "Applies to the 3 Qur’anic verses (Yemeni Corner, Maqām Ibrāhīm, Safa). The Sunnah duas are a single fixed recording each.": "यह 3 क़ुरआनी आयतों (यमनी कोना, मक़ाम इब्राहीम, सफ़ा) पर लागू होता है। सुन्नत की दुआओं में से हर एक की एक ही तय रिकॉर्डिंग है।",
+  "Text size": "अक्षर का आकार",
+  "Normal": "सामान्य",
+  "Large": "बड़ा",
+  "Extra large": "अतिरिक्त बड़ा",
 };

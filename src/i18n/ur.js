@@ -624,4 +624,12 @@ export default {
   "Your phone only offers one voice for this language.": "آپ کا فون اس زبان کے لیے صرف ایک آواز پیش کرتا ہے۔",
   // Honest explanation when the phone has zero voices for the app language.
   "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "آپ کے فون میں {language} کی کوئی آواز انسٹال نہیں ہے، اس لیے یہ اس کے بجائے آپ کے فون کی ڈیفالٹ زبان میں بولے گا۔ اسے ٹھیک کرنے کے لیے، اپنے فون کی سیٹنگز → زبان اور ان پٹ → ٹیکسٹ ٹو اسپیچ آؤٹ پٹ → وائس ڈیٹا انسٹال کریں میں جا کر {language} شامل کریں۔",
+  // Qur'an reciter picker and text-size option in Settings.
+  "Qur’an reciter": "قاری قرآن",
+  "Default ({name})": "پہلے سے طے شدہ ({name})",
+  "Applies to the 3 Qur’anic verses (Yemeni Corner, Maqām Ibrāhīm, Safa). The Sunnah duas are a single fixed recording each.": "یہ 3 قرآنی آیات (یمنی کونا، مقامِ ابراہیم، صفا) پر لاگو ہوتا ہے۔ سنت کی ہر دعا کی صرف ایک مقررہ ریکارڈنگ ہے۔",
+  "Text size": "تحریر کا سائز",
+  "Normal": "عام",
+  "Large": "بڑا",
+  "Extra large": "مزید بڑا",
 };

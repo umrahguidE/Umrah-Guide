@@ -37,6 +37,17 @@ test('every non-English pack translates every string actually used by the app', 
     const noVoice = ctx(st);
     noVoice.ui.voice = { available: true, enabled: true, voiceURI: null, voices: [] };
     renderApp({ ...noVoice, route: { name: 'settings', arg: null } });
+    // Settings with a multi-reciter recording catalog and a non-default text
+    // size chosen, so the reciter picker and text-size buttons are exercised.
+    const withReciters = ctx(st);
+    withReciters.ui.recitations = {
+      quranReciter: 'Reciter A',
+      reciters: { a: 'Reciter A', b: 'Reciter B' },
+      files: {},
+      sources: ['example.com'],
+    };
+    withReciters.prefs = { ...withReciters.prefs, reciter: 'b', textScale: 1.15 };
+    renderApp({ ...withReciters, route: { name: 'settings', arg: null } });
     renderApp(ctx(st));
     step({ type: EV.NEXT });
     for (const key of IHRAM_CHECKS) step({ type: EV.TOGGLE_CHECK, key, value: true });

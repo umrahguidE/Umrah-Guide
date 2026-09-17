@@ -25,6 +25,7 @@ const ui = createUiState({ simulate });
 setLanguage(prefs.language ?? 'en');
 document.documentElement.lang = getLanguage();
 document.documentElement.dir = languageInfo().dir;
+document.documentElement.style.setProperty('--text-scale', prefs.textScale ?? 1);
 
 // Errors that just mean "that tap was a duplicate" — ignore silently.
 const QUIET_ERRORS = new Set(['STALE', 'ALREADY_PAUSED', 'NOT_PAUSED']);
@@ -37,6 +38,7 @@ const trail = createTrail();
 
 const voice = createVoice({ lang: () => languageInfo().speech });
 const clips = createClipPlayer();
+clips.preferredReciter = prefs.reciter;
 voice.enabled = prefs.voice.enabled;
 voice.preferredVoiceURI = prefs.voice.voiceURI;
 Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled, voiceURI: prefs.voice.voiceURI, voices: [] });
@@ -527,6 +529,22 @@ const actions = {
     voice.enabled = true;
     ui.voice.enabled = true;
     say(t('Voice guide on.'), { force: true, interrupt: true });
+    render();
+  },
+  // Which of the 5 Qur'an reciters plays for the 3 verses that offer a
+  // choice. Sunnah duas are a single fixed recording — no choice to make.
+  'set-reciter'(el) {
+    const key = el.value || null;
+    clips.preferredReciter = key;
+    prefs.reciter = key;
+    savePrefs(prefs);
+    render();
+  },
+  'set-text-size'(el) {
+    const scale = Number(el.dataset.scale) || 1;
+    prefs.textScale = scale;
+    savePrefs(prefs);
+    document.documentElement.style.setProperty('--text-scale', scale);
     render();
   },
   // Recitations only: a real reciter's recording, never the phone voice.

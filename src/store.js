@@ -39,6 +39,8 @@ export const defaultPrefs = () => ({
   language: null,
   voice: { enabled: true, voiceURI: null },
   stepLengthM: null,
+  reciter: null, // null = whichever reciter each recording was bundled with by default
+  textScale: 1, // 1 = normal, 1.15 = large, 1.3 = extra large
 });
 
 export const loadPrefs = () => {

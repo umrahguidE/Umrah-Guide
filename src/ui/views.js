@@ -1052,8 +1052,24 @@ function settingsPage(ctx) {
       ${rec
         ? html`<p>${t('{n} recitations are on this device.', { n: Object.keys(rec.files ?? {}).length })}</p>
           <p>${t('Qur’anic verses recited by {name}.', { name: rec.quranReciter ?? rec.reciter })}</p>
-          <p class="muted">${(rec.sources ?? []).join(' · ')}</p>`
+          <p class="muted">${(rec.sources ?? []).join(' · ')}</p>
+          ${rec.reciters && Object.keys(rec.reciters).length > 1
+            ? html`<label class="field"><span>${t('Qur’an reciter')}</span>
+                <select data-action="set-reciter">
+                  <option value="" ${!ctx.prefs.reciter ? 'selected' : ''}>${t('Default ({name})', { name: rec.quranReciter })}</option>
+                  ${Object.entries(rec.reciters).map(([key, name]) => html`<option value="${key}" ${key === ctx.prefs.reciter ? 'selected' : ''}>${name}</option>`)}
+                </select></label>
+                <p class="muted">${t('Applies to the 3 Qur’anic verses (Yemeni Corner, Maqām Ibrāhīm, Safa). The Sunnah duas are a single fixed recording each.')}</p>`
+            : ''}`
         : html`<p class="muted">${t('No recitations on this device yet. They are included when the app is built.')}</p>`}
+    </section>
+    <section class="card">
+      <h2>🔠 ${t('Text size')}</h2>
+      <div class="row">
+        <button class="btn ${!ctx.prefs.textScale || ctx.prefs.textScale === 1 ? 'primary' : ''}" data-action="set-text-size" data-scale="1">${t('Normal')}</button>
+        <button class="btn ${ctx.prefs.textScale === 1.15 ? 'primary' : ''}" data-action="set-text-size" data-scale="1.15">${t('Large')}</button>
+        <button class="btn ${ctx.prefs.textScale === 1.3 ? 'primary' : ''}" data-action="set-text-size" data-scale="1.3">${t('Extra large')}</button>
+      </div>
     </section>
     <section class="card">
       <h2>📡 ${t('Counting')}</h2>

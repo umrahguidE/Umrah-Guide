@@ -624,4 +624,12 @@ export default {
   "Your phone only offers one voice for this language.": "Telefonunuz bu dil için yalnızca bir ses sunuyor.",
   // Honest explanation when the phone has zero voices for the app language.
   "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "Telefonunuzda {language} sesi yüklü değil, bu yüzden bunun yerine telefonunuzun varsayılan dilinde konuşacak. Bunu düzeltmek için telefonunuzun Ayarlar → Dil ve giriş → Metinden sese çıkışı → Ses verisi yükle bölümünden {language} ekleyin.",
+  // Qur'an reciter picker and text-size option in Settings.
+  "Qur’an reciter": "Kur'an okuyucusu",
+  "Default ({name})": "Varsayılan ({name})",
+  "Applies to the 3 Qur’anic verses (Yemeni Corner, Maqām Ibrāhīm, Safa). The Sunnah duas are a single fixed recording each.": "3 Kur'an ayetine uygulanır (Yemani Köşe, Makam-ı İbrahim, Safa). Sünnet dualarının her birinin tek bir sabit kaydı vardır.",
+  "Text size": "Yazı boyutu",
+  "Normal": "Normal",
+  "Large": "Büyük",
+  "Extra large": "Çok büyük",
 };
