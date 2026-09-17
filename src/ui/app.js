@@ -95,10 +95,29 @@ function renderLive() {
   }, wait);
 }
 
-// Spoken guidance never talks over a recitation.
-const say = (text, options) => {
-  if (!text || clips.playingId || !talbiyahAudio.paused) return false;
-  return voice.say(text, options);
+// Spoken guidance never talks over a recitation. `textOrFn` is normally a
+// function (so it can be re-run under English below); a plain string still
+// works for one-off cases with no fallback-language subtlety.
+const say = (textOrFn, options) => {
+  if (clips.playingId || !talbiyahAudio.paused) return false;
+  const canFallback = typeof textOrFn === 'function';
+  const wantsFallback = canFallback && !voice.hasVoiceForLanguage && getLanguage() !== 'en';
+  let text;
+  let forceEnglish = false;
+  if (wantsFallback) {
+    // Deliberately speak clear English rather than let the phone guess at a
+    // substitute voice for text it cannot actually read — a known, labelled
+    // fallback instead of a confusing half-broken mix of scripts.
+    const original = getLanguage();
+    setLanguage('en');
+    text = textOrFn();
+    setLanguage(original);
+    forceEnglish = true;
+  } else {
+    text = canFallback ? textOrFn() : textOrFn;
+  }
+  if (!text) return false;
+  return voice.say(text, { ...options, forceEnglish });
 };
 
 // ───────────────────────── State changes ─────────────────────────
@@ -140,13 +159,13 @@ function announce(before, event) {
   const s = state.session;
   if (!s) return;
   const stageChanged = before.session?.current_stage !== s.current_stage;
-  if (event.type === EV.CONFIRM_TAWAF_ROUND) return void say(L.roundConfirmed(event.round), { interrupt: true, force: true });
-  if (event.type === EV.CONFIRM_SAI_LAP) return void say(L.lapConfirmed(event.lap), { interrupt: true, force: true });
-  if (event.type === EV.CORRECT_TAWAF_ROUND) return void say(L.corrected('tawaf', event.round), { interrupt: true, force: true });
-  if (event.type === EV.CORRECT_SAI_LAP) return void say(L.corrected('sai', event.lap), { interrupt: true, force: true });
-  if (event.type === EV.PAUSE) return void say(L.paused(), { interrupt: true });
-  if (event.type === EV.RESUME) return void say(L.resumed(), { interrupt: true });
-  if (stageChanged) say(L.stageLine(s.current_stage, s), { key: `stage:${s.current_stage}`, interrupt: true });
+  if (event.type === EV.CONFIRM_TAWAF_ROUND) return void say(() => L.roundConfirmed(event.round), { interrupt: true, force: true });
+  if (event.type === EV.CONFIRM_SAI_LAP) return void say(() => L.lapConfirmed(event.lap), { interrupt: true, force: true });
+  if (event.type === EV.CORRECT_TAWAF_ROUND) return void say(() => L.corrected('tawaf', event.round), { interrupt: true, force: true });
+  if (event.type === EV.CORRECT_SAI_LAP) return void say(() => L.corrected('sai', event.lap), { interrupt: true, force: true });
+  if (event.type === EV.PAUSE) return void say(() => L.paused(), { interrupt: true });
+  if (event.type === EV.RESUME) return void say(() => L.resumed(), { interrupt: true });
+  if (stageChanged) say(() => L.stageLine(s.current_stage, s), { key: `stage:${s.current_stage}`, interrupt: true });
 }
 
 let lastTapAt = 0;
@@ -210,18 +229,18 @@ const tracking = createTrackingRuntime({
 function reactToReading(before, r) {
   const s = state.session;
   if (!s || !r || r.status !== 'ok') {
-    if (s && r && before?.status === 'ok' && (r.status === 'weak' || r.status === 'out_of_area')) say(L.weakSignal(), { key: 'weak', interrupt: true });
+    if (s && r && before?.status === 'ok' && (r.status === 'weak' || r.status === 'out_of_area')) say(() => L.weakSignal(), { key: 'weak', interrupt: true });
     return;
   }
   if (r.suggestCompletion && !before?.suggestCompletion) {
     navigator.vibrate?.(200);
     const p = parseStage(s.current_stage);
-    say(p.kind === 'sai' ? L.saiSuggestion(saiDirection(p.n).to) : L.tawafSuggestion(), { key: 'suggest', interrupt: true, force: true });
+    say(() => (p.kind === 'sai' ? L.saiSuggestion(saiDirection(p.n).to) : L.tawafSuggestion()), { key: 'suggest', interrupt: true, force: true });
   }
-  if (r.sector && r.sector.id !== before?.sector?.id) say(L.sectorLine(r.sector), { key: `sector:${r.sector.id}` });
+  if (r.sector && r.sector.id !== before?.sector?.id) say(() => L.sectorLine(r.sector), { key: `sector:${r.sector.id}` });
   if (r.green === 'inside' && before?.green !== 'inside') {
     navigator.vibrate?.(100);
-    say(L.greenMarkers(s.gender), { key: 'green' });
+    say(() => L.greenMarkers(s.gender), { key: 'green' });
   }
 }
 
@@ -316,10 +335,10 @@ function startMiqatWatch() {
       if (reading.status !== before) {
         if (reading.status === 'approaching') {
           navigator.vibrate?.([200, 100, 200]);
-          say(L.miqatApproaching(reading.first.kmToBoundary, reading.first.name), { interrupt: true, force: true });
+          say(() => L.miqatApproaching(reading.first.kmToBoundary, reading.first.name), { interrupt: true, force: true });
         } else if (reading.status === 'reached') {
           navigator.vibrate?.([400, 150, 400]);
-          say(L.miqatReached(reading.first.name), { interrupt: true, force: true });
+          say(() => L.miqatReached(reading.first.name), { interrupt: true, force: true });
         }
       }
       render();
@@ -384,7 +403,7 @@ const actions = {
     if (location.hash.startsWith('#/language')) location.hash = '#/';
     render();
     const s = state.session;
-    say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true });
+    say(() => (s ? L.stageLine(s.current_stage, s) : t('Voice guide on.')), { force: true });
   },
   start(form, data) {
     if (dispatch({ type: EV.START, gender: data.get('gender'), language: getLanguage() }) && prefs.miqatRoute) {
@@ -498,7 +517,7 @@ const actions = {
     prefs.voice.enabled = voice.enabled;
     savePrefs(prefs);
     const s = state.session;
-    if (voice.enabled) say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true, interrupt: true });
+    if (voice.enabled) say(() => (s ? L.stageLine(s.current_stage, s) : t('Voice guide on.')), { force: true, interrupt: true });
     else voice.stop();
     render();
   },
@@ -507,14 +526,14 @@ const actions = {
     ui.voice.enabled = voice.enabled;
     prefs.voice.enabled = voice.enabled;
     savePrefs(prefs);
-    if (voice.enabled) say(t('Voice guide on.'), { force: true });
+    if (voice.enabled) say(() => t('Voice guide on.'), { force: true });
     render();
   },
   'voice-test'() {
     const s = state.session;
     voice.enabled = true;
     ui.voice.enabled = true;
-    say(s ? L.stageLine(s.current_stage, s) : t('Voice guide on.'), { force: true, interrupt: true });
+    say(() => (s ? L.stageLine(s.current_stage, s) : t('Voice guide on.')), { force: true, interrupt: true });
     render();
   },
   // Automatic ranking is only a best guess at which installed voice sounds
@@ -528,7 +547,7 @@ const actions = {
     refreshVoiceList();
     voice.enabled = true;
     ui.voice.enabled = true;
-    say(t('Voice guide on.'), { force: true, interrupt: true });
+    say(() => t('Voice guide on.'), { force: true, interrupt: true });
     render();
   },
   // Which of the 5 Qur'an reciters plays for the 3 verses that offer a

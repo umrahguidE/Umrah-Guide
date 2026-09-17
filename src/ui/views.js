@@ -1035,7 +1035,7 @@ function settingsPage(ctx) {
         ? html`<label class="check"><input type="checkbox" data-action="voice-toggle" ${v.enabled ? 'checked' : ''}>
             <span><b>${t('Voice guide')}</b><small>${t('The phone voice never reads Arabic — duas are played from real recitations.')}</small></span></label>
           ${(v.voices ?? []).length === 0
-            ? html`<p class="alert warn">${t('Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.', { language: languageInfo().native })}</p>`
+            ? html`<p class="alert warn">${t('Your phone has no {language} voice installed, so this will speak in English instead until you add it. To fix this, go to your phone’s Settings → Language & input → Text-to-speech output → Install voice data, and download {language}.', { language: languageInfo().native })}</p>`
             : v.voices.length > 1
               ? html`<label class="field"><span>${t('Voice')}</span>
                   <select data-action="voice-select">

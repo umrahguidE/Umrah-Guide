@@ -73,15 +73,22 @@ export function createVoice({ synth = globalThis.speechSynthesis, lang = () => '
     set preferredVoiceURI(uri) {
       preferredURI = uri || null;
     },
-    /** Speaks a line. The same line is not repeated within a few seconds. */
-    say(text, { key = text, interrupt = false, force = false } = {}) {
+    /**
+     * Speaks a line. The same line is not repeated within a few seconds.
+     * Pass `forceEnglish` when the pilgrim's language has no installed
+     * voice: this deliberately speaks clear English rather than letting the
+     * phone pick some unpredictable substitute voice for text it can't
+     * actually read (which can come out as neither language, understood by
+     * no one) — a known, labelled fallback instead of a confusing guess.
+     */
+    say(text, { key = text, interrupt = false, force = false, forceEnglish = false } = {}) {
       if (!enabled || !text || !synth) return false;
       const now = Date.now();
       if (!force && key === lastKey && now - lastAt < SAME_LINE_COOLDOWN_MS) return false;
       lastKey = key;
       lastAt = now;
       if (interrupt) synth.cancel();
-      const code = language();
+      const code = forceEnglish ? 'en-GB' : language();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = code;
       utterance.rate = rate;

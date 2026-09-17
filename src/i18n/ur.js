@@ -623,7 +623,7 @@ export default {
   "Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.": "آواز پسند نہیں آئی؟ آپ کا فون اس زبان کے لیے کئی آوازیں پیش کر سکتا ہے — اوپر کوئی اور آزمائیں۔",
   "Your phone only offers one voice for this language.": "آپ کا فون اس زبان کے لیے صرف ایک آواز پیش کرتا ہے۔",
   // Honest explanation when the phone has zero voices for the app language.
-  "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "آپ کے فون میں {language} کی کوئی آواز انسٹال نہیں ہے، اس لیے یہ اس کے بجائے آپ کے فون کی ڈیفالٹ زبان میں بولے گا۔ اسے ٹھیک کرنے کے لیے، اپنے فون کی سیٹنگز → زبان اور ان پٹ → ٹیکسٹ ٹو اسپیچ آؤٹ پٹ → وائس ڈیٹا انسٹال کریں میں جا کر {language} شامل کریں۔",
+  "Your phone has no {language} voice installed, so this will speak in English instead until you add it. To fix this, go to your phone’s Settings → Language & input → Text-to-speech output → Install voice data, and download {language}.": "آپ کے فون میں {language} کی کوئی آواز انسٹال نہیں ہے، اس لیے جب تک آپ اسے شامل نہیں کرتے، یہ انگریزی میں بولے گا۔ اسے ٹھیک کرنے کے لیے، اپنے فون کی سیٹنگز → زبان اور ان پٹ → ٹیکسٹ ٹو اسپیچ آؤٹ پٹ → وائس ڈیٹا انسٹال کریں میں جائیں اور {language} ڈاؤن لوڈ کریں۔",
   // Qur'an reciter picker and text-size option in Settings.
   "Qur’an reciter": "قاری قرآن",
   "Default ({name})": "پہلے سے طے شدہ ({name})",

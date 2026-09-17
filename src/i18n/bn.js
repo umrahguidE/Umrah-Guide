@@ -623,7 +623,7 @@ export default {
   "Not happy with how it sounds? Your phone may offer several voices for this language — try another one above.": "শব্দটি পছন্দ হয়নি? আপনার ফোন এই ভাষার জন্য একাধিক কণ্ঠস্বর দিতে পারে — উপরে অন্যটি চেষ্টা করুন।",
   "Your phone only offers one voice for this language.": "আপনার ফোন এই ভাষার জন্য শুধু একটি কণ্ঠস্বর দেয়।",
   // Honest explanation when the phone has zero voices for the app language.
-  "Your phone has no {language} voice installed, so this will speak in your phone’s default language instead. To fix this, add {language} in your phone’s Settings → Language & input → Text-to-speech output → Install voice data.": "আপনার ফোনে {language} কণ্ঠস্বর ইনস্টল করা নেই, তাই এটি পরিবর্তে আপনার ফোনের ডিফল্ট ভাষায় বলবে। এটি ঠিক করতে, আপনার ফোনের সেটিংস → ভাষা ও ইনপুট → টেক্সট-টু-স্পিচ আউটপুট → ভয়েস ডেটা ইনস্টল করুন-এ গিয়ে {language} যোগ করুন।",
+  "Your phone has no {language} voice installed, so this will speak in English instead until you add it. To fix this, go to your phone’s Settings → Language & input → Text-to-speech output → Install voice data, and download {language}.": "আপনার ফোনে {language} কণ্ঠস্বর ইনস্টল করা নেই, তাই আপনি এটি যোগ না করা পর্যন্ত এটি ইংরেজিতে বলবে। এটি ঠিক করতে, আপনার ফোনের সেটিংস → ভাষা ও ইনপুট → টেক্সট-টু-স্পিচ আউটপুট → ভয়েস ডেটা ইনস্টল করুন-এ গিয়ে {language} ডাউনলোড করুন।",
   // Qur'an reciter picker and text-size option in Settings.
   "Qur’an reciter": "কুরআন তিলাওয়াতকারী",
   "Default ({name})": "ডিফল্ট ({name})",
