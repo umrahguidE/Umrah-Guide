@@ -43,7 +43,12 @@ const clips = createClipPlayer();
 clips.preferredReciter = prefs.reciter;
 voice.enabled = prefs.voice.enabled;
 voice.preferredVoiceURI = prefs.voice.voiceURI;
-Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled, voiceURI: prefs.voice.voiceURI, voices: [] });
+// The "install this language's voice" instructions differ by device, and
+// this is a phone-first app running here on a laptop as often as a phone
+// during prep — telling a Windows pilgrim to check their "phone's Settings"
+// sends them looking in the wrong place entirely.
+const isMobileDevice = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+Object.assign(ui.voice, { available: voice.available, enabled: voice.enabled, voiceURI: prefs.voice.voiceURI, voices: [], mobile: isMobileDevice });
 // The device may report its voice list asynchronously (Chrome/Edge fire
 // "voiceschanged" once loaded); refresh ours whenever that happens or the
 // spoken language changes, so the picker in Settings is never stale.

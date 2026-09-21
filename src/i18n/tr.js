@@ -245,6 +245,7 @@ export default {
   "The phone only suggests when a round may be finished. You always confirm it yourself.": "Telefon yalnızca bir turun bitmiş olabileceğini önerir. Onayı her zaman siz verirsiniz.",
   "The phone voice never reads Arabic — duas are played from real recitations.": "Telefon sesi asla Arapça okumaz — dualar gerçek tilavetlerden çalınır.",
   "This app’s count is only a record to help you.": "Bu uygulamanın sayımı yalnızca size yardımcı olacak bir kayıttır.",
+  "This computer has no {language} voice installed, so this will speak in English instead until you add one. On Windows: Settings → Time & language → Speech → Manage voices → Add voices, then download {language}. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices.": "Bu bilgisayarda {language} sesi yüklü değil, bu yüzden onu ekleyene kadar İngilizce konuşacak. Windows'ta: Ayarlar → Saat ve dil → Konuşma → Sesleri yönet → Ses ekle bölümüne gidin ve {language} indirin. Mac'te: Sistem Ayarları → Erişilebilirlik → Konuşulan İçerik → Sistem sesi → Sesleri Yönet bölümüne gidin.",
   "This device or browser has no speech voice available.": "Bu cihazda veya tarayıcıda kullanılabilir konuşma sesi yok.",
   "This is the final lap. It ends at Marwah.": "Bu son tur. Merve'de biter.",
   "This is the final round.": "Bu son tur.",

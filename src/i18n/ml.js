@@ -245,6 +245,7 @@ export default {
   "The phone only suggests when a round may be finished. You always confirm it yourself.": "ഒരു ചുറ്റ് പൂർത്തിയായിരിക്കാം എന്ന് ഫോൺ നിർദേശിക്കുക മാത്രമേ ചെയ്യൂ. സ്ഥിരീകരിക്കുന്നത് എപ്പോഴും നിങ്ങൾ തന്നെ.",
   "The phone voice never reads Arabic — duas are played from real recitations.": "ഫോണിന്റെ ശബ്ദം ഒരിക്കലും അറബി വായിക്കില്ല — ദുആകൾ യഥാർത്ഥ പാരായണങ്ങളിൽ നിന്നാണ് കേൾപ്പിക്കുന്നത്.",
   "This app’s count is only a record to help you.": "ഈ ആപ്പിന്റെ എണ്ണം നിങ്ങളെ സഹായിക്കാനുള്ള ഒരു രേഖ മാത്രമാണ്.",
+  "This computer has no {language} voice installed, so this will speak in English instead until you add one. On Windows: Settings → Time & language → Speech → Manage voices → Add voices, then download {language}. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices.": "ഈ കമ്പ്യൂട്ടറിൽ {language} ശബ്ദം ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല, അതിനാൽ നിങ്ങൾ അത് ചേർക്കുന്നത് വരെ ഇത് ഇംഗ്ലീഷിൽ സംസാരിക്കും. Windows-ൽ: ക്രമീകരണങ്ങൾ → സമയവും ഭാഷയും → സ്പീച്ച് → ശബ്ദങ്ങൾ കൈകാര്യം ചെയ്യുക → ശബ്ദങ്ങൾ ചേർക്കുക എന്നതിലേക്ക് പോയി {language} ഡൗൺലോഡ് ചെയ്യുക. Mac-ൽ: സിസ്റ്റം ക്രമീകരണങ്ങൾ → ആക്സസിബിലിറ്റി → സ്പോക്കൺ കണ്ടന്റ് → സിസ്റ്റം വോയ്സ് → ശബ്ദങ്ങൾ കൈകാര്യം ചെയ്യുക എന്നതിലേക്ക് പോകുക.",
   "This device or browser has no speech voice available.": "ഈ ഉപകരണത്തിലോ ബ്രൗസറിലോ സംസാര ശബ്ദം ലഭ്യമല്ല.",
   "This is the final lap. It ends at Marwah.": "ഇത് അവസാന തവണയാണ്. ഇത് മർവയിൽ അവസാനിക്കുന്നു.",
   "This is the final round.": "ഇത് അവസാന ചുറ്റാണ്.",

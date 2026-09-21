@@ -245,6 +245,7 @@ export default {
   "The phone only suggests when a round may be finished. You always confirm it yourself.": "ফোন শুধু ইঙ্গিত দেয় যে চক্কর সম্পন্ন হয়ে থাকতে পারে। নিশ্চিতকরণ সবসময় আপনি নিজে করেন।",
   "The phone voice never reads Arabic — duas are played from real recitations.": "ফোনের কণ্ঠস্বর কখনো আরবি পড়ে না — দুআ আসল তিলাওয়াত থেকে বাজানো হয়।",
   "This app’s count is only a record to help you.": "এই অ্যাপের গণনা শুধু আপনাকে সাহায্য করার একটি রেকর্ড মাত্র।",
+  "This computer has no {language} voice installed, so this will speak in English instead until you add one. On Windows: Settings → Time & language → Speech → Manage voices → Add voices, then download {language}. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices.": "এই কম্পিউটারে {language} কণ্ঠস্বর ইনস্টল করা নেই, তাই আপনি এটি যোগ না করা পর্যন্ত এটি ইংরেজিতে বলবে। Windows-এ: সেটিংস → সময় ও ভাষা → স্পিচ → ভয়েস পরিচালনা করুন → ভয়েস যোগ করুন-এ গিয়ে {language} ডাউনলোড করুন। Mac-এ: সিস্টেম সেটিংস → অ্যাক্সেসিবিলিটি → স্পোকেন কনটেন্ট → সিস্টেম ভয়েস → ভয়েস পরিচালনা করুন-এ যান।",
   "This device or browser has no speech voice available.": "এই ডিভাইস বা ব্রাউজারে কোনো কণ্ঠস্বর নেই।",
   "This is the final lap. It ends at Marwah.": "এটি শেষ চক্কর। এটি মারওয়ায় শেষ হয়।",
   "This is the final round.": "এটি শেষ চক্কর।",

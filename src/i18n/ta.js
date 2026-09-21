@@ -245,6 +245,7 @@ export default {
   "The phone only suggests when a round may be finished. You always confirm it yourself.": "தொலைபேசி ஒரு சுற்று முடிந்திருக்கலாம் என்று மட்டுமே பரிந்துரைக்கும். உறுதிப்படுத்துவது எப்போதும் நீங்களே.",
   "The phone voice never reads Arabic — duas are played from real recitations.": "தொலைபேசியின் குரல் ஒருபோதும் அரபியைப் படிக்காது — துஆக்கள் உண்மையான ஓதல்களிலிருந்து இயக்கப்படும்.",
   "This app’s count is only a record to help you.": "இந்த செயலியின் எண்ணிக்கை உங்களுக்கு உதவும் ஒரு பதிவு மட்டுமே.",
+  "This computer has no {language} voice installed, so this will speak in English instead until you add one. On Windows: Settings → Time & language → Speech → Manage voices → Add voices, then download {language}. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices.": "இந்த கணினியில் {language} குரல் நிறுவப்படவில்லை, எனவே நீங்கள் அதைச் சேர்க்கும் வரை இது ஆங்கிலத்தில் பேசும். Windows இல்: அமைப்புகள் → நேரம் & மொழி → பேச்சு → குரல்களை நிர்வகி → குரல்களைச் சேர் என்பதற்குச் சென்று {language} பதிவிறக்கவும். Mac இல்: System Settings → அணுகல்தன்மை → Spoken Content → System voice → குரல்களை நிர்வகி என்பதற்குச் செல்லவும்.",
   "This device or browser has no speech voice available.": "இந்த சாதனம் அல்லது உலாவியில் பேச்சு குரல் எதுவும் இல்லை.",
   "This is the final lap. It ends at Marwah.": "இது இறுதி சுற்று. இது மர்வாவில் முடிகிறது.",
   "This is the final round.": "இது இறுதி சுற்று.",

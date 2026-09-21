@@ -245,6 +245,7 @@ export default {
   "The phone only suggests when a round may be finished. You always confirm it yourself.": "Ponsel hanya menyarankan kapan putaran mungkin selesai. Anda selalu mengonfirmasi sendiri.",
   "The phone voice never reads Arabic — duas are played from real recitations.": "Suara ponsel tidak pernah membaca bahasa Arab — doa diputar dari bacaan asli.",
   "This app’s count is only a record to help you.": "Hitungan aplikasi ini hanyalah catatan untuk membantu Anda.",
+  "This computer has no {language} voice installed, so this will speak in English instead until you add one. On Windows: Settings → Time & language → Speech → Manage voices → Add voices, then download {language}. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices.": "Komputer ini tidak memiliki suara {language} yang terpasang, jadi ini akan berbicara dalam bahasa Inggris sampai Anda menambahkannya. Di Windows: buka Pengaturan → Waktu & bahasa → Ucapan → Kelola suara → Tambah suara, lalu unduh {language}. Di Mac: buka Pengaturan Sistem → Aksesibilitas → Konten Terucap → Suara sistem → Kelola Suara.",
   "This device or browser has no speech voice available.": "Perangkat atau peramban ini tidak memiliki suara ucapan yang tersedia.",
   "This is the final lap. It ends at Marwah.": "Ini putaran terakhir. Berakhir di Marwah.",
   "This is the final round.": "Ini putaran terakhir.",

@@ -245,6 +245,7 @@ export default {
   "The phone only suggests when a round may be finished. You always confirm it yourself.": "فون صرف تجویز دیتا ہے کہ چکر مکمل ہوا ہوگا۔ تصدیق ہمیشہ آپ خود کرتے ہیں۔",
   "The phone voice never reads Arabic — duas are played from real recitations.": "فون کی آواز کبھی عربی نہیں پڑھتی — دعائیں اصل تلاوت سے سنائی جاتی ہیں۔",
   "This app’s count is only a record to help you.": "اس ایپ کی گنتی صرف آپ کی مدد کے لیے ایک ریکارڈ ہے۔",
+  "This computer has no {language} voice installed, so this will speak in English instead until you add one. On Windows: Settings → Time & language → Speech → Manage voices → Add voices, then download {language}. On a Mac: System Settings → Accessibility → Spoken Content → System voice → Manage Voices.": "اس کمپیوٹر میں {language} کی کوئی آواز انسٹال نہیں ہے، اس لیے جب تک آپ اسے شامل نہیں کرتے، یہ انگریزی میں بولے گا۔ Windows پر: سیٹنگز → وقت اور زبان → اسپیچ → آوازیں مینیج کریں → آوازیں شامل کریں میں جائیں اور {language} ڈاؤن لوڈ کریں۔ Mac پر: سسٹم سیٹنگز → ایکسیسبیلٹی → اسپوکن کنٹینٹ → سسٹم وائس → آوازیں مینیج کریں میں جائیں۔",
   "This device or browser has no speech voice available.": "اس ڈیوائس یا براؤزر میں کوئی بولنے والی آواز دستیاب نہیں۔",
   "This is the final lap. It ends at Marwah.": "یہ آخری پھیرا ہے۔ یہ مروہ پر ختم ہوتا ہے۔",
   "This is the final round.": "یہ آخری چکر ہے۔",
