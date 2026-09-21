@@ -11,11 +11,12 @@ import { MIQATS, routeById } from '../data/content.js';
 import * as L from '../data/voice-lines.js';
 import { setLanguage, languageInfo, getLanguage, t } from '../i18n/index.js';
 import { loadState, saveState, loadPrefs, savePrefs, pushUndo, popUndo, undoDepth } from '../store.js';
-import { renderApp, createUiState, tawafLiveTop, tawafLiveBottom, saiLiveTop, saiLiveBottom } from './views.js';
+import { renderApp, createUiState, tawafLiveTop, tawafLiveBottom, saiLiveTop, saiLiveBottom, mapShowsRealMap, mapStatusLine, mapSchematicContent } from './views.js';
 import { createTrackingRuntime } from './tracking-runtime.js';
 import { requestMotionPermission } from './sensors.js';
 import { createVoice, createClipPlayer, PLAYBACK_RATES } from './voice.js';
 import { createTrail, localOf } from './map.js';
+import { ensureRealMap, setRealMapPosition, destroyRealMap } from './realmap.js';
 
 const root = document.getElementById('app');
 const talbiyahAudio = document.getElementById('talbiyah-audio');
@@ -86,6 +87,28 @@ function route() {
 function render() {
   pendingLiveRender = false;
   root.innerHTML = String(renderApp({ state, prefs, ui, route: route(), undoAvailable: undoDepth() > 0 }));
+  syncRealMap();
+}
+
+// The real map's own container is destroyed and recreated by every full
+// render (root.innerHTML = ...) — mount (or re-mount) a Leaflet instance
+// into whichever one currently exists, and feed it the latest position.
+// Loading Leaflet needs internet; if that fails (offline), say so in place
+// rather than leaving a blank box.
+function syncRealMap() {
+  const el = document.getElementById('real-map');
+  if (!el) {
+    destroyRealMap();
+    return;
+  }
+  ensureRealMap(el).then((ok) => {
+    if (document.getElementById('real-map') !== el) return; // page moved on while this was loading
+    if (!ok) {
+      el.innerHTML = `<p class="alert warn">${t('Could not load the real map — you appear to be offline.')}</p>`;
+      return;
+    }
+    if (ui.map.latLng) setRealMapPosition(ui.map.latLng.lat, ui.map.latLng.lng, ui.map.accuracyM);
+  });
 }
 
 // GPS and sensor updates arrive many times a second; redraw at a calm pace so
@@ -112,7 +135,31 @@ function renderLive() {
 function commitLiveRender() {
   pendingLiveRender = false;
   if (patchLiveTracking()) return;
+  if (patchMapPage()) return;
   render();
+}
+
+// Same idea as patchLiveTracking, for the standalone Map page: a GPS tick
+// there only ever moves the dot. This matters even more for the real map,
+// since a Leaflet instance must never be torn down and recreated on every
+// tick (it would re-fetch every map tile from the network each time) —
+// patchMapPage only ever moves its existing marker, never touches its
+// container. Falls back to a full render the first time (before the
+// container exists) and on the rarer in-range/out-of-range switch.
+function patchMapPage() {
+  if (route().name !== 'map') return false;
+  const m = ui.map;
+  if (mapShowsRealMap(m)) {
+    if (!document.getElementById('real-map')) return false;
+    if (m.latLng) setRealMapPosition(m.latLng.lat, m.latLng.lng, m.accuracyM);
+  } else {
+    const el = document.getElementById('map-schematic');
+    if (!el) return false;
+    el.innerHTML = String(mapSchematicContent({ state, prefs, ui, route: route(), undoAvailable: undoDepth() > 0 }));
+  }
+  const status = document.getElementById('map-status');
+  if (status) status.innerHTML = String(mapStatusLine(m));
+  return true;
 }
 
 function patchLiveTracking() {
@@ -342,6 +389,8 @@ function stopMapWatch() {
   ui.map.live = false;
   ui.map.position = null;
   ui.map.distanceM = null;
+  ui.map.latLng = null;
+  destroyRealMap();
 }
 function startMapWatch() {
   if (!('geolocation' in navigator)) {
@@ -353,6 +402,7 @@ function startMapWatch() {
   mapWatchId = navigator.geolocation.watchPosition(
     (p) => {
       const coords = { lat: p.coords.latitude, lng: p.coords.longitude };
+      ui.map.latLng = coords;
       const dist = distanceM(coords, HARAM_GEO.kaabaCenter);
       ui.map.distanceM = dist;
       ui.map.accuracyM = p.coords.accuracy;

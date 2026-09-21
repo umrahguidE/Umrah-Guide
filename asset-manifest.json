@@ -16,6 +16,7 @@
         "./src/ui/html.js",
         "./src/ui/tracking-runtime.js",
         "./src/ui/map.js",
+        "./src/ui/realmap.js",
         "./src/ui/voice.js",
         "./src/ui/sensors.js",
         "./src/i18n/index.js",

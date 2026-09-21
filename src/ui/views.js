@@ -28,7 +28,7 @@ export function createUiState({ simulate = false } = {}) {
     audio: { playing: false, loop: false, missing: false },
     voice: { available: false, enabled: false, voiceURI: null, voices: [], mobile: true },
     playback: { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null },
-    map: { live: false, trail: [], position: null, accuracyM: null, distanceM: null, error: null },
+    map: { live: false, trail: [], position: null, accuracyM: null, distanceM: null, latLng: null, error: null },
     miqatWatching: false,
     stepLengthM: null,
     sensors: { compass: false, steps: false },
@@ -1053,32 +1053,59 @@ function morePage(ctx) {
     ${s?.status === 'active' ? html`<button class="btn danger" data-action="end-session">${t('End current Umrah session')}</button>` : ''}`;
 }
 
-function mapPage(ctx) {
+// Whether we should be showing the real, live world map instead of the
+// offline Haram diagram — true once we know the pilgrim's real distance and
+// it's beyond the diagram's ~500 m coverage. See patchMapPage in app.js: it
+// keeps the real map's own DOM node alive across live GPS ticks (a Leaflet
+// instance must never be torn down and recreated every tick), and only
+// falls back to a full page render on the rarer event of crossing this
+// threshold in either direction.
+export const mapShowsRealMap = (m) => m.live && m.distanceM != null && m.distanceM > MAP_RANGE_M;
+
+export function mapStatusLine(m) {
+  if (!m.live) return '';
+  if (mapShowsRealMap(m)) {
+    return html`<p class="tracking-line ok">📡 ${t('Live on the real map · accuracy about ±{m} m', { m: Math.round(m.accuracyM ?? 0) })}</p>`;
+  }
+  return m.position
+    ? html`<p class="tracking-line ok">📡 ${t('Live · accuracy about ±{m} m', { m: Math.round(m.accuracyM ?? 0) })}</p>`
+    : html`<p class="tracking-line">📡 ${t('Waiting for a location fix…')}</p>`;
+}
+
+// The schematic map's content, factored out so a live update can patch just
+// this DOM region without disturbing the real map (see mapShowsRealMap) —
+// they are drawn in the same page but never both mounted at once.
+export function mapSchematicContent(ctx) {
   const m = ctx.ui.map;
   const s = ctx.state.session;
   const p = s ? parseStage(s.current_stage) : { kind: 'simple' };
   const r = ctx.ui.reading;
-  return html`${pageHeader(t('Map'), t('Masjid al-Haram. Works offline.'))}
+  return haramMap({
+    pilgrim: m.position ?? r?.position ?? null,
+    accuracyM: m.accuracyM ?? r?.position?.accuracyM ?? null,
+    trail: m.trail,
+    saiFromSafa: p.kind === 'sai' ? (r?.fromSafa ?? null) : null,
+    focus: p.kind === 'simple' ? null : p.kind,
+  });
+}
+
+function mapPage(ctx) {
+  const m = ctx.ui.map;
+  const realMap = mapShowsRealMap(m);
+  return html`${pageHeader(t('Map'), t('Masjid al-Haram. Works offline — your live location on a real map needs internet.'))}
     ${m.error ? html`<p class="alert warn">${t(m.error)}</p>` : ''}
     <section class="card map-page">
-      ${haramMap({
-        pilgrim: m.position ?? r?.position ?? null,
-        accuracyM: m.accuracyM ?? r?.position?.accuracyM ?? null,
-        trail: m.trail,
-        saiFromSafa: p.kind === 'sai' ? (r?.fromSafa ?? null) : null,
-        focus: p.kind === 'simple' ? null : p.kind,
-      })}
+      ${realMap
+        ? html`<div id="real-map" class="real-map-canvas" role="img" aria-label="${t('Real map showing your current location')}"></div>`
+        : html`<div id="map-schematic">${mapSchematicContent(ctx)}</div>`}
     </section>
     <div class="row">
       <button class="btn ${m.live ? 'primary' : ''}" data-action="map-live">${m.live ? `⏹ ${t('Stop showing my location')}` : `📍 ${t('Show my location')}`}</button>
-      ${m.trail.length ? html`<button class="btn" data-action="map-clear">${t('Clear trail')}</button>` : ''}
+      ${!realMap && m.trail.length ? html`<button class="btn" data-action="map-clear">${t('Clear trail')}</button>` : ''}
     </div>
-    ${m.live
-      ? m.distanceM != null && m.distanceM > MAP_RANGE_M
-        ? html`<p class="alert warn">📍 ${t('You are about {km} km from Masjid al-Haram, so this close-up map cannot show your position — it only covers the mosque grounds. Come back here once you are near it.', { km: (m.distanceM / 1000).toFixed(1) })}</p>`
-        : m.position
-          ? html`<p class="tracking-line ok">📡 ${t('Live · accuracy about ±{m} m', { m: Math.round(m.accuracyM ?? 0) })}</p>`
-          : html`<p class="tracking-line">📡 ${t('Waiting for a location fix…')}</p>`
+    <div id="map-status">${mapStatusLine(m)}</div>
+    ${realMap
+      ? html`<p class="muted">${t('You are about {km} km from Masjid al-Haram, so this shows a real online map with your live location instead of the mosque diagram. It will switch back automatically once you are close to Masjid al-Haram.', { km: (m.distanceM / 1000).toFixed(1) })}</p>`
       : ''}
     <section class="card"><h2>${t('What you are looking at')}</h2>
       <ul class="points">
