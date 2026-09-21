@@ -475,7 +475,7 @@ export function tawafLiveTop(s, n, ctx) {
     <p class="left-hint">🕋 ${t('Kaaba is on your')} <b>${t('LEFT')}</b></p>
     ${sectorCard(fix ? r.sector : null)}
     ${fix && r.suggestCompletion
-      ? html`<div class="alert suggest" role="status"><b>${t('Possible round completion')}</b><br>${t('You appear to have reached the starting point. Confirm only if you have completed Round {n}.', { n })}</div>`
+      ? html`<div class="alert suggest big" role="alert">🔔 <b>${t('Possible round completion')}</b><br>${t('You appear to have reached the starting point. Confirm only if you have completed Round {n}.', { n })}</div>`
       : ''}`;
 }
 
@@ -499,6 +499,8 @@ export function tawafLiveBottom(s, n, ctx) {
 function tawafRoundView(s, n, ctx) {
   const done = s.tawaf.rounds.length;
   const final = n === TAWAF_ROUNDS;
+  const r = ctx.ui.reading;
+  const ready = s.tracking_mode === 'assisted' && r?.status === 'ok' && r.suggestCompletion;
   return html`
     <section class="counter ${final ? 'final' : ''}">
       <p class="eyebrow">${t('Tawaf')}${final ? ` · ${t('final round')}` : ''}</p>
@@ -509,7 +511,7 @@ function tawafRoundView(s, n, ctx) {
       ? pausedCard('tawaf', t('Tawaf — Round {n} / {total}', { n, total: TAWAF_ROUNDS }))
       : html`
         <div id="live-top">${tawafLiveTop(s, n, ctx)}</div>
-        <button class="btn primary big ${final ? 'final' : ''}" data-action="confirm-round" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('Confirm Round {n} complete', { n })}</button>
+        <button class="btn primary big ${final ? 'final' : ''} ${ready ? 'ready-pulse' : ''}" data-action="confirm-round" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('Confirm Round {n} complete', { n })}</button>
         <p class="hint">${t('Tap when you are back at the Black Stone line (green light on the wall).')}</p>`}
     ${actionRow(s, 'tawaf')}
     ${s.gender === 'male' && n <= 3 ? html`<p class="alert info">${t(G.TAWAF_ROUND.ramal)}</p>` : ''}
@@ -546,7 +548,7 @@ export function saiLiveTop(s, n, ctx) {
       ${greenMarkerCard(s.gender, fix ? r.green : null)}
     </div>
     ${fix && r.suggestCompletion
-      ? html`<div class="alert suggest" role="status"><b>${t('{place} reached?', { place: to })}</b><br>${final ? t('You are approaching the final destination.') : t('You appear to be at {place}.', { place: to })} ${t('Confirm only when you have arrived.')}</div>`
+      ? html`<div class="alert suggest big" role="alert">🔔 <b>${t('{place} reached?', { place: to })}</b><br>${final ? t('You are approaching the final destination.') : t('You appear to be at {place}.', { place: to })} ${t('Confirm only when you have arrived.')}</div>`
       : ''}`;
 }
 
@@ -571,6 +573,8 @@ function saiLapView(s, n, ctx) {
   const done = s.sai.laps.length;
   const final = n === SAI_LAPS;
   const to = place(d.to);
+  const r = ctx.ui.reading;
+  const ready = s.tracking_mode === 'assisted' && r?.status === 'ok' && r.suggestCompletion;
   return html`
     <section class="counter ${final ? 'final' : ''}">
       <p class="eyebrow">${t('Sa’i')}${final ? ` · ${t('final lap')}` : ''}</p>
@@ -582,7 +586,7 @@ function saiLapView(s, n, ctx) {
       ? pausedCard('sai', t('Sa’i — Lap {n} / {total}', { n, total: SAI_LAPS }))
       : html`
         <div id="live-top">${saiLiveTop(s, n, ctx)}</div>
-        <button class="btn primary big ${final ? 'final' : ''}" data-action="confirm-lap" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('I have reached {place}', { place: to })}</button>
+        <button class="btn primary big ${final ? 'final' : ''} ${ready ? 'ready-pulse' : ''}" data-action="confirm-lap" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('I have reached {place}', { place: to })}</button>
         <p class="hint">${t('On reaching {place}: face the Kaaba, raise your hands, and repeat the dhikr and dua as at Safa.', { place: to })}</p>`}
     ${actionRow(s, 'sai')}
     <div id="live-bottom">${saiLiveBottom(s, n, ctx)}</div>

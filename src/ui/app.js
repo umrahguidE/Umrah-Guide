@@ -126,6 +126,12 @@ function patchLiveTracking() {
     top.innerHTML = String(saiLiveTop(s, p.n, ctx));
     bottom.innerHTML = String(saiLiveBottom(s, p.n, ctx));
   }
+  // The confirm button lives outside the patched regions (so it is never
+  // torn down mid-tap — see the comment above); toggle its "ready" glow
+  // directly so it still reacts the instant tracking thinks the round/lap
+  // may be done, even though its own markup isn't being rebuilt.
+  const ready = s.tracking_mode === 'assisted' && ui.reading?.status === 'ok' && Boolean(ui.reading?.suggestCompletion);
+  document.querySelector('[data-action="confirm-round"], [data-action="confirm-lap"]')?.classList.toggle('ready-pulse', ready);
   return true;
 }
 
@@ -276,7 +282,10 @@ function reactToReading(before, r) {
     return;
   }
   if (r.suggestCompletion && !before?.suggestCompletion) {
-    navigator.vibrate?.(200);
+    // A distinct triple-buzz — deliberately different from the single, short
+    // vibration used elsewhere (e.g. reaching the green markers) — so the
+    // pilgrim can recognise "you may be done" by feel alone in a crowd.
+    navigator.vibrate?.([150, 90, 150, 90, 250]);
     const p = parseStage(s.current_stage);
     say(() => (p.kind === 'sai' ? L.saiSuggestion(saiDirection(p.n).to) : L.tawafSuggestion()), { key: 'suggest', interrupt: true, force: true });
   }

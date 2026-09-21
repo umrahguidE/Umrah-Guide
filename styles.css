@@ -162,6 +162,29 @@ details.card[open] summary { margin-bottom: 12px; }
 }
 @keyframes pulse { 50% { box-shadow: 0 0 0 6px rgb(169 129 47 / 18%); } }
 @media (prefers-reduced-motion: reduce) { .alert.suggest { animation: none; } }
+/* The "you may have arrived" moment — deliberately louder than a normal
+   alert (bigger text, a stronger pulse) since it's easy to miss on a phone
+   in a crowded, noisy Mataf, and the pilgrim still has to notice it and act
+   themselves (the app never confirms a round on its own). */
+.alert.suggest.big {
+  font-size: 1.08rem; font-weight: 600; text-align: center; padding: 16px 14px;
+  animation: pulse-big 1.2s ease-in-out infinite;
+}
+.alert.suggest.big b { font-size: 1.15rem; }
+@keyframes pulse-big {
+  50% { box-shadow: 0 0 0 10px rgb(169 129 47 / 22%); background: var(--gold); }
+}
+@media (prefers-reduced-motion: reduce) { .alert.suggest.big { animation: none; background: var(--gold); } }
+/* The confirm button itself glows in sync, so the "arrived" signal points
+   straight at the action the pilgrim needs to take. */
+.btn.ready-pulse {
+  animation: ready-pulse 1.2s ease-in-out infinite;
+}
+@keyframes ready-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(169 129 47 / 55%); }
+  50% { box-shadow: 0 0 0 16px rgb(169 129 47 / 0%); }
+}
+@media (prefers-reduced-motion: reduce) { .btn.ready-pulse { animation: none; outline: 3px solid var(--gold); outline-offset: 2px; } }
 .chip {
   display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px;
   border-radius: 999px; font-size: .8rem; font-weight: 600;
