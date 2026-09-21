@@ -5,6 +5,8 @@ import { transition, EV, RitualError, toRecords } from '../engine/machine.js';
 import { parseStage, saiDirection } from '../engine/stages.js';
 import { miqatStatus } from '../engine/miqat.js';
 import { calibrateStepLength } from '../engine/motion.js';
+import { distanceM } from '../engine/geo.js';
+import { HARAM_GEO, MAP_RANGE_M } from '../engine/tracking.js';
 import { MIQATS, routeById } from '../data/content.js';
 import * as L from '../data/voice-lines.js';
 import { setLanguage, languageInfo, getLanguage, t } from '../i18n/index.js';
@@ -293,6 +295,7 @@ function stopMapWatch() {
   mapWatchId = null;
   ui.map.live = false;
   ui.map.position = null;
+  ui.map.distanceM = null;
 }
 function startMapWatch() {
   if (!('geolocation' in navigator)) {
@@ -303,10 +306,17 @@ function startMapWatch() {
   ui.map.live = true;
   mapWatchId = navigator.geolocation.watchPosition(
     (p) => {
-      const point = localOf({ lat: p.coords.latitude, lng: p.coords.longitude });
-      ui.map.position = point;
+      const coords = { lat: p.coords.latitude, lng: p.coords.longitude };
+      const dist = distanceM(coords, HARAM_GEO.kaabaCenter);
+      ui.map.distanceM = dist;
       ui.map.accuracyM = p.coords.accuracy;
-      ui.map.trail = [...trail.add(point)];
+      if (dist <= MAP_RANGE_M) {
+        const point = localOf(coords);
+        ui.map.position = point;
+        ui.map.trail = [...trail.add(point)];
+      } else {
+        ui.map.position = null;
+      }
       renderLive();
     },
     (err) => {

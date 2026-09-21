@@ -292,6 +292,7 @@ export default {
   "You appear to be back at the Black Stone line. Confirm the round if you have completed it.": "Hacerü'l-Esved çizgisine geri dönmüş görünüyorsunuz. Turu tamamladıysanız onaylayın.",
   "You appear to have reached the starting point. Confirm only if you have completed Round {n}.": "Başlangıç noktasına ulaşmış görünüyorsunuz. Yalnızca {n}. turu tamamladıysanız onaylayın.",
   "You appear to have reached {place}. Confirm when you have arrived.": "{place} noktasına ulaşmış görünüyorsunuz. Vardığınızda onaylayın.",
+  "You are about {km} km from Masjid al-Haram, so this close-up map cannot show your position — it only covers the mosque grounds. Come back here once you are near it.": "Mescid-i Haram'dan yaklaşık {km} km uzaktasınız, bu yüzden bu yakın plan harita konumunuzu gösteremiyor — yalnızca cami alanını kapsar. Yakınına geldiğinizde buraya tekrar gelin.",
   "You are approaching the final destination.": "Son varış noktasına yaklaşıyorsunuz.",
   "You have reached the {name} Miqat line. You should be in Ihram now.": "{name} Mikat sınırına ulaştınız. Artık ihramda olmalısınız.",
   "Your Umrah progress is saved on this device after every step. The ritual tracker never needs internet.": "Umre ilerlemeniz her adımdan sonra bu cihazda kaydedilir. Takip aracının asla internete ihtiyacı yoktur.",

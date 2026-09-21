@@ -7,7 +7,7 @@
 import { html, raw } from './html.js';
 import { STAGE, TAWAF_ROUNDS, SAI_LAPS, PLACE_LABEL, parseStage, saiDirection, progressOf, stageTitle, isIhramActive } from '../engine/stages.js';
 import { IHRAM_CHECKS, summarize } from '../engine/machine.js';
-import { HARAM_GEO } from '../engine/tracking.js';
+import { HARAM_GEO, MAP_RANGE_M } from '../engine/tracking.js';
 import { miqatRadiusKm } from '../engine/miqat.js';
 import * as C from '../data/content.js';
 import { t, tList, LANGUAGES, getLanguage, languageInfo } from '../i18n/index.js';
@@ -28,7 +28,7 @@ export function createUiState({ simulate = false } = {}) {
     audio: { playing: false, loop: false, missing: false },
     voice: { available: false, enabled: false, voiceURI: null, voices: [] },
     playback: { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null },
-    map: { live: false, trail: [], position: null, accuracyM: null, error: null },
+    map: { live: false, trail: [], position: null, accuracyM: null, distanceM: null, error: null },
     miqatWatching: false,
     stepLengthM: null,
     sensors: { compass: false, steps: false },
@@ -1036,9 +1036,11 @@ function mapPage(ctx) {
       ${m.trail.length ? html`<button class="btn" data-action="map-clear">${t('Clear trail')}</button>` : ''}
     </div>
     ${m.live
-      ? m.position
-        ? html`<p class="tracking-line ok">📡 ${t('Live · accuracy about ±{m} m', { m: Math.round(m.accuracyM ?? 0) })}</p>`
-        : html`<p class="tracking-line">📡 ${t('Waiting for a location fix…')}</p>`
+      ? m.distanceM != null && m.distanceM > MAP_RANGE_M
+        ? html`<p class="alert warn">📍 ${t('You are about {km} km from Masjid al-Haram, so this close-up map cannot show your position — it only covers the mosque grounds. Come back here once you are near it.', { km: (m.distanceM / 1000).toFixed(1) })}</p>`
+        : m.position
+          ? html`<p class="tracking-line ok">📡 ${t('Live · accuracy about ±{m} m', { m: Math.round(m.accuracyM ?? 0) })}</p>`
+          : html`<p class="tracking-line">📡 ${t('Waiting for a location fix…')}</p>`
       : ''}
     <section class="card"><h2>${t('What you are looking at')}</h2>
       <ul class="points">

@@ -42,6 +42,11 @@ export const HARAM_GEO = Object.freeze({
   greenZone: [0.2, 0.346],
 });
 
+// The close-up Haram map only covers the mosque grounds (Marwah, the
+// farthest marked point, is ~310 m from the Kaaba) — beyond this a live
+// position would just be an invisible dot off the edge of the drawing.
+export const MAP_RANGE_M = 500;
+
 export const STALE_AFTER_MS = 20_000;
 export const HEADING_STALE_MS = 5_000;
 const MAX_ACCURACY_M = 35;

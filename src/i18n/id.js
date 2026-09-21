@@ -292,6 +292,7 @@ export default {
   "You appear to be back at the Black Stone line. Confirm the round if you have completed it.": "Anda tampaknya kembali di garis Hajar Aswad. Konfirmasi putaran jika sudah selesai.",
   "You appear to have reached the starting point. Confirm only if you have completed Round {n}.": "Anda tampaknya sudah sampai titik awal. Konfirmasi hanya jika putaran {n} sudah selesai.",
   "You appear to have reached {place}. Confirm when you have arrived.": "Anda tampaknya sudah sampai di {place}. Konfirmasi setelah Anda tiba.",
+  "You are about {km} km from Masjid al-Haram, so this close-up map cannot show your position — it only covers the mosque grounds. Come back here once you are near it.": "Anda berjarak sekitar {km} km dari Masjidil Haram, jadi peta jarak dekat ini tidak dapat menampilkan posisi Anda — peta ini hanya mencakup area masjid. Kembali ke sini setelah Anda berada di dekatnya.",
   "You are approaching the final destination.": "Anda mendekati tujuan akhir.",
   "You have reached the {name} Miqat line. You should be in Ihram now.": "Anda telah mencapai batas Miqat {name}. Anda seharusnya sudah berihram sekarang.",
   "Your Umrah progress is saved on this device after every step. The ritual tracker never needs internet.": "Progres Umrah Anda disimpan di perangkat ini setelah setiap langkah. Pelacak ritual tidak pernah butuh internet.",

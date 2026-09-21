@@ -292,6 +292,7 @@ export default {
   "You appear to be back at the Black Stone line. Confirm the round if you have completed it.": "നിങ്ങൾ ഹജറുൽ അസ്‌വദ് രേഖയിൽ തിരികെ എത്തിയതായി തോന്നുന്നു. ചുറ്റ് പൂർത്തിയായെങ്കിൽ സ്ഥിരീകരിക്കുക.",
   "You appear to have reached the starting point. Confirm only if you have completed Round {n}.": "നിങ്ങൾ തുടക്ക സ്ഥലത്ത് എത്തിയതായി തോന്നുന്നു. {n}-ാം ചുറ്റ് പൂർത്തിയായെങ്കിൽ മാത്രം സ്ഥിരീകരിക്കുക.",
   "You appear to have reached {place}. Confirm when you have arrived.": "നിങ്ങൾ {place}-ൽ എത്തിയതായി തോന്നുന്നു. എത്തിയ ശേഷം സ്ഥിരീകരിക്കുക.",
+  "You are about {km} km from Masjid al-Haram, so this close-up map cannot show your position — it only covers the mosque grounds. Come back here once you are near it.": "നിങ്ങൾ മസ്ജിദുൽ ഹറാമിൽ നിന്ന് ഏകദേശം {km} കി.മീ അകലെയാണ്, അതിനാൽ ഈ ക്ലോസപ്പ് മാപ്പിന് നിങ്ങളുടെ സ്ഥാനം കാണിക്കാൻ കഴിയില്ല — ഇത് പള്ളി വളപ്പ് മാത്രമേ ഉൾക്കൊള്ളുന്നുള്ളൂ. അടുത്ത് എത്തുമ്പോൾ ഇവിടേക്ക് തിരികെ വരിക.",
   "You are approaching the final destination.": "നിങ്ങൾ അവസാന ലക്ഷ്യസ്ഥാനത്തോട് അടുക്കുന്നു.",
   "You have reached the {name} Miqat line. You should be in Ihram now.": "നിങ്ങൾ {name} മീഖാത്ത് അതിർത്തിയിൽ എത്തി. ഇപ്പോൾ നിങ്ങൾ ഇഹ്‌റാമിലായിരിക്കണം.",
   "Your Umrah progress is saved on this device after every step. The ritual tracker never needs internet.": "ഓരോ ഘട്ടത്തിന് ശേഷവും നിങ്ങളുടെ ഉംറ പുരോഗതി ഈ ഉപകരണത്തിൽ സേവ് ചെയ്യപ്പെടുന്നു. ട്രാക്കറിന് ഒരിക്കലും ഇന്റർനെറ്റ് ആവശ്യമില്ല.",
