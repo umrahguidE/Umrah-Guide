@@ -20,6 +20,10 @@
         "./src/ui/sensors.js",
         "./src/i18n/index.js",
         "./src/i18n/hi.js",
+        "./src/i18n/ur.js",
+        "./src/i18n/bn.js",
+        "./src/i18n/id.js",
+        "./src/i18n/tr.js",
         "./src/i18n/ta.js",
         "./src/i18n/ml.js"
       ]
