@@ -109,8 +109,7 @@ export function renderApp(ctx) {
     </main>
     ${audioBar(ctx)}
     ${chooseLanguage ? '' : tabBar(ctx)}
-    ${ctx.ui.modal ? modal(ctx) : ''}
-    ${ctx.ui.sim.enabled ? simPanel(ctx) : ''}`;
+    ${ctx.ui.modal ? modal(ctx) : ''}`;
 }
 
 function topBar(ctx) {
@@ -122,6 +121,9 @@ function topBar(ctx) {
       <a class="chip ok" href="#/language" aria-label="${t('Language')}">🌐 ${languageInfo().native}</a>
       ${ctx.ui.voice.available
         ? html`<button class="chip ok" data-action="voice-quick" aria-pressed="${ctx.ui.voice.enabled}" aria-label="${t('Voice guide')}">${ctx.ui.voice.enabled ? '🔊' : '🔇'}</button>`
+        : ''}
+      ${ctx.ui.sim.enabled
+        ? html`<button class="chip ${ctx.ui.sim.dropped ? 'warn' : 'ok'}" data-action="sim-drop" aria-pressed="${ctx.ui.sim.dropped}" title="${t('Simulated GPS')}" aria-label="${t('Simulated GPS')} — ${ctx.ui.sim.dropped ? t('Restore signal') : t('Drop signal')}">🛰</button>`
         : ''}
     </div>
   </header>`;
@@ -145,11 +147,6 @@ function audioBar(ctx) {
   if (!ctx.ui.audio.playing || (ctx.route.name === '' && s?.current_stage === STAGE.TALBIYAH)) return '';
   return html`<div class="audio-bar" role="status">🔊 ${t('Talbiyah playing')}${ctx.ui.audio.loop ? ` (${t('repeating')})` : ''}
     <button class="btn small" data-action="audio-toggle">${t('Pause')}</button></div>`;
-}
-
-function simPanel(ctx) {
-  return html`<div class="sim-panel">🛰 ${t('Simulated GPS')}
-    <button class="btn small" data-action="sim-drop">${ctx.ui.sim.dropped ? t('Restore signal') : t('Drop signal')}</button></div>`;
 }
 
 // ───────────────────────── Shared bits ─────────────────────────
@@ -714,6 +711,7 @@ const SIMPLE_VIEWS = {
 // ───────────────────────── Correction modal ─────────────────────────
 
 function modal(ctx) {
+  if (ctx.ui.modal.kind === 'quick-confirm') return quickConfirmModal(ctx.ui.modal);
   const { ritual } = ctx.ui.modal;
   const s = ctx.state.session;
   if (!s) return '';
@@ -733,6 +731,21 @@ function modal(ctx) {
       </div>
       ${tawaf ? '' : html`<p class="muted">${t('Odd laps go Safa → Marwah; even laps go Marwah → Safa.')}</p>`}
       <p class="alert info">${t('This app’s count is only a record to help you.')} <b>${t('Your own certain count is what matters.')}</b> ${t(G.DOUBT)}</p>
+      <button class="btn ghost" data-action="close-modal">${t('Cancel')}</button>
+    </div>
+  </div>`;
+}
+
+function quickConfirmModal(m) {
+  const tawaf = m.field === 'round';
+  const question = tawaf
+    ? t('Round {n} started only a few seconds ago. Mark it complete anyway?', { n: m.n })
+    : t('Lap {n} started only a few seconds ago. Mark it complete anyway?', { n: m.n });
+  const confirmLabel = tawaf ? t('Confirm Round {n} complete', { n: m.n }) : t('I have reached {place}', { place: place(saiDirection(m.n).to) });
+  return html`<div class="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="quick-confirm-title">
+      <h2 id="quick-confirm-title">${question}</h2>
+      <button class="btn primary big" data-action="confirm-quick">✓ ${confirmLabel}</button>
       <button class="btn ghost" data-action="close-modal">${t('Cancel')}</button>
     </div>
   </div>`;

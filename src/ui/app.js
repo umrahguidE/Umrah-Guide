@@ -29,7 +29,7 @@ document.documentElement.style.setProperty('--text-scale', prefs.textScale ?? 1)
 
 // Errors that just mean "that tap was a duplicate" — ignore silently.
 const QUIET_ERRORS = new Set(['STALE', 'ALREADY_PAUSED', 'NOT_PAUSED']);
-const TAP_GUARD_MS = 700;
+const TAP_GUARD_MS = 350;
 const QUICK_CONFIRM_MS = 15_000;
 const LIVE_RENDER_MS = 700;
 
@@ -182,14 +182,23 @@ function confirmCounted(el, type, field) {
     const ritual = field === 'round' ? s?.tawaf : s?.sai;
     const startedAt = field === 'round' ? ritual?.current_round_started_at : ritual?.current_lap_started_at;
     const n = Number(el.dataset.n);
-    const message = field === 'round' ? t('Round {n} started only a few seconds ago. Mark it complete anyway?', { n }) : t('Lap {n} started only a few seconds ago. Mark it complete anyway?', { n });
-    if (startedAt && Date.now() - Date.parse(startedAt) < QUICK_CONFIRM_MS && !window.confirm(message)) return;
-    const r = ui.reading;
-    const assisted = s?.tracking_mode === 'assisted';
-    const confidence = assisted && r?.status === 'ok' && r.suggestCompletion ? r.confidence : 'manual';
-    if (field === 'lap') learnStepLength(r);
-    dispatch({ type, [field]: n, expect: el.dataset.expect, confidence });
+    const expect = el.dataset.expect;
+    if (startedAt && Date.now() - Date.parse(startedAt) < QUICK_CONFIRM_MS) {
+      ui.modal = { kind: 'quick-confirm', type, field, n, expect };
+      render();
+      return;
+    }
+    finishCounted(type, field, n, expect);
   });
+}
+
+function finishCounted(type, field, n, expect) {
+  const s = state.session;
+  const r = ui.reading;
+  const assisted = s?.tracking_mode === 'assisted';
+  const confidence = assisted && r?.status === 'ok' && r.suggestCompletion ? r.confidence : 'manual';
+  if (field === 'lap') learnStepLength(r);
+  dispatch({ type, [field]: n, expect, confidence });
 }
 
 /** A lap walked with good GPS teaches us the pilgrim's step length for the indoor laps. */
@@ -438,6 +447,12 @@ const actions = {
   'close-modal'() {
     ui.modal = null;
     render();
+  },
+  'confirm-quick'() {
+    const m = ui.modal;
+    if (!m || m.kind !== 'quick-confirm') return;
+    ui.modal = null;
+    finishCounted(m.type, m.field, m.n, m.expect);
   },
   async tracking(el) {
     const mode = el.dataset.mode;
