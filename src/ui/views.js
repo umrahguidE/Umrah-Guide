@@ -462,13 +462,43 @@ function actionRow(s, ritual) {
   </div>`;
 }
 
-function tawafRoundView(s, n, ctx) {
-  const done = s.tawaf.rounds.length;
+// The ring, sector and suggestion banner change on almost every GPS/compass
+// sample — factored out so a live update can patch just this DOM region
+// instead of the whole page (see app.js patchLiveTracking). The button that
+// confirms the round sits outside both live regions so it is never torn down
+// and rebuilt mid-tap while tracking is running.
+export function tawafLiveTop(s, n, ctx) {
+  const r = ctx.ui.reading;
+  const fix = s.tracking_mode === 'assisted' && r?.status === 'ok';
+  return html`
+    ${tawafRing({ progress: fix ? r.progress : null, startBearing: HARAM_GEO.blackStoneBearingDeg })}
+    <p class="left-hint">🕋 ${t('Kaaba is on your')} <b>${t('LEFT')}</b></p>
+    ${sectorCard(fix ? r.sector : null)}
+    ${fix && r.suggestCompletion
+      ? html`<div class="alert suggest" role="status"><b>${t('Possible round completion')}</b><br>${t('You appear to have reached the starting point. Confirm only if you have completed Round {n}.', { n })}</div>`
+      : ''}`;
+}
+
+export function tawafLiveBottom(s, n, ctx) {
   const r = ctx.ui.reading;
   const assisted = s.tracking_mode === 'assisted';
   const fix = assisted && r?.status === 'ok';
+  const lastConfirmed = t('Tawaf — {done} of {total} rounds confirmed (you are on Round {n})', { done: s.tawaf.rounds.length, total: TAWAF_ROUNDS, n });
+  return html`
+    ${s.paused ? '' : trackingStatus(s, r, lastConfirmed)}
+    ${assisted
+      ? html`<section class="card">
+          <h2>🗺 ${t('Map and tracking details')}</h2>
+          ${cornerChecks(fix ? r.checkpoints : null, r?.nearStart)}
+          ${sourceChips(r)}
+          ${haramMap({ pilgrim: r?.position ?? null, accuracyM: r?.position?.accuracyM ?? null, trail: ctx.ui.map.trail, focus: 'tawaf' })}
+        </section>`
+      : ''}`;
+}
+
+function tawafRoundView(s, n, ctx) {
+  const done = s.tawaf.rounds.length;
   const final = n === TAWAF_ROUNDS;
-  const lastConfirmed = t('Tawaf — {done} of {total} rounds confirmed (you are on Round {n})', { done, total: TAWAF_ROUNDS, n });
   return html`
     <section class="counter ${final ? 'final' : ''}">
       <p class="eyebrow">${t('Tawaf')}${final ? ` · ${t('final round')}` : ''}</p>
@@ -478,25 +508,12 @@ function tawafRoundView(s, n, ctx) {
     ${s.paused
       ? pausedCard('tawaf', t('Tawaf — Round {n} / {total}', { n, total: TAWAF_ROUNDS }))
       : html`
-        ${tawafRing({ progress: fix ? r.progress : null, startBearing: HARAM_GEO.blackStoneBearingDeg })}
-        <p class="left-hint">🕋 ${t('Kaaba is on your')} <b>${t('LEFT')}</b></p>
-        ${sectorCard(fix ? r.sector : null)}
-        ${fix && r.suggestCompletion
-          ? html`<div class="alert suggest" role="status"><b>${t('Possible round completion')}</b><br>${t('You appear to have reached the starting point. Confirm only if you have completed Round {n}.', { n })}</div>`
-          : ''}
+        <div id="live-top">${tawafLiveTop(s, n, ctx)}</div>
         <button class="btn primary big ${final ? 'final' : ''}" data-action="confirm-round" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('Confirm Round {n} complete', { n })}</button>
-        <p class="hint">${t('Tap when you are back at the Black Stone line (green light on the wall).')}</p>
-        ${trackingStatus(s, r, lastConfirmed)}`}
+        <p class="hint">${t('Tap when you are back at the Black Stone line (green light on the wall).')}</p>`}
     ${actionRow(s, 'tawaf')}
     ${s.gender === 'male' && n <= 3 ? html`<p class="alert info">${t(G.TAWAF_ROUND.ramal)}</p>` : ''}
-    ${assisted
-      ? html`<section class="card">
-          <h2>🗺 ${t('Map and tracking details')}</h2>
-          ${cornerChecks(fix ? r.checkpoints : null, r?.nearStart)}
-          ${sourceChips(r)}
-          ${haramMap({ pilgrim: r?.position ?? null, accuracyM: r?.position?.accuracyM ?? null, trail: ctx.ui.map.trail, focus: 'tawaf' })}
-        </section>`
-      : ''}
+    <div id="live-bottom">${tawafLiveBottom(s, n, ctx)}</div>
     ${details(ctx, 'tawaf:duas', `🤲 ${t('Duas and guidance for Tawaf')}`, html`
       ${pointsList(G.TAWAF_ROUND.points)}
       ${duaCard(dua('black-stone'))}
@@ -516,12 +533,42 @@ function greenMarkerCard(gender, green) {
   </section>`;
 }
 
-function saiLapView(s, n, ctx) {
+// Split for the same reason as tawafLiveTop/Bottom — see the comment there.
+export function saiLiveTop(s, n, ctx) {
   const d = saiDirection(n);
-  const done = s.sai.laps.length;
+  const r = ctx.ui.reading;
+  const fix = s.tracking_mode === 'assisted' && r?.status === 'ok';
+  const final = n === SAI_LAPS;
+  const to = place(d.to);
+  return html`
+    <div class="sai-layout">
+      ${saiTrack({ direction: d.key, fromSafa: fix ? r.fromSafa : null, greenZone: HARAM_GEO.greenZone })}
+      ${greenMarkerCard(s.gender, fix ? r.green : null)}
+    </div>
+    ${fix && r.suggestCompletion
+      ? html`<div class="alert suggest" role="status"><b>${t('{place} reached?', { place: to })}</b><br>${final ? t('You are approaching the final destination.') : t('You appear to be at {place}.', { place: to })} ${t('Confirm only when you have arrived.')}</div>`
+      : ''}`;
+}
+
+export function saiLiveBottom(s, n, ctx) {
+  const d = saiDirection(n);
   const r = ctx.ui.reading;
   const assisted = s.tracking_mode === 'assisted';
   const fix = assisted && r?.status === 'ok';
+  return html`
+    ${s.paused ? '' : trackingStatus(s, r, t('Sa’i — {done} of {total} laps confirmed (you are on Lap {n})', { done: s.sai.laps.length, total: SAI_LAPS, n }))}
+    ${assisted
+      ? html`<section class="card">
+          <h2>🗺 ${t('Map and tracking details')}</h2>
+          ${sourceChips(r)}
+          ${haramMap({ saiFromSafa: fix ? r.fromSafa : null, trail: ctx.ui.map.trail, focus: 'sai' })}
+        </section>`
+      : ''}`;
+}
+
+function saiLapView(s, n, ctx) {
+  const d = saiDirection(n);
+  const done = s.sai.laps.length;
   const final = n === SAI_LAPS;
   const to = place(d.to);
   return html`
@@ -534,24 +581,11 @@ function saiLapView(s, n, ctx) {
     ${s.paused
       ? pausedCard('sai', t('Sa’i — Lap {n} / {total}', { n, total: SAI_LAPS }))
       : html`
-        <div class="sai-layout">
-          ${saiTrack({ direction: d.key, fromSafa: fix ? r.fromSafa : null, greenZone: HARAM_GEO.greenZone })}
-          ${greenMarkerCard(s.gender, fix ? r.green : null)}
-        </div>
-        ${fix && r.suggestCompletion
-          ? html`<div class="alert suggest" role="status"><b>${t('{place} reached?', { place: to })}</b><br>${final ? t('You are approaching the final destination.') : t('You appear to be at {place}.', { place: to })} ${t('Confirm only when you have arrived.')}</div>`
-          : ''}
+        <div id="live-top">${saiLiveTop(s, n, ctx)}</div>
         <button class="btn primary big ${final ? 'final' : ''}" data-action="confirm-lap" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('I have reached {place}', { place: to })}</button>
-        <p class="hint">${t('On reaching {place}: face the Kaaba, raise your hands, and repeat the dhikr and dua as at Safa.', { place: to })}</p>
-        ${trackingStatus(s, r, t('Sa’i — {done} of {total} laps confirmed (you are on Lap {n})', { done, total: SAI_LAPS, n }))}`}
+        <p class="hint">${t('On reaching {place}: face the Kaaba, raise your hands, and repeat the dhikr and dua as at Safa.', { place: to })}</p>`}
     ${actionRow(s, 'sai')}
-    ${assisted
-      ? html`<section class="card">
-          <h2>🗺 ${t('Map and tracking details')}</h2>
-          ${sourceChips(r)}
-          ${haramMap({ saiFromSafa: fix ? r.fromSafa : null, trail: ctx.ui.map.trail, focus: 'sai' })}
-        </section>`
-      : ''}
+    <div id="live-bottom">${saiLiveBottom(s, n, ctx)}</div>
     ${details(ctx, 'sai:duas', `🤲 ${t('Duas and guidance for Sa’i')}`, html`
       ${pointsList(G.SAI_LAP.points)}
       ${duaCard(dua('safa-marwah-dhikr'))}

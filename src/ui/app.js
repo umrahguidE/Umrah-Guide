@@ -11,7 +11,7 @@ import { MIQATS, routeById } from '../data/content.js';
 import * as L from '../data/voice-lines.js';
 import { setLanguage, languageInfo, getLanguage, t } from '../i18n/index.js';
 import { loadState, saveState, loadPrefs, savePrefs, pushUndo, popUndo, undoDepth } from '../store.js';
-import { renderApp, createUiState } from './views.js';
+import { renderApp, createUiState, tawafLiveTop, tawafLiveBottom, saiLiveTop, saiLiveBottom } from './views.js';
 import { createTrackingRuntime } from './tracking-runtime.js';
 import { requestMotionPermission } from './sensors.js';
 import { createVoice, createClipPlayer, PLAYBACK_RATES } from './voice.js';
@@ -93,8 +93,40 @@ function renderLive() {
   pendingLiveRender = true;
   setTimeout(() => {
     lastLiveRenderAt = Date.now();
-    if (pendingLiveRender) render();
+    if (pendingLiveRender) commitLiveRender();
   }, wait);
+}
+
+// A GPS/compass/step tick only ever changes the ring, sector and map — never
+// the confirm button or anything else on screen. Previously every tick did
+// `root.innerHTML = ...`, rebuilding the ENTIRE page (confirm button
+// included) up to twice a second while a round or lap was being tracked —
+// on a real phone that is exactly the kind of churn that makes a tap land on
+// nothing. Patching just the ring/map region instead leaves the confirm
+// button (and everything else) untouched and tappable throughout tracking.
+function commitLiveRender() {
+  pendingLiveRender = false;
+  if (patchLiveTracking()) return;
+  render();
+}
+
+function patchLiveTracking() {
+  const s = state.session;
+  if (!s || s.status !== 'active') return false;
+  const p = parseStage(s.current_stage);
+  if (p.kind !== 'tawaf' && p.kind !== 'sai') return false;
+  const top = document.getElementById('live-top');
+  const bottom = document.getElementById('live-bottom');
+  if (!top || !bottom) return false;
+  const ctx = { state, prefs, ui, route: route(), undoAvailable: undoDepth() > 0 };
+  if (p.kind === 'tawaf') {
+    top.innerHTML = String(tawafLiveTop(s, p.n, ctx));
+    bottom.innerHTML = String(tawafLiveBottom(s, p.n, ctx));
+  } else {
+    top.innerHTML = String(saiLiveTop(s, p.n, ctx));
+    bottom.innerHTML = String(saiLiveBottom(s, p.n, ctx));
+  }
+  return true;
 }
 
 // Spoken guidance never talks over a recitation. `textOrFn` is normally a
