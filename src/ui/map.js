@@ -47,6 +47,7 @@ export function haramMap({ pilgrim = null, accuracyM = null, trail = [], focus =
   const trailPath = trail.length > 1 ? `<polyline class="map-trail" points="${trail.map(pt).join(' ')}"/>` : '';
   const pilgrimDot = pilgrim
     ? `${accuracyM ? `<circle class="map-accuracy" cx="${f(sx(pilgrim))}" cy="${f(sy(pilgrim))}" r="${f(Math.max(4, accuracyM))}"/>` : ''}
+       <circle class="map-pilgrim-pulse" cx="${f(sx(pilgrim))}" cy="${f(sy(pilgrim))}" r="6"/>
        <circle class="map-pilgrim" cx="${f(sx(pilgrim))}" cy="${f(sy(pilgrim))}" r="6"/>`
     : '';
   const label = (key) => esc(t(key));

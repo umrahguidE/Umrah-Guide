@@ -228,7 +228,10 @@ details.card[open] summary { margin-bottom: 12px; }
 .start-dot { fill: var(--green); stroke: var(--surface); stroke-width: 3; }
 .ring-label { font-size: 13px; font-weight: 800; fill: var(--green); }
 .chev { fill: none; stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.pilgrim { fill: var(--gold); stroke: var(--surface); stroke-width: 3; }
+.pilgrim { fill: var(--gold); stroke: var(--surface); stroke-width: 3; transition: cx .6s ease-out, cy .6s ease-out; }
+.pilgrim-pulse { fill: var(--gold); opacity: .4; transform-origin: center; transition: cx .6s ease-out, cy .6s ease-out; animation: live-pulse-big 1.8s ease-out infinite; }
+@keyframes live-pulse-big { from { r: 8; opacity: .4; } to { r: 22; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pilgrim-pulse { animation: none; opacity: .15; } }
 
 .sai-layout { display: grid; grid-template-columns: minmax(130px, 42%) 1fr; gap: 12px; align-items: center; }
 .sai { width: 100%; max-height: 320px; }
@@ -372,8 +375,11 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 5px; font-
 .map-label { font-size: 13px; font-weight: 800; fill: var(--text); }
 .map-note { font-size: 10px; fill: var(--muted); }
 .map-trail { fill: none; stroke: var(--accent); stroke-width: 3; opacity: .5; stroke-linejoin: round; stroke-linecap: round; }
-.map-pilgrim { fill: var(--gold); stroke: var(--surface); stroke-width: 3; }
-.map-accuracy { fill: var(--accent); opacity: .12; }
+.map-pilgrim { fill: var(--gold); stroke: var(--surface); stroke-width: 3; transition: cx .6s ease-out, cy .6s ease-out; }
+.map-pilgrim-pulse { fill: var(--gold); opacity: .4; transform-origin: center; transition: cx .6s ease-out, cy .6s ease-out; animation: live-pulse-small 1.8s ease-out infinite; }
+@keyframes live-pulse-small { from { r: 6; opacity: .4; } to { r: 16; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .map-pilgrim-pulse { animation: none; opacity: .15; } }
+.map-accuracy { fill: var(--accent); opacity: .12; transition: cx .6s ease-out, cy .6s ease-out, r .6s ease-out; }
 .map-north { fill: var(--muted); }
 .map-scale { stroke: var(--muted); stroke-width: 2; }
 .map.focus-sai .map-mataf-group { opacity: .5; }

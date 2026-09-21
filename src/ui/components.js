@@ -127,7 +127,7 @@ export function tawafRing({ progress = null, startBearing }) {
     const [ex, ey] = pt(startBearing - p * 360);
     if (p >= 0.999) arc = `<circle cx="${cx}" cy="${cy}" r="${r}" class="ring-progress"/>`;
     else if (p > 0) arc = `<path class="ring-progress" d="M${f(sx)} ${f(sy)} A${r} ${r} 0 ${p > 0.5 ? 1 : 0} 0 ${f(ex)} ${f(ey)}"/>`;
-    dot = `<circle class="pilgrim" cx="${f(ex)}" cy="${f(ey)}" r="8"/>`;
+    dot = `<circle class="pilgrim-pulse" cx="${f(ex)}" cy="${f(ey)}" r="8"/><circle class="pilgrim" cx="${f(ex)}" cy="${f(ey)}" r="8"/>`;
   }
 
   // Chevrons along the ring showing the anticlockwise direction of travel.
@@ -177,6 +177,6 @@ export function saiTrack({ direction, fromSafa = null, greenZone }) {
     <circle cx="${x}" cy="${bottom}" r="10" class="hill ${down ? 'to' : 'from'}"/>
     <text x="${x + 20}" y="${bottom + 5}" class="hill-label">${esc(t('MARWAH'))}</text>
     <text x="${x + 22}" y="${f(y((g0 + g1) / 2) + 4)}" class="green-label">${esc(t('green markers'))}</text>
-    ${fromSafa != null ? `<circle cx="${x}" cy="${f(y(fromSafa))}" r="8" class="pilgrim"/>` : ''}
+    ${fromSafa != null ? `<circle cx="${x}" cy="${f(y(fromSafa))}" r="8" class="pilgrim-pulse"/><circle cx="${x}" cy="${f(y(fromSafa))}" r="8" class="pilgrim"/>` : ''}
   </svg>`);
 }
