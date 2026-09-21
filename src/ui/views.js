@@ -391,14 +391,30 @@ function sectorCard(sector) {
   </section>`;
 }
 
-// One line of tracking status; the full weak-signal warning when counting is not possible.
+// The manual/automatic tracking status, shown as a clear card+button (not a
+// small text link) so the choice is obvious on every round/lap screen, not
+// just before starting; the full weak-signal warning when counting is not possible.
 function trackingStatus(s, r, lastConfirmed) {
   if (s.tracking_mode !== 'assisted') {
-    return html`<p class="tracking-line">📍 ${t('Location help is OFF')} · <button class="link" data-action="tracking" data-mode="assisted">${t('Turn on')}</button></p>`;
+    return html`<section class="card tracking-toggle">
+      <div><b>📍 ${t('Location help is OFF')}</b>
+        <small>${t('The phone only suggests when a round may be finished. You always confirm it yourself.')}</small></div>
+      <button class="btn small" data-action="tracking" data-mode="assisted">${t('Turn on')}</button>
+    </section>`;
   }
-  const off = html` · <button class="link" data-action="tracking" data-mode="manual">${t('Turn off')}</button>`;
-  if (!r || r.status === 'waiting') return html`<p class="tracking-line">📡 ${t('Waiting for a location fix…')}${off}</p>`;
-  if (r.status === 'ok') return html`<p class="tracking-line ok">📡 ${t(MODE_LABEL[r.mode] ?? 'Tracking')}${off}</p>`;
+  const offBtn = html`<button class="btn small" data-action="tracking" data-mode="manual">${t('Turn off')}</button>`;
+  if (!r || r.status === 'waiting') {
+    return html`<section class="card tracking-toggle">
+      <div><b>📡 ${t('Waiting for a location fix…')}</b></div>
+      ${offBtn}
+    </section>`;
+  }
+  if (r.status === 'ok') {
+    return html`<section class="card tracking-toggle ok">
+      <div><b>📡 ${t(MODE_LABEL[r.mode] ?? 'Tracking')}</b></div>
+      ${offBtn}
+    </section>`;
+  }
   const why = {
     weak: 'Tracking signal weak',
     denied: 'Location permission denied',
@@ -474,10 +490,12 @@ function tawafRoundView(s, n, ctx) {
     ${actionRow(s, 'tawaf')}
     ${s.gender === 'male' && n <= 3 ? html`<p class="alert info">${t(G.TAWAF_ROUND.ramal)}</p>` : ''}
     ${assisted
-      ? details(ctx, 'tawaf:tracking', `🗺 ${t('Map and tracking details')}`, html`
+      ? html`<section class="card">
+          <h2>🗺 ${t('Map and tracking details')}</h2>
           ${cornerChecks(fix ? r.checkpoints : null, r?.nearStart)}
           ${sourceChips(r)}
-          ${haramMap({ pilgrim: r?.position ?? null, accuracyM: r?.position?.accuracyM ?? null, trail: ctx.ui.map.trail, focus: 'tawaf' })}`)
+          ${haramMap({ pilgrim: r?.position ?? null, accuracyM: r?.position?.accuracyM ?? null, trail: ctx.ui.map.trail, focus: 'tawaf' })}
+        </section>`
       : ''}
     ${details(ctx, 'tawaf:duas', `🤲 ${t('Duas and guidance for Tawaf')}`, html`
       ${pointsList(G.TAWAF_ROUND.points)}
@@ -528,9 +546,11 @@ function saiLapView(s, n, ctx) {
         ${trackingStatus(s, r, t('Sa’i — {done} of {total} laps confirmed (you are on Lap {n})', { done, total: SAI_LAPS, n }))}`}
     ${actionRow(s, 'sai')}
     ${assisted
-      ? details(ctx, 'sai:tracking', `🗺 ${t('Map and tracking details')}`, html`
+      ? html`<section class="card">
+          <h2>🗺 ${t('Map and tracking details')}</h2>
           ${sourceChips(r)}
-          ${haramMap({ saiFromSafa: fix ? r.fromSafa : null, trail: ctx.ui.map.trail, focus: 'sai' })}`)
+          ${haramMap({ saiFromSafa: fix ? r.fromSafa : null, trail: ctx.ui.map.trail, focus: 'sai' })}
+        </section>`
       : ''}
     ${details(ctx, 'sai:duas', `🤲 ${t('Duas and guidance for Sa’i')}`, html`
       ${pointsList(G.SAI_LAP.points)}

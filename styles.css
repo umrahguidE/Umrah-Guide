@@ -199,6 +199,8 @@ details.card[open] summary { margin-bottom: 12px; }
 .tracking-line { font-size: .85rem; color: var(--muted); text-align: center; }
 .tracking-line.ok { color: var(--green); }
 .tracking-toggle { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+.tracking-toggle.ok { border-color: var(--green); }
+.tracking-toggle.ok b { color: var(--green); }
 
 .counter { text-align: center; }
 .counter.final { border-color: var(--gold); border-width: 2px; background: linear-gradient(var(--gold-soft), var(--surface)); }
