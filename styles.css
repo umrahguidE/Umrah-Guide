@@ -386,6 +386,15 @@ code { background: var(--surface-2); padding: 1px 5px; border-radius: 5px; font-
    controls and tiles; this just sizes and rounds the container to match the
    rest of the app. */
 .real-map-canvas { width: 100%; height: 60vh; max-height: 520px; min-height: 280px; border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
+@media (prefers-color-scheme: dark) {
+  /* OpenStreetMap's tiles are always drawn for a light background — invert
+     just the tile layer (never the marker, which lives in a separate pane)
+     so a pilgrim checking this at night is not hit with a bright white map. */
+  .real-map-canvas .leaflet-tile-pane { filter: brightness(0.65) invert(1) contrast(0.85) hue-rotate(180deg) saturate(0.6); }
+  .real-map-canvas .leaflet-control-zoom a { background: var(--surface); color: var(--text); border-color: var(--border); }
+  .real-map-canvas .leaflet-control-attribution { background: rgb(0 0 0 / 55%); color: var(--muted); }
+  .real-map-canvas .leaflet-control-attribution a { color: var(--text); }
+}
 .map-ground { fill: var(--surface-2); }
 .map-mosque { fill: var(--surface); stroke: var(--border); stroke-width: 3; }
 .map-mataf { fill: none; stroke: var(--border); stroke-width: 2; stroke-dasharray: 6 6; }
