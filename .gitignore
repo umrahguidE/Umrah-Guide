@@ -8,3 +8,6 @@ Thumbs.db
 audio/duas/
 audio/*.mp3
 dist/
+android-release/
+*.aab
+*.keystore
