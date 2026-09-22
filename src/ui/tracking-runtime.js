@@ -8,13 +8,17 @@ import { createSensorSource } from './sensors.js';
 
 const STALE_CHECK_MS = 3000;
 
-function geoSource(onSample, onError) {
+function geoSource(onSample, onError, onRaw) {
   if (!('geolocation' in navigator)) {
     onError('unsupported');
     return { stop() {} };
   }
   const id = navigator.geolocation.watchPosition(
-    (p) => onSample({ lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy, timestamp: p.timestamp }),
+    (p) => {
+      const sample = { lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy, timestamp: p.timestamp };
+      onRaw?.(sample); // the pilgrim's real-world fix, before the tracker reduces it to local metres around the Kaaba
+      onSample(sample);
+    },
     (err) => onError(err.code === 1 ? 'denied' : 'unavailable'),
     { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 },
   );
@@ -48,7 +52,7 @@ function simSource(target, { onSample, onHeading, onSteps, isDropped }) {
   return { stop: () => clearInterval(timer) };
 }
 
-export function createTrackingRuntime({ onReading, simulate = false, isDropped = () => false, getStepLength = () => 0.72, onSensors = () => {} }) {
+export function createTrackingRuntime({ onReading, simulate = false, isDropped = () => false, getStepLength = () => 0.72, onSensors = () => {}, onRawPosition = () => {} }) {
   let key = null;
   let kind = null;
   let tracker = null;
@@ -72,7 +76,7 @@ export function createTrackingRuntime({ onReading, simulate = false, isDropped =
   };
 
   function startSources(target) {
-    source = simulate ? simSource(target, feed) : geoSource(feed.onSample, feed.onError);
+    source = simulate ? simSource(target, feed) : geoSource(feed.onSample, feed.onError, onRawPosition);
     if (!simulate && !sensors) {
       sensors = createSensorSource({ onHeading: feed.onHeading, onSteps: feed.onSteps });
       onSensors(sensors.active);
@@ -108,6 +112,7 @@ export function createTrackingRuntime({ onReading, simulate = false, isDropped =
           key = null;
           kind = null;
           onReading(null);
+          onRawPosition(null);
           return;
         }
         // Consecutive Tawaf rounds share a tracker so the circle stays continuous;

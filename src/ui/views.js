@@ -29,6 +29,11 @@ export function createUiState({ simulate = false } = {}) {
     voice: { available: false, enabled: false, voiceURI: null, voices: [], mobile: true },
     playback: { playingId: null, currentTime: 0, duration: 0, rate: 1, queue: null },
     map: { live: false, trail: [], position: null, accuracyM: null, distanceM: null, latLng: null, error: null },
+    // The pilgrim's real-world GPS fix during Tawaf/Sa'i tracking, kept
+    // separate from `map` (which is the standalone Map page's own,
+    // explicitly-toggled "show my location") so stopping one never
+    // interferes with the other. See mapShowsRealMap / tawafLiveBottom.
+    live: { latLng: null, distanceM: null, accuracyM: null },
     miqatWatching: false,
     stepLengthM: null,
     sensors: { compass: false, steps: false },
@@ -479,21 +484,36 @@ export function tawafLiveTop(s, n, ctx) {
       : ''}`;
 }
 
-export function tawafLiveBottom(s, n, ctx) {
-  const r = ctx.ui.reading;
-  const assisted = s.tracking_mode === 'assisted';
-  const fix = assisted && r?.status === 'ok';
+export function tawafLiveStatus(s, n, ctx) {
+  if (s.paused) return '';
   const lastConfirmed = t('Tawaf — {done} of {total} rounds confirmed (you are on Round {n})', { done: s.tawaf.rounds.length, total: TAWAF_ROUNDS, n });
-  return html`
-    ${s.paused ? '' : trackingStatus(s, r, lastConfirmed)}
-    ${assisted
-      ? html`<section class="card">
-          <h2>🗺 ${t('Map and tracking details')}</h2>
+  return trackingStatus(s, ctx.ui.reading, lastConfirmed);
+}
+
+// The Kaaba diagram only ever covers ~500 m around it (see MAP_RANGE_M), so
+// it stays blank if the pilgrim is testing away from Makkah. When the
+// tracker's own GPS fix (ctx.ui.live, separate from the standalone Map
+// page's `ui.map`) says we're beyond that, show the real live map here
+// instead — see mapShowsRealMap in the Map page for the same idea. Kept in
+// its own DOM region (see patchEmbeddedMap in app.js) so a live GPS tick
+// never tears down and rebuilds an already-mounted Leaflet instance.
+export function tawafLiveMapCard(s, n, ctx) {
+  if (s.tracking_mode !== 'assisted') return '';
+  const r = ctx.ui.reading;
+  const fix = r?.status === 'ok';
+  const live = ctx.ui.live;
+  const realMap = live?.distanceM != null && live.distanceM > MAP_RANGE_M;
+  return html`<section class="card">
+    <h2>🗺 ${t('Map and tracking details')}</h2>
+    ${realMap
+      ? html`<div id="real-map" class="real-map-canvas" role="img" aria-label="${t('Real map showing your current location')}"></div>
+          <p class="muted">${t('You are about {km} km from Masjid al-Haram, so this shows a real online map with your live location instead of the mosque diagram. It will switch back automatically once you are close to Masjid al-Haram.', { km: (live.distanceM / 1000).toFixed(1) })}</p>`
+      : html`<div id="map-schematic">
           ${cornerChecks(fix ? r.checkpoints : null, r?.nearStart)}
           ${sourceChips(r)}
           ${haramMap({ pilgrim: r?.position ?? null, accuracyM: r?.position?.accuracyM ?? null, trail: ctx.ui.map.trail, focus: 'tawaf' })}
-        </section>`
-      : ''}`;
+        </div>`}
+  </section>`;
 }
 
 function tawafRoundView(s, n, ctx) {
@@ -515,7 +535,8 @@ function tawafRoundView(s, n, ctx) {
         <p class="hint">${t('Tap when you are back at the Black Stone line (green light on the wall).')}</p>`}
     ${actionRow(s, 'tawaf')}
     ${s.gender === 'male' && n <= 3 ? html`<p class="alert info">${t(G.TAWAF_ROUND.ramal)}</p>` : ''}
-    <div id="live-bottom">${tawafLiveBottom(s, n, ctx)}</div>
+    <div id="live-status">${tawafLiveStatus(s, n, ctx)}</div>
+    <div id="live-map-card">${tawafLiveMapCard(s, n, ctx)}</div>
     ${details(ctx, 'tawaf:duas', `🤲 ${t('Duas and guidance for Tawaf')}`, html`
       ${pointsList(G.TAWAF_ROUND.points)}
       ${duaCard(dua('black-stone'))}
@@ -552,20 +573,28 @@ export function saiLiveTop(s, n, ctx) {
       : ''}`;
 }
 
-export function saiLiveBottom(s, n, ctx) {
-  const d = saiDirection(n);
+export function saiLiveStatus(s, n, ctx) {
+  if (s.paused) return '';
+  return trackingStatus(s, ctx.ui.reading, t('Sa’i — {done} of {total} laps confirmed (you are on Lap {n})', { done: s.sai.laps.length, total: SAI_LAPS, n }));
+}
+
+// Same idea as tawafLiveMapCard — see the comment there.
+export function saiLiveMapCard(s, n, ctx) {
+  if (s.tracking_mode !== 'assisted') return '';
   const r = ctx.ui.reading;
-  const assisted = s.tracking_mode === 'assisted';
-  const fix = assisted && r?.status === 'ok';
-  return html`
-    ${s.paused ? '' : trackingStatus(s, r, t('Sa’i — {done} of {total} laps confirmed (you are on Lap {n})', { done: s.sai.laps.length, total: SAI_LAPS, n }))}
-    ${assisted
-      ? html`<section class="card">
-          <h2>🗺 ${t('Map and tracking details')}</h2>
+  const fix = r?.status === 'ok';
+  const live = ctx.ui.live;
+  const realMap = live?.distanceM != null && live.distanceM > MAP_RANGE_M;
+  return html`<section class="card">
+    <h2>🗺 ${t('Map and tracking details')}</h2>
+    ${realMap
+      ? html`<div id="real-map" class="real-map-canvas" role="img" aria-label="${t('Real map showing your current location')}"></div>
+          <p class="muted">${t('You are about {km} km from Masjid al-Haram, so this shows a real online map with your live location instead of the mosque diagram. It will switch back automatically once you are close to Masjid al-Haram.', { km: (live.distanceM / 1000).toFixed(1) })}</p>`
+      : html`<div id="map-schematic">
           ${sourceChips(r)}
           ${haramMap({ saiFromSafa: fix ? r.fromSafa : null, trail: ctx.ui.map.trail, focus: 'sai' })}
-        </section>`
-      : ''}`;
+        </div>`}
+  </section>`;
 }
 
 function saiLapView(s, n, ctx) {
@@ -589,7 +618,8 @@ function saiLapView(s, n, ctx) {
         <button class="btn primary big ${final ? 'final' : ''} ${ready ? 'ready-pulse' : ''}" data-action="confirm-lap" data-n="${n}" data-expect="${s.current_stage}">✓ ${t('I have reached {place}', { place: to })}</button>
         <p class="hint">${t('On reaching {place}: face the Kaaba, raise your hands, and repeat the dhikr and dua as at Safa.', { place: to })}</p>`}
     ${actionRow(s, 'sai')}
-    <div id="live-bottom">${saiLiveBottom(s, n, ctx)}</div>
+    <div id="live-status">${saiLiveStatus(s, n, ctx)}</div>
+    <div id="live-map-card">${saiLiveMapCard(s, n, ctx)}</div>
     ${details(ctx, 'sai:duas', `🤲 ${t('Duas and guidance for Sa’i')}`, html`
       ${pointsList(G.SAI_LAP.points)}
       ${duaCard(dua('safa-marwah-dhikr'))}

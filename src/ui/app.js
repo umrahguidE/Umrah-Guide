@@ -11,7 +11,19 @@ import { MIQATS, routeById } from '../data/content.js';
 import * as L from '../data/voice-lines.js';
 import { setLanguage, languageInfo, getLanguage, t } from '../i18n/index.js';
 import { loadState, saveState, loadPrefs, savePrefs, pushUndo, popUndo, undoDepth } from '../store.js';
-import { renderApp, createUiState, tawafLiveTop, tawafLiveBottom, saiLiveTop, saiLiveBottom, mapShowsRealMap, mapStatusLine, mapSchematicContent } from './views.js';
+import {
+  renderApp,
+  createUiState,
+  tawafLiveTop,
+  tawafLiveStatus,
+  tawafLiveMapCard,
+  saiLiveTop,
+  saiLiveStatus,
+  saiLiveMapCard,
+  mapShowsRealMap,
+  mapStatusLine,
+  mapSchematicContent,
+} from './views.js';
 import { createTrackingRuntime } from './tracking-runtime.js';
 import { requestMotionPermission } from './sensors.js';
 import { createVoice, createClipPlayer, PLAYBACK_RATES } from './voice.js';
@@ -101,13 +113,19 @@ function syncRealMap() {
     destroyRealMap();
     return;
   }
+  // #real-map is shared markup used by two independent live-position
+  // sources — the standalone Map page's own "Show my location" (ui.map) and
+  // the Tawaf/Sa'i tracker's ambient GPS fix embedded in the round/lap view
+  // (ui.live, see patchEmbeddedMap) — never both at once, so pick whichever
+  // one is actually driving the page currently showing this container.
+  const src = route().name === 'map' ? ui.map : ui.live;
   ensureRealMap(el).then((ok) => {
     if (document.getElementById('real-map') !== el) return; // page moved on while this was loading
     if (!ok) {
       el.innerHTML = `<p class="alert warn">${t('Could not load the real map — you appear to be offline.')}</p>`;
       return;
     }
-    if (ui.map.latLng) setRealMapPosition(ui.map.latLng.lat, ui.map.latLng.lng, ui.map.accuracyM);
+    if (src.latLng) setRealMapPosition(src.latLng.lat, src.latLng.lng, src.accuracyM);
   });
 }
 
@@ -168,22 +186,42 @@ function patchLiveTracking() {
   const p = parseStage(s.current_stage);
   if (p.kind !== 'tawaf' && p.kind !== 'sai') return false;
   const top = document.getElementById('live-top');
-  const bottom = document.getElementById('live-bottom');
-  if (!top || !bottom) return false;
+  const status = document.getElementById('live-status');
+  if (!top || !status) return false;
   const ctx = { state, prefs, ui, route: route(), undoAvailable: undoDepth() > 0 };
   if (p.kind === 'tawaf') {
     top.innerHTML = String(tawafLiveTop(s, p.n, ctx));
-    bottom.innerHTML = String(tawafLiveBottom(s, p.n, ctx));
+    status.innerHTML = String(tawafLiveStatus(s, p.n, ctx));
   } else {
     top.innerHTML = String(saiLiveTop(s, p.n, ctx));
-    bottom.innerHTML = String(saiLiveBottom(s, p.n, ctx));
+    status.innerHTML = String(saiLiveStatus(s, p.n, ctx));
   }
+  if (!patchEmbeddedMap(p.kind, s, p.n, ctx)) return false;
   // The confirm button lives outside the patched regions (so it is never
   // torn down mid-tap — see the comment above); toggle its "ready" glow
   // directly so it still reacts the instant tracking thinks the round/lap
   // may be done, even though its own markup isn't being rebuilt.
   const ready = s.tracking_mode === 'assisted' && ui.reading?.status === 'ok' && Boolean(ui.reading?.suggestCompletion);
   document.querySelector('[data-action="confirm-round"], [data-action="confirm-lap"]')?.classList.toggle('ready-pulse', ready);
+  return true;
+}
+
+// The "Map and tracking details" card, same real-map-vs-schematic split as
+// patchMapPage — never touches #real-map once mounted, only moves its
+// marker; falls back to a full render on the rarer switch between the two.
+function patchEmbeddedMap(kind, s, n, ctx) {
+  const card = document.getElementById('live-map-card');
+  if (!card) return false;
+  if (s.tracking_mode !== 'assisted') return true; // card is legitimately empty
+  const live = ui.live;
+  const realMap = live?.distanceM != null && live.distanceM > MAP_RANGE_M;
+  if (realMap) {
+    if (!document.getElementById('real-map')) return false;
+    if (live.latLng) setRealMapPosition(live.latLng.lat, live.latLng.lng, live.accuracyM);
+    return true;
+  }
+  if (!document.getElementById('map-schematic')) return false;
+  card.innerHTML = String(kind === 'tawaf' ? tawafLiveMapCard(s, n, ctx) : saiLiveMapCard(s, n, ctx));
   return true;
 }
 
@@ -317,6 +355,22 @@ const tracking = createTrackingRuntime({
   getStepLength: () => prefs.stepLengthM ?? 0.72,
   onSensors(active) {
     ui.sensors = { ...active };
+  },
+  // The pilgrim's real-world GPS fix, kept separate from the standalone Map
+  // page's own `ui.map` (see the comment on ui.live in createUiState) so the
+  // embedded "Map and tracking details" card can show the real live map
+  // when Tawaf/Sa'i tracking is on but the pilgrim is far from Makkah.
+  onRawPosition(sample) {
+    if (!sample) {
+      ui.live.latLng = null;
+      ui.live.distanceM = null;
+      ui.live.accuracyM = null;
+      return;
+    }
+    const coords = { lat: sample.lat, lng: sample.lng };
+    ui.live.latLng = coords;
+    ui.live.distanceM = distanceM(coords, HARAM_GEO.kaabaCenter);
+    ui.live.accuracyM = sample.accuracy;
   },
   onReading(reading) {
     const before = ui.reading;
