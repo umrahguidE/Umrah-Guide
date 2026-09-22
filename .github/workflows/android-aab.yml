@@ -101,7 +101,12 @@ jobs:
       - name: Assemble release AAB
         env:
           STOREPASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          KEYPASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          # PKCS12 keystores (the JDK's default since Java 9, and what
+          # keytool actually produced) don't support a key password
+          # different from the store password — keytool silently ignores
+          # a distinct one at generation time, so the two must match here
+          # too, or signing fails with a decryption error.
+          KEYPASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
           chmod +x android/gradlew
