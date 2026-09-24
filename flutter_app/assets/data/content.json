@@ -1,0 +1,1728 @@
+{
+ "CONTENT_META": {
+  "version": "0.1.0-draft",
+  "review": {
+   "status": "pending",
+   "by": null,
+   "at": null
+  },
+  "note": "This guidance is a draft written to reflect widely held positions. It has not yet been reviewed by qualified scholars. Where your scholar or group leader differs, follow them."
+ },
+ "REVIEW_NOTICE": "Draft guidance — not yet scholar-reviewed",
+ "PREP_CHECKLIST": [
+  {
+   "id": "documents",
+   "label": "Passport / travel documents"
+  },
+  {
+   "id": "visa",
+   "label": "Visa and any required permits"
+  },
+  {
+   "id": "accommodation",
+   "label": "Accommodation"
+  },
+  {
+   "id": "transport",
+   "label": "Transportation"
+  },
+  {
+   "id": "ihram",
+   "label": "Ihram clothing"
+  },
+  {
+   "id": "necessities",
+   "label": "Personal necessities (unscented toiletries, sandals, medication, water bottle)"
+  },
+  {
+   "id": "restrictions",
+   "label": "Learn the Ihram restrictions",
+   "link": "#/ihram"
+  },
+  {
+   "id": "miqat",
+   "label": "Know your Miqat",
+   "link": "#/miqat"
+  },
+  {
+   "id": "offline-guide",
+   "label": "Download the offline Umrah guide",
+   "link": "#/offline"
+  },
+  {
+   "id": "offline-audio",
+   "label": "Download duas / audio",
+   "link": "#/offline"
+  },
+  {
+   "id": "emergency",
+   "label": "Save emergency information",
+   "link": "#/info"
+  },
+  {
+   "id": "hotel",
+   "label": "Save hotel location",
+   "link": "#/info"
+  },
+  {
+   "id": "group",
+   "label": "Save group / leader information",
+   "link": "#/info"
+  }
+ ],
+ "IHRAM_GUIDE": [
+  {
+   "id": "meaning",
+   "title": "What Ihram means",
+   "points": [
+    "Ihram is the sacred state a pilgrim enters with the intention of Umrah (or Hajj).",
+    "The special clothing is part of it, but Ihram itself begins with the intention and the Talbiyah."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "how",
+   "title": "How to enter Ihram",
+   "points": [
+    "Before reaching the Miqat (recommended): ghusl, and trim nails or remove unwanted hair if needed.",
+    "Men may apply scent to the body — not to the Ihram garments — before making the intention.",
+    "Put on the Ihram clothing.",
+    "Scholars differ on whether there is a specific prayer for Ihram. If it is the time of an obligatory prayer, many enter Ihram after praying it.",
+    "At the Miqat, make the intention and begin the Talbiyah."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "men",
+   "title": "What men wear",
+   "points": [
+    "Two plain sheets: one wrapped around the waist (izār) and one over the shoulders (ridā’). White is preferred.",
+    "No garments tailored to the shape of the body (shirts, trousers, underwear, socks) and no head covering.",
+    "Sandals or footwear that leave the ankles uncovered."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "women",
+   "title": "What women wear",
+   "points": [
+    "Ordinary loose, modest clothing that covers the body, in any colour — there is no special Ihram colour for women.",
+    "Do not wear a face veil (niqāb) or gloves while in Ihram.",
+    "Many scholars allow lowering a cloth over the face in the presence of non-mahram men."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "intention",
+   "title": "Intention (niyyah)",
+   "points": [
+    "The intention is made in the heart. Saying it in words helps, especially on your first Umrah.",
+    "Commonly taught wording: Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī — “O Allah, I intend to perform Umrah, so make it easy for me and accept it from me.”",
+    "Then begin the Talbiyah for Umrah: Labbayka Allāhumma ʿumratan — “Here I am, O Allah, for Umrah.”",
+    "If you fear illness or an obstacle may stop you from completing Umrah, you may add the condition: Allāhumma maḥillī ḥaythu ḥabastanī."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "talbiyah",
+   "title": "Talbiyah",
+   "points": [
+    "Begin after making the intention and recite it often until you start Tawaf.",
+    "Men recite it aloud; women recite it quietly."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "restrictions",
+   "title": "Restrictions while in Ihram",
+   "points": [
+    "Removing hair or clipping nails.",
+    "Using perfume or scented products on the body or clothing.",
+    "Men: wearing tailored/fitted clothing or covering the head.",
+    "Women: wearing a niqāb or gloves.",
+    "Hunting land animals.",
+    "Marriage contracts and proposals.",
+    "Sexual relations and anything leading to them.",
+    "Avoid arguing, obscene talk and all sin.",
+    "If a restriction is broken by mistake, forgetfulness or out of need, the ruling (and any compensation, fidyah) depends on the case — ask a scholar."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "special",
+   "title": "Special circumstances",
+   "points": [
+    "A woman with menstruation or post-natal bleeding may enter Ihram, but does not perform Tawaf until she is pure. Ask a scholar about your situation and travel dates.",
+    "Illness, disability and children each have specific rulings — ask a scholar. Wheelchairs and carts are available in the Haram."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  }
+ ],
+ "MIQATS": [
+  {
+   "id": "dhul-hulayfah",
+   "name": "Dhul-Ḥulayfah",
+   "modern": "Abyār ʿAlī (Masjid ash-Shajarah)",
+   "coords": {
+    "lat": 24.4136,
+    "lng": 39.5431
+   },
+   "forWho": "People coming from Madinah and those travelling via it.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "juhfah",
+   "name": "Al-Juḥfah",
+   "modern": "near Rābigh",
+   "coords": {
+    "lat": 22.7106,
+    "lng": 39.1447
+   },
+   "forWho": "People of Egypt, the Levant, North Africa and those on routes from the north-west.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "qarn",
+   "name": "Qarn al-Manāzil",
+   "modern": "As-Sayl al-Kabīr",
+   "coords": {
+    "lat": 21.6331,
+    "lng": 40.4269
+   },
+   "forWho": "People of Najd, Riyadh, Ṭā’if, the Gulf and many eastern routes.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "yalamlam",
+   "name": "Yalamlam",
+   "modern": "As-Saʿdiyyah",
+   "coords": {
+    "lat": 20.5383,
+    "lng": 39.8836
+   },
+   "forWho": "People of Yemen, the south, and many sea and air routes from South and South-East Asia.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "dhat-irq",
+   "name": "Dhāt ʿIrq",
+   "modern": "Aḍ-Ḍarībah",
+   "coords": {
+    "lat": 21.9333,
+    "lng": 40.4333
+   },
+   "forWho": "People of Iraq and the north-east.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  }
+ ],
+ "ROUTES": [
+  {
+   "id": "air-pakistan",
+   "group": "air",
+   "mode": "air",
+   "label": "Pakistan (Karachi, Lahore, Islamabad, Peshawar)",
+   "miqats": [
+    "qarn",
+    "yalamlam"
+   ],
+   "note": "Flights from Pakistan cross the line of Qarn al-Manāzil or Yalamlam depending on the path they take that day.",
+   "extra": [
+    "Many pilgrims from Pakistan enter Ihram at the airport before departure — this is safe and easy, and is what most groups do."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-india",
+   "group": "air",
+   "mode": "air",
+   "label": "India",
+   "miqats": [
+    "qarn",
+    "yalamlam"
+   ],
+   "note": "Flights from India cross Yalamlam or Qarn al-Manāzil depending on the route.",
+   "extra": [
+    "Flights from the south of India usually cross Yalamlam; from the north, Qarn al-Manāzil is more likely. Being in Ihram before either is the safe choice."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-bangladesh",
+   "group": "air",
+   "mode": "air",
+   "label": "Bangladesh",
+   "miqats": [
+    "qarn",
+    "yalamlam"
+   ],
+   "note": "Flights from Bangladesh cross Yalamlam or Qarn al-Manāzil depending on the route.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-srilanka-maldives",
+   "group": "air",
+   "mode": "air",
+   "label": "Sri Lanka or the Maldives",
+   "miqats": [
+    "yalamlam"
+   ],
+   "note": "These routes come from the south-east and cross the line of Yalamlam.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-indonesia-malaysia",
+   "group": "air",
+   "mode": "air",
+   "label": "Indonesia, Malaysia, Brunei or Singapore",
+   "miqats": [
+    "yalamlam"
+   ],
+   "note": "The long-standing Miqat for pilgrims arriving from this direction is Yalamlam.",
+   "extra": [
+    "Many groups enter Ihram at the departure airport, or at a stop such as Dubai or Doha, which is safer than waiting for an announcement."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-southeast-asia",
+   "group": "air",
+   "mode": "air",
+   "label": "Thailand, the Philippines or elsewhere in South-East Asia",
+   "miqats": [
+    "yalamlam",
+    "qarn"
+   ],
+   "note": "Route-dependent: usually Yalamlam, sometimes Qarn al-Manāzil if you transit through the Gulf.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-gulf",
+   "group": "air",
+   "mode": "air",
+   "label": "UAE, Qatar, Kuwait, Bahrain or Oman",
+   "miqats": [
+    "qarn"
+   ],
+   "note": "Flights from the Gulf cross the line of Qarn al-Manāzil (as-Sayl al-Kabīr).",
+   "extra": [
+    "These flights are short — often under two hours — so be in Ihram before boarding, or very soon after take-off."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-iran-iraq",
+   "group": "air",
+   "mode": "air",
+   "label": "Iran or Iraq",
+   "miqats": [
+    "dhat-irq",
+    "qarn"
+   ],
+   "note": "Coming from the north-east, the Miqat is Dhāt ʿIrq; some routes cross Qarn al-Manāzil instead.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-central-asia",
+   "group": "air",
+   "mode": "air",
+   "label": "Central Asia, Afghanistan or China",
+   "miqats": [
+    "dhat-irq",
+    "qarn"
+   ],
+   "note": "Routes from the north-east and east cross Dhāt ʿIrq or Qarn al-Manāzil.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-turkey-levant",
+   "group": "air",
+   "mode": "air",
+   "label": "Türkiye, Syria, Lebanon, Jordan or Palestine",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Coming from the north-west, the Miqat is al-Juḥfah (near Rābigh).",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-egypt-north-africa",
+   "group": "air",
+   "mode": "air",
+   "label": "Egypt, Libya, Tunisia, Algeria or Morocco",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Al-Juḥfah is the Miqat for those arriving from the direction of Egypt and North Africa.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-europe",
+   "group": "air",
+   "mode": "air",
+   "label": "The UK or Europe",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Flights from Europe approach from the north-west and cross the line of al-Juḥfah.",
+   "extra": [
+    "On a night flight, set an alarm — the Miqat is often crossed while the cabin is dark and people are asleep."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-americas",
+   "group": "air",
+   "mode": "air",
+   "label": "North or South America",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Whether you transit through Europe or the Gulf, the last leg usually crosses al-Juḥfah.",
+   "extra": [
+    "If you transit through the Gulf (Dubai, Doha, Istanbul), the final leg may cross Qarn al-Manāzil instead — keep the Miqat watch on for the last flight."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-west-africa",
+   "group": "air",
+   "mode": "air",
+   "label": "Nigeria, Ghana, Senegal, Sudan or Chad",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Pilgrims arriving from this direction commonly take al-Juḥfah as their Miqat.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-east-africa",
+   "group": "air",
+   "mode": "air",
+   "label": "Kenya, Tanzania, Ethiopia, Somalia or Uganda",
+   "miqats": [
+    "yalamlam"
+   ],
+   "note": "Coming from the south, the Miqat is Yalamlam.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-southern-africa",
+   "group": "air",
+   "mode": "air",
+   "label": "South Africa or southern Africa",
+   "miqats": [
+    "yalamlam"
+   ],
+   "note": "These routes approach from the south and cross the line of Yalamlam.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-australia",
+   "group": "air",
+   "mode": "air",
+   "label": "Australia or New Zealand",
+   "miqats": [
+    "yalamlam",
+    "qarn"
+   ],
+   "note": "Usually Yalamlam; if you transit through the Gulf the last leg may cross Qarn al-Manāzil.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-madinah-first",
+   "group": "air",
+   "mode": "air",
+   "label": "Flying to MADINAH first (Umrah afterwards)",
+   "miqats": [
+    "dhul-hulayfah"
+   ],
+   "note": "Your flight to Madinah does not cross a Miqat. You enter Ihram later, at Dhul-Ḥulayfah (Abyār ʿAlī), when you set out for Makkah.",
+   "extra": [
+    "Travel to Madinah in normal clothes. There is no Ihram and no Talbiyah on this flight.",
+    "When you leave for Makkah, use the “By road from Madinah” or “Haramain train” route in this list."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "air-taif",
+   "group": "air",
+   "mode": "air",
+   "label": "Flying to Ṭā’if",
+   "miqats": [
+    "qarn"
+   ],
+   "note": "Ṭā’if is beyond the Miqat, so you enter Ihram when you set out for Makkah — at as-Sayl al-Kabīr, or at Wādī Muḥrim if you take the Hada road.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "madinah-road",
+   "group": "land",
+   "mode": "land",
+   "label": "By road from Madinah",
+   "miqats": [
+    "dhul-hulayfah"
+   ],
+   "note": "Enter Ihram at Dhul-Ḥulayfah (Abyār ʿAlī, Masjid ash-Shajarah), about 11 km from Masjid an-Nabawi.",
+   "extra": [
+    "The mosque has washrooms and changing areas, and buses normally stop there."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "madinah-train",
+   "group": "land",
+   "mode": "land",
+   "label": "Haramain train, Madinah → Makkah",
+   "miqats": [
+    "dhul-hulayfah"
+   ],
+   "note": "The train does not stop at the Miqat, so be in Ihram before it leaves.",
+   "extra": [
+    "Most pilgrims go to Abyār ʿAlī first, enter Ihram there, then come to the station — or prepare at the hotel and make the intention before departure.",
+    "The journey is about two hours, so plan the Talbiyah and any prayer times around it."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "riyadh-road",
+   "group": "land",
+   "mode": "land",
+   "label": "By road from Riyadh or the Eastern Province",
+   "miqats": [
+    "qarn"
+   ],
+   "note": "The highway passes as-Sayl al-Kabīr (Qarn al-Manāzil), which has a large Miqat mosque.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "qassim-hail-road",
+   "group": "land",
+   "mode": "land",
+   "label": "By road from Qassim, Ḥā’il or the north-east",
+   "miqats": [
+    "dhat-irq",
+    "qarn",
+    "dhul-hulayfah"
+   ],
+   "note": "Which Miqat applies depends on the road you take. Be in Ihram before the first one on your route.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "taif-road",
+   "group": "land",
+   "mode": "land",
+   "label": "By road from Ṭā’if",
+   "miqats": [
+    "qarn"
+   ],
+   "note": "On the main road, the Miqat is as-Sayl al-Kabīr. If you come down the Hada road, it is Wādī Muḥrim, which is the same Miqat from a different direction.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "north-coast-road",
+   "group": "land",
+   "mode": "land",
+   "label": "By road from Tabuk, Yanbu or the north coast",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Enter Ihram at al-Juḥfah, near Rābigh.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "south-road",
+   "group": "land",
+   "mode": "land",
+   "label": "By road from Jazan, Abha or Yemen",
+   "miqats": [
+    "yalamlam"
+   ],
+   "note": "Enter Ihram at Yalamlam (as-Saʿdiyyah).",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "jeddah-airport-arrival",
+   "group": "land",
+   "mode": "inside",
+   "label": "I have landed in Jeddah already in Ihram",
+   "miqats": [],
+   "note": "Your Miqat is already behind you. Keep the Ihram restrictions, keep reciting the Talbiyah, and go on to Makkah.",
+   "extra": [
+    "Do not change out of Ihram at the airport or hotel — you stay in Ihram until after the hair ritual."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "sea-north",
+   "group": "sea",
+   "mode": "sea",
+   "label": "By sea from the north (Suez, Egypt, Jordan)",
+   "miqats": [
+    "juhfah"
+   ],
+   "note": "Enter Ihram when the ship is parallel to al-Juḥfah.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "sea-south",
+   "group": "sea",
+   "mode": "sea",
+   "label": "By sea from the south (Sudan, Yemen, East Africa)",
+   "miqats": [
+    "yalamlam"
+   ],
+   "note": "Enter Ihram when the ship is parallel to Yalamlam.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "jeddah-resident",
+   "group": "inside",
+   "mode": "inside",
+   "label": "I live in or am staying in Jeddah",
+   "miqats": [],
+   "note": "Jeddah is inside the Miqat boundary. If you set out from Jeddah intending Umrah, enter Ihram from where you are — your home, your hotel or the mosque.",
+   "extra": [
+    "This applies to people who are already in Jeddah. If you flew in intending Umrah, the Miqat on your flight path applied — ask a scholar if you passed it without Ihram."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "between-miqat-makkah",
+   "group": "inside",
+   "mode": "inside",
+   "label": "I live between a Miqat and Makkah (Rābigh, Bahrah, ʿUsfān…)",
+   "miqats": [],
+   "note": "People living inside the boundary enter Ihram from where they are.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "in-makkah",
+   "group": "inside",
+   "mode": "inside",
+   "label": "I am already in Makkah",
+   "miqats": [],
+   "note": "For Umrah you go outside the Haram boundary to enter Ihram — most commonly Masjid ʿĀ’ishah at at-Tanʿīm — then return to Makkah for Tawaf.",
+   "extra": [
+    "Taxis and buses to Masjid ʿĀ’ishah run all day and night from near the Haram.",
+    "Some go to al-Jiʿrānah or Ḥudaybiyah instead; all are outside the Haram boundary."
+   ],
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  }
+ ],
+ "ROUTE_GROUPS": [
+  {
+   "id": "air",
+   "label": "✈️ Flying"
+  },
+  {
+   "id": "land",
+   "label": "🚗 By road or train in Saudi Arabia"
+  },
+  {
+   "id": "sea",
+   "label": "🚢 Arriving by sea"
+  },
+  {
+   "id": "inside",
+   "label": "📍 Already inside the Miqat boundary"
+  }
+ ],
+ "ROUTE_STEPS": {
+  "air": [
+   "Before the airport: ghusl (recommended), trim nails and unwanted hair, and put on the Ihram clothing. Men can travel in the two sheets from the start.",
+   "If you prefer to change on board, change BEFORE the Miqat announcement — aircraft toilets get busy and you may not get in.",
+   "Make the intention and begin the Talbiyah before the aircraft reaches the Miqat line, not after.",
+   "Turn on “Watch for my Miqat” in this app before take-off. It keeps checking your distance even in flight mode, as long as location is allowed.",
+   "Cabin crew usually announce the Miqat, but do not depend on it alone — announcements are sometimes missed, late, or not made at all.",
+   "Aircraft cover 10–15 km every minute. When the app says you are 150 km away, you have roughly 10–15 minutes.",
+   "Do not delay Ihram until you land in Jeddah — unless your own scholar has told you otherwise for your case.",
+   "If you realise you passed the Miqat without Ihram, ask a scholar. Many say to go back to the Miqat if you can, otherwise there is a compensation (dam)."
+  ],
+  "land": [
+   "Prepare before you set out: ghusl (recommended), trim, and put on the Ihram clothing.",
+   "Most road Miqats have a mosque with washrooms and changing rooms — you can also prepare there.",
+   "Make the intention and begin the Talbiyah as you leave the Miqat, not before you have decided to start Umrah.",
+   "If your bus or taxi will not stop at the Miqat, enter Ihram before you board."
+  ],
+  "sea": [
+   "Prepare on board before the ship reaches the Miqat line.",
+   "Make the intention and begin the Talbiyah when the ship passes the point parallel to the Miqat.",
+   "Ask the ship’s guide or your group leader when that will be, and keep this app’s Miqat watch on."
+  ],
+  "inside": [
+   "You do not pass a Miqat, so there is no line to watch for.",
+   "Prepare (ghusl, Ihram clothing), then make the intention and begin the Talbiyah at the place named below."
+  ]
+ },
+ "GUIDANCE": {
+  "MIQAT": {
+   "lead": "The Miqat is the boundary at which a pilgrim heading for Umrah must already be in Ihram. Which Miqat applies depends on your route.",
+   "points": [
+    "Get ready before you reach it: ghusl, trimming and putting on Ihram clothing can all be done beforehand — at home, at the airport or in your hotel.",
+    "If you intend Umrah, do not pass the Miqat without entering Ihram.",
+    "Flying? Enter Ihram when the aircraft passes over or parallel to the Miqat — not after landing in Jeddah.",
+    "Scholars differ on a few route cases. If your situation is unusual, follow your scholar."
+   ]
+  },
+  "IHRAM": {
+   "lead": "Ihram is the sacred state you enter by making the intention for Umrah — not just the clothing.",
+   "checks": {
+    "prepared": {
+     "label": "Prepared for Ihram",
+     "help": "Ghusl (recommended) and Ihram clothing on. Men: any scent on the body only, before the intention — none on the garments."
+    },
+    "intention": {
+     "label": "Intention made",
+     "help": "Intend Umrah in your heart. You may say: Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī."
+    },
+    "talbiyah": {
+     "label": "Talbiyah started",
+     "help": "Begin reciting the Talbiyah (shown on the next screen)."
+    }
+   }
+  },
+  "TALBIYAH": {
+   "lead": "Recite the Talbiyah often from entering Ihram until you begin Tawaf.",
+   "points": [
+    "Keep reciting on the way to Makkah. Background mode keeps the recitation playing while you use the rest of the app.",
+    "Stop the Talbiyah when you begin Tawaf."
+   ],
+   "men": [
+    "Men raise their voices with the Talbiyah."
+   ],
+   "women": [
+    "Women recite it quietly, so that only those beside them hear."
+   ]
+  },
+  "ENTER_HARAM": {
+   "lead": "You are in Makkah and your Ihram is active. Next: Tawaf.",
+   "points": [
+    "Enter with your right foot and say the dua for entering the mosque.",
+    "Know your starting point: the line of the Black Stone corner, marked by a green light on the mosque wall opposite it.",
+    "Keep the Kaaba on your LEFT the whole time.",
+    "Follow the flow of the crowd. Do not push. Do not obstruct other pilgrims.",
+    "Agree a meeting point with your group and note the gate number you entered by."
+   ]
+  },
+  "TAWAF_READY": {
+   "lead": "Go to the line of the Black Stone corner. Every round starts and ends here.",
+   "ready": [
+    {
+     "id": "wudu",
+     "label": "I have wudu",
+     "help": "Most scholars require wudu for Tawaf."
+    },
+    {
+     "id": "talbiyah",
+     "label": "I have stopped the Talbiyah",
+     "help": "The Talbiyah ends when Tawaf begins."
+    },
+    {
+     "id": "idtiba",
+     "label": "Right shoulder uncovered",
+     "help": "Men only, for this Tawaf: the upper sheet goes under the right arm and over the left shoulder (iḍṭibāʿ).",
+     "men": true
+    }
+   ],
+   "points": [
+    "Face the Black Stone. If it is easy and safe, touch or kiss it. If it is crowded, point towards it with your right hand from where you are and say “Allāhu akbar”. Never push or harm anyone to reach it — touching it is not required.",
+    "Walk outside the low semicircular wall (Ḥijr Ismāʿīl / al-Ḥaṭīm). It is part of the Kaaba, so walking through it does not count."
+   ]
+  },
+  "TAWAF_ROUND": {
+   "points": [
+    "There is no fixed dua that must be said in each round. Make dhikr and dua and recite Qur’an as you wish.",
+    "Between the Yemeni Corner and the Black Stone, say “Rabbanā ātinā…” (see Duas).",
+    "Touch the Yemeni Corner with your right hand if it is easy, without kissing it. If you cannot reach it, simply pass by.",
+    "Each time you reach the Black Stone line, point towards it and say “Allāhu akbar”, then begin the next round."
+   ],
+   "ramal": "Men, rounds 1–3 only: ramal — walk briskly with short steps, if you can do so without harming anyone."
+  },
+  "PAUSE": "If the congregational prayer begins, join it, then continue from where you stopped. Ask your scholar about resuming after a long break.",
+  "DOUBT": "If you are unsure of your count, scholars commonly advise building on the lower number you are certain of.",
+  "TAWAF_COMPLETE": {
+   "men": [
+    "Cover your right shoulder again (end iḍṭibāʿ) before praying."
+   ]
+  },
+  "TWO_RAKAH": {
+   "lead": "Pray two rak’ahs after Tawaf.",
+   "points": [
+    "Behind Maqām Ibrāhīm if there is space. If it is crowded, pray anywhere in the mosque — do not block the people doing Tawaf.",
+    "It is Sunnah to recite Sūrat al-Kāfirūn in the first rak’ah and Sūrat al-Ikhlāṣ in the second."
+   ]
+  },
+  "ZAMZAM": {
+   "lead": "Drink Zamzam if it is available.",
+   "points": [
+    "Say Bismillāh and drink.",
+    "Make your own dua — there is no fixed formula to recite.",
+    "If it is easy, you may return to touch the Black Stone before going to Safa (Sunnah). Skip it if it is crowded."
+   ]
+  },
+  "SAFA": {
+   "lead": "Sa’i starts at Safa — not Marwah.",
+   "points": [
+    "As you approach Safa, recite “Inna aṣ-Ṣafā wal-Marwata min shaʿā’irillāh…” and “Abda’u bimā bada’a Allāhu bih” — once, at the start of Sa’i only.",
+    "Go up Safa if you can, face the Kaaba, raise your hands, say “Allāhu akbar” and the dhikr (below), and make dua — three times."
+   ]
+  },
+  "SAI_LAP": {
+   "points": [
+    "There is no fixed dua for each lap. Make dhikr and dua and recite Qur’an as you wish.",
+    "On reaching Safa or Marwah, face the Kaaba, raise your hands and repeat the dhikr and dua as you did at Safa (the verse is recited only at the start)."
+   ],
+   "men": [
+    "Between the green markers, jog (walk quickly) if you are able."
+   ],
+   "women": [
+    "Walk at your normal pace the whole way, including between the green markers."
+   ]
+  },
+  "SAI_COMPLETE": {
+   "lead": "Your seventh lap ended at Marwah. Next: the hair ritual."
+  },
+  "HAIR": {
+   "lead": "The final step of Umrah.",
+   "points": [
+    "If you are performing Hajj at-Tamattuʿ soon, many scholars recommend that men shorten now and shave after Hajj."
+   ]
+  },
+  "IHRAM_EXIT": {
+   "lead": "With the hair ritual done, your Umrah is complete and the Ihram restrictions have ended."
+  }
+ },
+ "HAIR_OPTIONS": {
+  "male": [
+   {
+    "value": "shave",
+    "label": "Shave (ḥalq)",
+    "note": "Shave the whole head. This is more virtuous for men."
+   },
+   {
+    "value": "shorten",
+    "label": "Shorten (taqṣīr)",
+    "note": "Shorten hair from all over the head, not just a few strands."
+   }
+  ],
+  "female": [
+   {
+    "value": "shorten",
+    "label": "Shorten hair",
+    "note": "Gather the hair and cut about a fingertip’s length (around 2 cm) from the ends. Women do not shave."
+   }
+  ]
+ },
+ "BASIS_LABEL": {
+  "quran": "Qur’an",
+  "hadith": "Prophetic hadith",
+  "companion": "Companions’ practice",
+  "taught": "Commonly taught wording",
+  "general": "General guidance"
+ },
+ "DUA_CATEGORIES": [
+  {
+   "id": "established",
+   "icon": "📖",
+   "label": "Established supplications",
+   "intro": "Words tied to particular places and moments of Umrah, with their source."
+  },
+  {
+   "id": "dhikr",
+   "icon": "📿",
+   "label": "Dhikr",
+   "intro": "Remembrance you can repeat anywhere — during Tawaf, Sa’i or while waiting."
+  },
+  {
+   "id": "general",
+   "icon": "🤲",
+   "label": "General dua",
+   "intro": "Ask Allah for anything, in any language."
+  },
+  {
+   "id": "quran",
+   "icon": "📖",
+   "label": "Qur’an",
+   "intro": "Reciting Qur’an during Tawaf and Sa’i is good."
+  },
+  {
+   "id": "personal",
+   "icon": "❤️",
+   "label": "My personal duas",
+   "intro": "Your own list — the duas you promised family and friends. Saved on this device only."
+  }
+ ],
+ "TAWAF_DUA_NOTE": "There is no fixed dua that must be said in each of the seven rounds. Booklets that give a special dua for “Round 1”, “Round 2” and so on are not a requirement. Make dhikr and dua and recite Qur’an; the items marked for Tawaf below belong to particular places.",
+ "SAI_DUA_NOTE": "There is no fixed dua for each lap of Sa’i. The established words are said at Safa and Marwah; between them, make any dua, dhikr or Qur’an.",
+ "DUAS": [
+  {
+   "id": "talbiyah",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "ihram"
+   ],
+   "title": "Talbiyah",
+   "when": "From entering Ihram until you begin Tawaf.",
+   "arabic": "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ",
+   "transliteration": "Labbayka Allāhumma labbayk. Labbayka lā sharīka laka labbayk. Inna al-ḥamda wan-niʿmata laka wal-mulk. Lā sharīka lak.",
+   "translation": "Here I am, O Allah, here I am. Here I am — You have no partner — here I am. All praise, all grace and all sovereignty belong to You. You have no partner.",
+   "source": "Ṣaḥīḥ al-Bukhārī 1549; Ṣaḥīḥ Muslim 1184; Ḥiṣn al-Muslim no. 233",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "intention",
+   "category": "established",
+   "basis": "taught",
+   "contexts": [
+    "ihram"
+   ],
+   "title": "Intention for Umrah",
+   "when": "At the Miqat, when entering Ihram. The intention itself is made in the heart.",
+   "arabic": "اللَّهُمَّ إِنِّي أُرِيدُ الْعُمْرَةَ فَيَسِّرْهَا لِي وَتَقَبَّلْهَا مِنِّي",
+   "transliteration": "Allāhumma innī urīdul-ʿumrata fa-yassirhā lī wa taqabbalhā minnī.",
+   "translation": "O Allah, I intend to perform Umrah, so make it easy for me and accept it from me.",
+   "source": "The commonly taught wording of the intention for Umrah",
+   "note": "After making the intention, begin the Talbiyah for Umrah.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "labbayka-umrah",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "ihram"
+   ],
+   "title": "Talbiyah for Umrah",
+   "when": "Straight after the intention, to begin your Umrah.",
+   "arabic": "لَبَّيْكَ اللَّهُمَّ عُمْرَةً",
+   "transliteration": "Labbayka Allāhumma ʿumratan.",
+   "translation": "Here I am, O Allah, for Umrah.",
+   "source": "Ṣaḥīḥ Muslim 1251 (ḥadīth of Anas), wording for Umrah alone",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "ishtirat",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "ihram"
+   ],
+   "title": "Condition when entering Ihram (optional)",
+   "when": "For someone who fears illness or an obstacle may prevent them completing Umrah.",
+   "arabic": "اللَّهُمَّ مَحِلِّي حَيْثُ حَبَسْتَنِي",
+   "transliteration": "Allāhumma maḥillī ḥaythu ḥabastanī.",
+   "translation": "O Allah, my place of leaving Ihram is wherever You hold me back.",
+   "source": "Ṣaḥīḥ al-Bukhārī 5089; Ṣaḥīḥ Muslim 1207 (Ḍubāʿah bint az-Zubayr)",
+   "note": "Scholars differ on whether this is for everyone or only for those with a reason to fear.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "enter-mosque",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "haram"
+   ],
+   "title": "Entering the mosque",
+   "when": "Entering Masjid al-Haram (or any mosque), right foot first.",
+   "arabic": "أَعُوذُ بِاللَّهِ الْعَظِيمِ، وَبِوَجْهِهِ الْكَرِيمِ، وَسُلْطَانِهِ الْقَدِيمِ، مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+   "transliteration": "Aʿūdhu billāhil-ʿaẓīm, wa bi-wajhihil-karīm, wa sulṭānihil-qadīm, minash-shayṭānir-rajīm. Bismillāh, waṣ-ṣalātu was-salāmu ʿalā rasūlillāh. Allāhumma iftaḥ lī abwāba raḥmatik.",
+   "translation": "I seek refuge in Allah the Almighty, in His noble Face and His eternal authority, from the accursed devil. In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, open for me the gates of Your mercy.",
+   "source": "Ḥiṣn al-Muslim no. 20 (Abū Dāwūd 466; Ibn as-Sunnī 88; Muslim 713)",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "black-stone",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "tawaf"
+   ],
+   "title": "At the Black Stone",
+   "when": "At the start of Tawaf and each time you pass the Black Stone — touching it if easy, otherwise pointing to it with your right hand from where you are.",
+   "arabic": "اللَّهُ أَكْبَرُ",
+   "transliteration": "Allāhu akbar.",
+   "translation": "Allah is the Greatest.",
+   "source": "Ṣaḥīḥ al-Bukhārī 1613; Ḥiṣn al-Muslim no. 234",
+   "note": "Some also say “Bismillāh” at the start of Tawaf, reported from Ibn ʿUmar. Never push or harm others to reach the Stone.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "yemeni-corner",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "tawaf"
+   ],
+   "title": "Between the Yemeni Corner and the Black Stone",
+   "when": "In every round, on the stretch between the Yemeni Corner and the Black Stone.",
+   "arabic": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+   "transliteration": "Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār.",
+   "translation": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
+   "source": "Sunan Abī Dāwūd 1892; the words are Qur’an 2:201; Ḥiṣn al-Muslim no. 235",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "maqam",
+   "category": "established",
+   "basis": "quran",
+   "contexts": [
+    "after-tawaf"
+   ],
+   "title": "At Maqām Ibrāhīm",
+   "when": "Going to pray the two rak’ahs after Tawaf.",
+   "arabic": "وَاتَّخِذُوا مِنْ مَقَامِ إِبْرَاهِيمَ مُصَلًّى",
+   "transliteration": "Wattakhidhū min maqāmi Ibrāhīma muṣallā.",
+   "translation": "And take the station of Ibrāhīm as a place of prayer.",
+   "source": "Qur’an 2:125; recited by the Prophet ﷺ per Ṣaḥīḥ Muslim 1218",
+   "note": "In the two rak’ahs, recite al-Kāfirūn and al-Ikhlāṣ. Pray anywhere in the mosque if the area is crowded.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "zamzam",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "after-tawaf"
+   ],
+   "title": "Drinking Zamzam",
+   "when": "After the two rak’ahs, if Zamzam is available.",
+   "arabic": "مَاءُ زَمْزَمَ لِمَا شُرِبَ لَهُ",
+   "transliteration": "Mā’u Zamzama limā shuriba lah.",
+   "translation": "The water of Zamzam is for whatever it is drunk for.",
+   "source": "Sunan Ibn Mājah 3062",
+   "note": "This is a hadith about Zamzam, not a formula to recite. Say Bismillāh, drink, and ask Allah for whatever you need.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "safa-verse",
+   "category": "established",
+   "basis": "quran",
+   "contexts": [
+    "sai"
+   ],
+   "title": "Approaching Safa",
+   "when": "When you first approach Safa to begin Sa’i — once, not every lap.",
+   "arabic": "إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَائِرِ اللَّهِ ۝ أَبْدَأُ بِمَا بَدَأَ اللَّهُ بِهِ",
+   "transliteration": "Inna aṣ-Ṣafā wal-Marwata min shaʿā’irillāh. Abda’u bimā bada’a Allāhu bih.",
+   "translation": "Indeed, Safa and Marwah are among the symbols of Allah. I begin with what Allah began with.",
+   "source": "Qur’an 2:158; Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir)",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "safa-marwah-dhikr",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "sai"
+   ],
+   "title": "On Safa and on Marwah",
+   "when": "On Safa and each time you reach Safa or Marwah: face the Kaaba, raise your hands, say “Allāhu akbar”, then this — three times, with your own dua in between.",
+   "arabic": "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ، أَنْجَزَ وَعْدَهُ، وَنَصَرَ عَبْدَهُ، وَهَزَمَ الْأَحْزَابَ وَحْدَهُ",
+   "transliteration": "Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa huwa ʿalā kulli shay’in qadīr. Lā ilāha illallāhu waḥdah, anjaza waʿdah, wa naṣara ʿabdah, wa hazamal-aḥzāba waḥdah.",
+   "translation": "None has the right to be worshipped but Allah alone, without partner. His is the dominion and His is the praise, and He has power over all things. None has the right to be worshipped but Allah alone. He fulfilled His promise, gave victory to His servant, and alone defeated the confederates.",
+   "source": "Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir); Ḥiṣn al-Muslim no. 236",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "green-markers",
+   "category": "established",
+   "basis": "companion",
+   "contexts": [
+    "sai"
+   ],
+   "title": "Between the green markers",
+   "when": "Reported as said between the green markers during Sa’i.",
+   "arabic": "رَبِّ اغْفِرْ وَارْحَمْ، إِنَّكَ أَنْتَ الْأَعَزُّ الْأَكْرَمُ",
+   "transliteration": "Rabbighfir warḥam, innaka antal-aʿazzul-akram.",
+   "translation": "My Lord, forgive and have mercy. You are the Most Mighty, the Most Generous.",
+   "source": "Reported from Ibn Masʿūd and Ibn ʿUmar (Muṣannaf Ibn Abī Shaybah)",
+   "note": "This is the practice of Companions, not a fixed formula from the Prophet ﷺ. Any dua is fine here.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "leave-mosque",
+   "category": "established",
+   "basis": "hadith",
+   "contexts": [
+    "haram"
+   ],
+   "title": "Leaving the mosque",
+   "when": "Leaving Masjid al-Haram (or any mosque), left foot first.",
+   "arabic": "بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ، اللَّهُمَّ اعْصِمْنِي مِنَ الشَّيْطَانِ الرَّجِيمِ",
+   "transliteration": "Bismillāh, waṣ-ṣalātu was-salāmu ʿalā rasūlillāh. Allāhumma innī as’aluka min faḍlik. Allāhumma-ʿṣimnī minash-shayṭānir-rajīm.",
+   "translation": "In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, I ask You of Your bounty. O Allah, protect me from the accursed devil.",
+   "source": "Ḥiṣn al-Muslim no. 21 (Muslim 713; Ibn Mājah 773)",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "four-words",
+   "category": "dhikr",
+   "basis": "hadith",
+   "contexts": [
+    "tawaf",
+    "sai"
+   ],
+   "title": "The four most beloved words",
+   "arabic": "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ",
+   "transliteration": "Subḥānallāh, wal-ḥamdu lillāh, wa lā ilāha illallāh, wallāhu akbar.",
+   "translation": "Glory be to Allah, all praise is for Allah, none has the right to be worshipped but Allah, and Allah is the Greatest.",
+   "source": "Ṣaḥīḥ Muslim 2137; Ḥiṣn al-Muslim no. 261",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "istighfar",
+   "category": "dhikr",
+   "basis": "hadith",
+   "contexts": [
+    "tawaf",
+    "sai"
+   ],
+   "title": "Seeking forgiveness",
+   "arabic": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+   "transliteration": "Astaghfirullāhal-ʿaẓīm, alladhī lā ilāha illā huwal-ḥayyul-qayyūm, wa atūbu ilayh.",
+   "translation": "I seek the forgiveness of Allah the Almighty, besides whom none has the right to be worshipped, the Ever-Living, the Sustainer of all, and I turn to Him in repentance.",
+   "source": "Ḥiṣn al-Muslim no. 250 (Abū Dāwūd 1517; at-Tirmidhī 3577)",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "hawqala",
+   "category": "dhikr",
+   "basis": "hadith",
+   "contexts": [
+    "tawaf",
+    "sai"
+   ],
+   "title": "A treasure of Paradise",
+   "arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+   "transliteration": "Lā ḥawla wa lā quwwata illā billāh.",
+   "translation": "There is no might and no power except with Allah.",
+   "source": "Ṣaḥīḥ al-Bukhārī 6384; Ṣaḥīḥ Muslim 2704; Ḥiṣn al-Muslim no. 260",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "afw-afiyah",
+   "category": "general",
+   "basis": "hadith",
+   "contexts": [
+    "tawaf",
+    "sai"
+   ],
+   "title": "Pardon and well-being",
+   "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ",
+   "transliteration": "Allāhumma innī as’alukal-ʿafwa wal-ʿāfiyata fid-dunyā wal-ākhirah.",
+   "translation": "O Allah, I ask You for pardon and well-being in this world and the Hereafter.",
+   "source": "Sunan Abī Dāwūd 5074; Sunan Ibn Mājah 3871",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "own-words",
+   "category": "general",
+   "basis": "general",
+   "contexts": [
+    "tawaf",
+    "sai"
+   ],
+   "title": "In your own words",
+   "when": "Any time during Tawaf and Sa’i.",
+   "note": "Ask Allah in any language — for yourself, your parents, your family, the people who asked you to pray for them, and all Muslims. Sincerity matters more than wording.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  },
+  {
+   "id": "recite-quran",
+   "category": "quran",
+   "basis": "general",
+   "contexts": [
+    "tawaf",
+    "sai"
+   ],
+   "title": "Recite what you know",
+   "when": "Any time during Tawaf and Sa’i.",
+   "note": "Recite any Qur’an you know from memory. There are no set sūrahs for particular rounds or laps.",
+   "review": {
+    "status": "pending",
+    "by": null,
+    "at": null
+   }
+  }
+ ],
+ "EMERGENCY_NUMBERS": [
+  {
+   "label": "Unified emergency number",
+   "number": "911"
+  },
+  {
+   "label": "Ambulance (Saudi Red Crescent)",
+   "number": "997"
+  },
+  {
+   "label": "Police",
+   "number": "999"
+  },
+  {
+   "label": "Civil Defence",
+   "number": "998"
+  }
+ ],
+ "EMERGENCY_NOTE": "Verify these numbers before release and before travel.",
+ "GUIDES": {
+  "makkah": {
+   "title": "Makkah guide",
+   "points": [
+    "Save your hotel and a meeting point in My info before going to the Haram.",
+    "Note the number of the gate you enter by — every gate of Masjid al-Haram is numbered.",
+    "Drink water often. Zamzam coolers are placed throughout the mosque.",
+    "Carry a card with your name, hotel, group and leader’s phone number."
+   ],
+   "planned": [
+    "Offline map of the Haram: gates, Zamzam points, toilets and wheelchair services",
+    "Route back from the Haram to your hotel"
+   ]
+  },
+  "madinah": {
+   "title": "Madinah guide",
+   "points": [
+    "Visiting Madinah is not part of the Umrah rites — your Umrah is complete without it."
+   ],
+   "planned": [
+    "Scholar-reviewed guidance for visiting Masjid an-Nabawi",
+    "Offline map of Masjid an-Nabawi and surroundings"
+   ]
+  }
+ },
+ "HARAM_GEO": {
+  "kaabaCenter": {
+   "lat": 21.4225171,
+   "lng": 39.8261825
+  },
+  "kaabaCorners": {
+   "blackStone": {
+    "lat": 21.4224985,
+    "lng": 39.8262546
+   },
+   "iraqi": {
+    "lat": 21.4225861,
+    "lng": 39.8261922
+   },
+   "shami": {
+    "lat": 21.4225371,
+    "lng": 39.8261095
+   },
+   "yemeni": {
+    "lat": 21.4224468,
+    "lng": 39.8261735
+   }
+  },
+  "startLine": [
+   {
+    "lat": 21.4224985,
+    "lng": 39.8262546
+   },
+   {
+    "lat": 21.4224083,
+    "lng": 39.8265193
+   },
+   {
+    "lat": 21.4222904,
+    "lng": 39.8268401
+   }
+  ],
+  "blackStoneBearingDeg": 110,
+  "maqam": {
+   "lat": 21.4225789,
+   "lng": 39.8263055
+  },
+  "hijr": [
+   {
+    "lat": 21.422607,
+    "lng": 39.8261737
+   },
+   {
+    "lat": 21.4226204,
+    "lng": 39.8261664
+   },
+   {
+    "lat": 21.4226305,
+    "lng": 39.8261545
+   },
+   {
+    "lat": 21.422636,
+    "lng": 39.8261395
+   },
+   {
+    "lat": 21.4226362,
+    "lng": 39.8261234
+   },
+   {
+    "lat": 21.4226311,
+    "lng": 39.8261083
+   },
+   {
+    "lat": 21.4226209,
+    "lng": 39.8260957
+   },
+   {
+    "lat": 21.4226071,
+    "lng": 39.826088
+   },
+   {
+    "lat": 21.4225916,
+    "lng": 39.8260862
+   },
+   {
+    "lat": 21.4225766,
+    "lng": 39.8260907
+   },
+   {
+    "lat": 21.4225642,
+    "lng": 39.8261007
+   },
+   {
+    "lat": 21.4225575,
+    "lng": 39.8260911
+   },
+   {
+    "lat": 21.4225716,
+    "lng": 39.8260797
+   },
+   {
+    "lat": 21.4225907,
+    "lng": 39.826074
+   },
+   {
+    "lat": 21.4226104,
+    "lng": 39.8260763
+   },
+   {
+    "lat": 21.4226279,
+    "lng": 39.8260861
+   },
+   {
+    "lat": 21.4226409,
+    "lng": 39.8261021
+   },
+   {
+    "lat": 21.4226474,
+    "lng": 39.8261214
+   },
+   {
+    "lat": 21.4226471,
+    "lng": 39.8261419
+   },
+   {
+    "lat": 21.4226401,
+    "lng": 39.8261609
+   },
+   {
+    "lat": 21.4226273,
+    "lng": 39.8261761
+   },
+   {
+    "lat": 21.4226121,
+    "lng": 39.8261844
+   },
+   {
+    "lat": 21.422607,
+    "lng": 39.8261737
+   }
+  ],
+  "safa": {
+   "lat": 21.4217996,
+   "lng": 39.8274307
+  },
+  "marwah": {
+   "lat": 21.4251754,
+   "lng": 39.8271276
+  },
+  "greenZone": [
+   0.2,
+   0.346
+  ]
+ },
+ "KAABA_SECTORS": [
+  {
+   "id": "black-stone",
+   "from": 345,
+   "to": 15,
+   "label": "Black Stone line",
+   "tip": "Point towards the Black Stone and say “Allāhu akbar”.",
+   "duaId": "black-stone"
+  },
+  {
+   "id": "door",
+   "from": 15,
+   "to": 88,
+   "label": "Kaaba door & Multazam",
+   "tip": "Make dua as you wish."
+  },
+  {
+   "id": "iraqi",
+   "from": 88,
+   "to": 117,
+   "label": "ʿIrāqī corner",
+   "tip": "Next: Ḥijr Ismāʿīl — keep outside its wall."
+  },
+  {
+   "id": "hijr",
+   "from": 117,
+   "to": 170,
+   "label": "Ḥijr Ismāʿīl",
+   "tip": "Stay OUTSIDE the semicircular wall — it is part of the Kaaba."
+  },
+  {
+   "id": "shami",
+   "from": 170,
+   "to": 198,
+   "label": "Shāmī corner",
+   "tip": "Make dua as you wish."
+  },
+  {
+   "id": "west",
+   "from": 198,
+   "to": 268,
+   "label": "West side",
+   "tip": "Make dua as you wish."
+  },
+  {
+   "id": "yemeni",
+   "from": 268,
+   "to": 298,
+   "label": "Yemeni corner",
+   "tip": "Touch it with your right hand only if easy — no kissing, no pushing."
+  },
+  {
+   "id": "rabbana",
+   "from": 298,
+   "to": 345,
+   "label": "Yemeni Corner → Black Stone",
+   "tip": "Say: Rabbanā ātinā fid-dunyā ḥasanah, wa fil-ākhirati ḥasanah, wa qinā ʿadhāban-nār.",
+   "duaId": "yemeni-corner"
+  }
+ ],
+ "STAGE_LINES": {
+  "MIQAT": "Approaching the Miqat. Get ready to enter Ihram.",
+  "IHRAM": "Ihram check. Confirm you are prepared, that you have made the intention, and that you have begun the Talbiyah.",
+  "TALBIYAH": "Recite the Talbiyah often, until you begin Tawaf.",
+  "ENTER_HARAM": "You are at Masjid al Haram. Next is Tawaf. Keep the Kaaba on your left.",
+  "TAWAF_READY": "Go to the Black Stone line. Check that you have wudu. Every round starts and ends at this line.",
+  "TAWAF_COMPLETE": "Tawaf complete. Seven rounds. Next, pray two rak-ahs.",
+  "TWO_RAKAH": "Pray two rak-ahs. Behind Maqam Ibrahim if there is space, otherwise anywhere in the mosque.",
+  "ZAMZAM": "Drink Zamzam if it is available, and make your own dua.",
+  "SAFA": "Sa-i starts at Safa, not Marwah. Face the Kaaba, then begin lap one towards Marwah.",
+  "SAI_COMPLETE": "Sa-i complete. Seven laps, ending at Marwah. Next is the hair.",
+  "HAIR": "The final step. Shave or shorten the hair for men. Shorten for women.",
+  "IHRAM_EXIT": "The Ihram restrictions have now ended.",
+  "UMRAH_COMPLETE": "Your Umrah is complete. Al hamdu lillah."
+ },
+ "LANGUAGES": [
+  {
+   "code": "en",
+   "name": "English",
+   "native": "English",
+   "speech": "en-GB",
+   "dir": "ltr"
+  },
+  {
+   "code": "hi",
+   "name": "Hindi",
+   "native": "हिन्दी",
+   "speech": "hi-IN",
+   "dir": "ltr"
+  },
+  {
+   "code": "ur",
+   "name": "Urdu",
+   "native": "اردو",
+   "speech": "ur-PK",
+   "dir": "rtl"
+  },
+  {
+   "code": "bn",
+   "name": "Bengali",
+   "native": "বাংলা",
+   "speech": "bn-BD",
+   "dir": "ltr"
+  },
+  {
+   "code": "id",
+   "name": "Indonesian",
+   "native": "Bahasa Indonesia",
+   "speech": "id-ID",
+   "dir": "ltr"
+  },
+  {
+   "code": "tr",
+   "name": "Turkish",
+   "native": "Türkçe",
+   "speech": "tr-TR",
+   "dir": "ltr"
+  },
+  {
+   "code": "ta",
+   "name": "Tamil",
+   "native": "தமிழ்",
+   "speech": "ta-IN",
+   "dir": "ltr"
+  },
+  {
+   "code": "ml",
+   "name": "Malayalam",
+   "native": "മലയാളം",
+   "speech": "ml-IN",
+   "dir": "ltr"
+  }
+ ]
+}
