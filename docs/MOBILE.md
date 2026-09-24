@@ -61,8 +61,11 @@ Blocked until there is an Apple Developer account. Once enrolled:
    run `flutter build ipa`, and upload the `.ipa` to TestFlight.
 5. Test through TestFlight, then submit for review with the same privacy URL.
 
-Until then, `flutter-ios.yml` builds the iOS app unsigned on every version tag,
-which proves it compiles for iPhone.
+Until then, `flutter-ios.yml` builds an **unsigned** `.ipa` on every push to
+`main` and every version tag, and attaches it to the same release as the `.apk`.
+It proves the app compiles for iPhone. It cannot go to the App Store, but it
+can be put on your own iPhone with AltStore or Sideloadly, which re-sign it
+with a free Apple ID. That signature lasts 7 days.
 
 ## The web version
 

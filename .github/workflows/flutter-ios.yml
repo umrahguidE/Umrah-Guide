@@ -1,17 +1,26 @@
 name: iOS build
 
 # Builds the Flutter app for iPhone on a GitHub macOS machine (no Mac needed
-# locally). For now it builds without code signing, which proves the iOS app
-# compiles; a signed .ipa for TestFlight/App Store needs an Apple Developer
-# account first — see flutter_app/README.md ("Releasing on the App Store").
+# locally). Until there is an Apple Developer account it builds WITHOUT code
+# signing and packs the app as an unsigned .ipa:
+#   - every push to main: attached to the "latest" pre-release;
+#   - a version tag such as v1.0.0: attached to that version's release.
+# An unsigned .ipa cannot go to the App Store. It can be installed on your own
+# iPhone with a sideloading tool (AltStore, Sideloadly) that re-signs it with
+# a free Apple ID. See docs/MOBILE.md for the signed App Store build.
 
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     tags: ['v*']
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ios:
@@ -40,11 +49,29 @@ jobs:
           flutter pub get
           flutter build ios --release --no-codesign --build-number=$((100 + ${{ github.run_number }}))
 
-      - name: Package
-        working-directory: flutter_app/build/ios/iphoneos
-        run: zip -qr "$GITHUB_WORKSPACE/guided-umrah-ios-unsigned.zip" Runner.app
+      # An .ipa is a zip with the app inside a Payload folder.
+      - name: Package the .ipa
+        run: |
+          VERSION=$(sed -n 's/^version: *\([^+]*\).*/\1/p' flutter_app/pubspec.yaml)
+          mkdir -p out ipa/Payload
+          cp -R flutter_app/build/ios/iphoneos/Runner.app ipa/Payload/
+          (cd ipa && zip -qr "$GITHUB_WORKSPACE/out/guided-umrah-$VERSION-unsigned.ipa" Payload)
+          ls -l out
 
       - uses: actions/upload-artifact@v4
         with:
           name: guided-umrah-ios-unsigned
-          path: guided-umrah-ios-unsigned.zip
+          path: out/
+
+      # The Android workflow creates the release; wait for it rather than race.
+      - name: Attach to the release
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$GITHUB_REF" = refs/heads/main ]; then TAG=latest; else TAG="$GITHUB_REF_NAME"; fi
+          for i in $(seq 1 40); do
+            gh release view "$TAG" >/dev/null 2>&1 && break
+            echo "Waiting for release $TAG…"; sleep 30
+          done
+          gh release upload "$TAG" out/* --clobber

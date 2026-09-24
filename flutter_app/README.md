@@ -73,7 +73,7 @@ disagree.
 | `checks.yml` | every push / pull request | web tests, `flutter analyze`, `flutter test`, content in sync |
 | `flutter-android.yml` | push to `main` | test `.apk` + `.aab` on the **latest** pre-release |
 | `flutter-android.yml` | tag `v1.2.3` | signed `.aab` (Google Play) + `.apk` on release `v1.2.3` |
-| `flutter-ios.yml` | tag `v1.2.3` or by hand | unsigned iOS build (proves it compiles) |
+| `flutter-ios.yml` | push to `main` / tag `v1.2.3` | unsigned `.ipa` on the same release (sideload only, not App Store) |
 | `pages.yml` | push to `main` | the web version and `privacy.html` on GitHub Pages |
 
 To release: raise `version:` in `pubspec.yaml` (for example `1.0.1+1` — the
