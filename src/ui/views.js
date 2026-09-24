@@ -1061,7 +1061,8 @@ function aboutPage() {
     <section class="card"><h2>${t('Recitations')}</h2>
       <p>${t('Arabic is only ever played from real recitations: the Qur’anic verses from everyayah.com and the duas of the Sunnah from the Ḥiṣn al-Muslim recordings at hisnmuslim.com. The phone voice never reads Arabic.')}</p></section>
     <section class="card"><h2>${t('Privacy')}</h2>
-      <p>${t('Your progress, notes and personal information stay on this device. Nothing is sent anywhere.')}</p></section>
+      <p>${t('Your progress, notes and personal information stay on this device and are never sent anywhere. One exception: when you turn on location while far from Masjid al-Haram, the app shows a real online map, and loading it contacts OpenStreetMap and jsDelivr, which can see your IP address and roughly which area you are viewing.')}</p>
+      <p><a href="./privacy.html">${t('Privacy policy')}</a></p></section>
     <p class="credit">${t('Designed and developed by Mhd Wasim')}</p>`;
 }
 
