@@ -1,0 +1,50 @@
+name: iOS build
+
+# Builds the Flutter app for iPhone on a GitHub macOS machine (no Mac needed
+# locally). For now it builds without code signing, which proves the iOS app
+# compiles; a signed .ipa for TestFlight/App Store needs an Apple Developer
+# account first — see flutter_app/README.md ("Releasing on the App Store").
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.5'
+          channel: stable
+          cache: true
+
+      - name: Fetch the recitations and export the content
+        run: |
+          npm run audio:fetch
+          node scripts/export-flutter-data.mjs
+
+      - name: Build (unsigned)
+        working-directory: flutter_app
+        run: |
+          flutter pub get
+          flutter build ios --release --no-codesign --build-number=$((100 + ${{ github.run_number }}))
+
+      - name: Package
+        working-directory: flutter_app/build/ios/iphoneos
+        run: zip -qr "$GITHUB_WORKSPACE/guided-umrah-ios-unsigned.zip" Runner.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guided-umrah-ios-unsigned
+          path: guided-umrah-ios-unsigned.zip

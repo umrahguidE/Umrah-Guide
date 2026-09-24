@@ -1,0 +1,50 @@
+name: Checks
+
+# Runs on every push and pull request: the web app's tests, the Flutter app's
+# analyzer and tests, and a check that the Flutter app's content and
+# translations are exactly what the web app ships (they are exported from it,
+# never retyped).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Web app tests
+        run: npm test
+
+      - name: Flutter content matches the web app
+        run: |
+          node scripts/export-flutter-data.mjs
+          git diff --exit-code -- flutter_app/assets/data flutter_app/assets/i18n \
+            || { echo "::error::flutter_app/assets is out of date — run 'npm run flutter:data' and commit the result."; exit 1; }
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.5'
+          channel: stable
+          cache: true
+
+      - name: Flutter analyze
+        working-directory: flutter_app
+        run: |
+          flutter pub get
+          flutter analyze
+
+      - name: Flutter tests
+        working-directory: flutter_app
+        run: flutter test

@@ -1,8 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Location: Miqat alerts, Tawaf/Sa'i tracking and the map. Only used
+         while the app is open; nothing leaves the phone. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Map tiles are downloaded only for the optional real map. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Keeps the screen on during a round or lap, and buzzes when a round may be finished. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
-        android:label="guided_umrah"
+        android:label="Guided Umrah"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,15 +42,33 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    <!-- Required to query activities that can process text, see:
-         https://developer.android.com/training/package-visibility and
-         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
-
-         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <!-- Package visibility (Android 11+) for the things the app hands off. -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- The phone's text-to-speech engine (voice guide). -->
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE"/>
+        </intent>
+        <!-- Emergency numbers (tel:), the hotel in a maps app and the privacy policy. -->
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+            <data android:scheme="tel"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
+        <!-- Emergency-number calls and "open in maps" links. -->
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+            <data android:scheme="tel"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
         </intent>
     </queries>
 </manifest>

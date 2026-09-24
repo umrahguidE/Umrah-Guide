@@ -1,4 +1,4 @@
-package com.guidedumrah.guided_umrah
+package com.guidedumrah.app
 
 import io.flutter.embedding.android.FlutterActivity
 

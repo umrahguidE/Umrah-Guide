@@ -11,3 +11,7 @@ dist/
 android-release/
 *.aab
 *.keystore
+# Flutter app: recitations are fetched at build time, never committed
+/flutter_app/assets/audio/*.mp3
+/flutter_app/assets/audio/duas/*
+!/flutter_app/assets/audio/duas/README.md

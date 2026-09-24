@@ -15,6 +15,7 @@
     "mobile:sync": "node scripts/build.mjs && npx cap sync",
     "mobile:android": "npx cap open android",
     "mobile:ios": "npx cap open ios",
-    "audio:fetch": "node scripts/fetch-recitations.mjs"
+    "audio:fetch": "node scripts/fetch-recitations.mjs",
+    "flutter:data": "node scripts/export-flutter-data.mjs"
   }
 }

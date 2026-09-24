@@ -1,0 +1,130 @@
+name: Android build
+
+# Builds the Flutter app for Android:
+#   - every push to main: an installable test APK on the "latest" pre-release
+#     (download it on a phone to try the newest version);
+#   - a version tag such as v1.0.0: a signed .aab for Google Play plus a signed
+#     .apk, attached to a GitHub release of that version.
+#
+# Signing uses the upload keystore stored in the repository secrets
+# ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD and ANDROID_KEY_ALIAS.
+# The keystore is a PKCS12 file, so its key password is the store password.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.5'
+          channel: stable
+          cache: true
+
+      - name: Fetch the recitations and export the content
+        run: |
+          npm run audio:fetch
+          node scripts/export-flutter-data.mjs
+
+      - name: Restore the upload keystore
+        id: signing
+        working-directory: flutter_app/android
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STOREPASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "No signing secrets — building with the debug key (fine for testing, not for Google Play)."
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > app/upload.keystore
+          {
+            echo "storeFile=upload.keystore"
+            echo "storePassword=$STOREPASS"
+            echo "keyPassword=$STOREPASS"
+            echo "keyAlias=$ALIAS"
+          } > key.properties
+          echo "signed=true" >> "$GITHUB_OUTPUT"
+
+      - name: A release must be signed with the upload key
+        if: startsWith(github.ref, 'refs/tags/') && steps.signing.outputs.signed != 'true'
+        run: |
+          echo "::error::Add the ANDROID_KEYSTORE_* secrets before tagging a release."
+          exit 1
+
+      # Google Play rejects a build number it has already seen, so every run
+      # gets a new one. The +100 keeps it above the numbers used by the
+      # earlier (Capacitor) builds of this app.
+      - name: Build
+        working-directory: flutter_app
+        run: |
+          BUILD=$((100 + ${{ github.run_number }}))
+          flutter pub get
+          flutter build apk --release --build-number=$BUILD
+          flutter build appbundle --release --build-number=$BUILD
+
+      - name: Check it targets a Play-accepted Android version
+        working-directory: flutter_app
+        run: |
+          AAPT2=$(ls "$ANDROID_HOME"/build-tools/*/aapt2 | sort -V | tail -1)
+          "$AAPT2" dump badging build/app/outputs/flutter-apk/app-release.apk | grep -E "^package:|sdkVersion|targetSdkVersion"
+          TARGET=$("$AAPT2" dump badging build/app/outputs/flutter-apk/app-release.apk | sed -n "s/^targetSdkVersion:'\([0-9]*\)'.*/\1/p")
+          [ "$TARGET" -ge 36 ] || { echo "::error::targetSdkVersion $TARGET is below 36 — Google Play will reject it."; exit 1; }
+
+      - name: Remove the keystore from the workspace
+        if: always()
+        run: rm -f flutter_app/android/app/upload.keystore flutter_app/android/key.properties
+
+      - name: Name the files
+        run: |
+          VERSION=$(sed -n 's/^version: *\([^+]*\).*/\1/p' flutter_app/pubspec.yaml)
+          mkdir -p out
+          cp flutter_app/build/app/outputs/flutter-apk/app-release.apk "out/guided-umrah-$VERSION.apk"
+          cp flutter_app/build/app/outputs/bundle/release/app-release.aab "out/guided-umrah-$VERSION.aab"
+          ls -l out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: guided-umrah-android
+          path: out/
+
+      - name: Publish the version release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" out/* --title "Guided Umrah $GITHUB_REF_NAME" --generate-notes
+
+      - name: Update the "latest" test build
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view latest >/dev/null 2>&1 || gh release create latest --prerelease --target "$GITHUB_SHA" \
+            --title "Latest test build" \
+            --notes "Newest build from main, for testing on a phone. Install the .apk; the .aab is for Google Play."
+          gh release upload latest out/* --clobber

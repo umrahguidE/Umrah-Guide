@@ -1,97 +1,71 @@
-# Shipping one codebase to Google Play and the App Store
+# Releasing on Google Play and the App Store
 
-The app is a web app, so **Capacitor** wraps this same code as a native Android
-app and a native iOS app. Nothing is rewritten: the ritual engine, screens,
-voice guide and map are the files already in this repo.
+The store app is the Flutter app in [`flutter_app/`](../flutter_app/README.md).
+It builds for Android and iOS from one codebase, entirely on GitHub Actions —
+no Android Studio and no Mac are needed on your computer.
 
 ```
-            src/ + index.html
-                    │
-              node scripts/build.mjs → dist/
-                    │
-              npx cap sync
-          ┌─────────┴─────────┐
-       Android                iOS
-      .aab / .apk            .ipa
-   Google Play Store      Apple App Store
+   src/data + src/i18n  (content and translations, reviewed once)
+            │  npm run flutter:data
+            ▼
+       flutter_app/  ──►  flutter-android.yml  ──►  .aab → Google Play
+                     └─►  flutter-ios.yml      ──►  .ipa → App Store (needs Apple account)
 ```
-
-Capacitor was chosen over Flutter or React Native because those would mean
-rebuilding every screen. If you later want a fully native UI, the engine
-(`src/engine/`) is plain JavaScript with no DOM in it and ports as-is; only
-`src/ui/` would be rewritten.
-
-## What you need
 
 | | Android | iOS |
 |---|---|---|
-| Machine | Windows, macOS or Linux | **macOS only** |
-| Tools | Android Studio, JDK 17 | Xcode 15+, CocoaPods |
-| Account | Google Play Developer (one-off fee) | Apple Developer Program (yearly) |
+| App id | `com.guidedumrah.app` | `com.guidedumrah.app` |
+| Account | Google Play Console (one-off US$25) | Apple Developer Program (US$99 / year) |
+| Built on | GitHub `ubuntu-latest` | GitHub `macos-latest` |
+| Minimum OS | Android 7.0 (API 24) | iOS 15 |
+| Target | Android 16 (API 36) — required by Play since 31 Aug 2026 | latest Xcode SDK |
 
-## First-time setup
+## Before any public release
 
-```bash
-npm install --save-dev @capacitor/cli
-npm install @capacitor/core @capacitor/android @capacitor/ios
-npm run build          # writes dist/
-npx cap add android
-npx cap add ios        # on a Mac
-```
+- [ ] Scholar sign-off of `docs/CONTENT_REVIEW.md` (the app shows "Draft guidance" until then).
+- [ ] Verify the emergency numbers and survey `HARAM_GEO` on site.
+- [ ] A person listens to every recitation to confirm it matches its dua.
 
-`capacitor.config.json` is already in the repo (app id `com.guidedumrah.app`,
-web folder `dist`). Change the id before you publish under your own account.
+## Google Play
 
-## Every time you change the app
+1. **Repository secrets** (Settings → Secrets and variables → Actions):
+   `ANDROID_KEYSTORE_BASE64` (the upload keystore, base64), `ANDROID_KEYSTORE_PASSWORD`,
+   `ANDROID_KEY_ALIAS`. Keep the keystore and its password backed up somewhere
+   safe — Play only accepts updates signed with the same upload key.
+2. **Build**: raise `version:` in `flutter_app/pubspec.yaml`, commit, push a tag
+   `v1.0.0`. The release `v1.0.0` gets `guided-umrah-1.0.0.aab` and `.apk`.
+3. **Play Console**: create the app (default language, "App", "Free"), upload the
+   `.aab` to **Testing → Internal testing** first, then Closed testing.
+   New personal developer accounts must run a closed test with at least 12
+   testers for 14 days before Production is unlocked.
+4. **Store listing**: 512×512 icon, 1024×500 feature graphic, at least two phone
+   screenshots, short and full description, and the privacy policy URL
+   `https://umrahguide.github.io/Umrah-Guide/privacy.html`.
+5. **App content → Data safety**: location is collected *on the device only* and
+   not shared; no account, no analytics. The one network call is the optional
+   real map (OpenStreetMap tiles) when far from Masjid al-Haram.
 
-```bash
-npm run build && npx cap sync
-npx cap open android   # build/run from Android Studio
-npx cap open ios       # build/run from Xcode
-```
+The `.apk` on each release installs directly on a phone for testing. An `.aab`
+cannot be installed directly — it is only for Google Play.
 
-## Permissions to declare
+## App Store
 
-The counting needs location, the compass and the step sensor. In a native
-shell these must be declared or the sensors stay silent.
+Blocked until there is an Apple Developer account. Once enrolled:
 
-**Android** — `android/app/src/main/AndroidManifest.xml`:
+1. Note the **Team ID** (developer.apple.com → Membership details).
+2. In App Store Connect, create the app with bundle id `com.guidedumrah.app`.
+3. Create an **App Store Connect API key** (Users and Access → Integrations) and
+   add as secrets: `APPSTORE_ISSUER_ID`, `APPSTORE_KEY_ID`, `APPSTORE_PRIVATE_KEY`,
+   plus `APPLE_TEAM_ID`.
+4. Extend `flutter-ios.yml` to sign with those (automatic signing via the API key),
+   run `flutter build ipa`, and upload the `.ipa` to TestFlight.
+5. Test through TestFlight, then submit for review with the same privacy URL.
 
-```xml
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-<uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
-```
+Until then, `flutter-ios.yml` builds the iOS app unsigned on every version tag,
+which proves it compiles for iPhone.
 
-**iOS** — `ios/App/App/Info.plist`:
+## The web version
 
-```xml
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>Used to suggest when a Tawaf round or Sa'i lap is complete. You always confirm it yourself.</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>Keeps counting your rounds while the screen is off.</string>
-<key>NSMotionUsageDescription</key>
-<string>Counts your steps and turning so rounds keep counting where GPS is weak.</string>
-<key>UIBackgroundModes</key>
-<array><string>location</string><string>audio</string></array>
-```
-
-## What the native shell adds over the web version
-
-- **Background counting**: keeps tracking with the screen off, which a web app cannot do reliably (especially on iPhone).
-- **Background audio**: the Talbiyah and the voice guide keep playing when the phone is locked.
-- **A real step counter**: Android `ACTIVITY_RECOGNITION` and iOS CoreMotion are more accurate than reading the accelerometer in a browser. Swap `src/ui/sensors.js` for a plugin-backed version; the engine takes a step total either way.
-- **Notifications**: e.g. the Miqat alert while the phone is in a pocket on the plane.
-
-## Before submitting to the stores
-
-1. **The scholar review must be finished** (`docs/CONTENT_REVIEW.md`). Both stores also have rules about religious content: it must be accurate and non-offensive.
-2. Remove the "Draft guidance" banner only after sign-off.
-3. Replace `icon.svg` with the PNG icon sets both stores require (1024×1024 for iOS; adaptive icons for Android).
-4. Write a privacy policy. Say plainly that location and motion are used on the device for counting, and that nothing is uploaded (this is true of the current build — there is no backend).
-5. Add screenshots for each store. The ones in this repo's e2e run are a good starting point.
-6. Test on a real phone inside a mosque or a large open space before relying on it in the Haram.
+The root of the repository is also a complete web app (PWA), published by
+`pages.yml` to GitHub Pages together with `privacy.html`. It is the same app
+in a browser, and the source of the content that the Flutter app exports.

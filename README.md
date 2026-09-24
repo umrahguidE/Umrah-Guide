@@ -16,7 +16,18 @@ Preparation → Miqat → Ihram (+ niyyah) → Talbiyah → Masjid al-Haram → 
 > (see [Content review](#content-review)). The app shows a "Draft guidance"
 > banner on every screen until then.
 
-## Run it
+## Two apps, one content source
+
+| Folder | What it is | Where it ships |
+|---|---|---|
+| [`flutter_app/`](flutter_app/README.md) | The phone app, in Flutter — **Android and iOS from one codebase** | Google Play, Apple App Store |
+| repository root (`src/`, `index.html`) | The same app as a web app (PWA), and the **source of all religious content and translations** | GitHub Pages |
+
+The Flutter app never retypes religious text: `npm run flutter:data` exports
+`src/data` and `src/i18n` into `flutter_app/assets/`, and the Checks workflow
+fails if they drift apart. Releasing: [docs/MOBILE.md](docs/MOBILE.md).
+
+## Run it (web version)
 
 No dependencies. Node 20+ is only needed for the dev server and the tests.
 
@@ -67,7 +78,7 @@ that state.
 |---|---|
 | **Tracking suggests, the pilgrim confirms.** | Trackers only ever produce `suggestCompletion`. A round or lap is recorded **only** by `CONFIRM_TAWAF_ROUND` / `CONFIRM_SAI_LAP`. |
 | **The app's count is never authoritative.** | "Wrong count?" is on every round and lap screen (Tawaf until Sa'i starts, Sa'i until the hair ritual). Corrections are logged, never silent. |
-| **A double tap can't skip a round.** | Buttons carry the stage they were drawn for, confirmations name the round, a 700 ms tap guard, and a prompt if the round started under 15 s ago. |
+| **A double tap can't skip a round.** | Buttons carry the stage they were drawn for, confirmations name the round, a 350 ms tap guard, and a prompt if the round started under 15 s ago. |
 | **Pause never loses progress.** | `PAUSE` stops tracking and blocks confirmation; correction still works while paused. |
 | **Weak signal never invents progress.** | When every signal is gone: *"Tracking signal weak"*, the last **confirmed** count, and a *Continue manually* button. |
 | **Sa'i starts at Safa, ends at Marwah.** | Odd laps Safa → Marwah, even laps Marwah → Safa; the database enforces it too. |
@@ -84,11 +95,11 @@ arrival at Safa or Marwah, weak signal, and the Miqat alert. Lines live in
 rest of the content. There is an on/off button in the top bar, and more in
 **More → Settings**.
 
-For Arabic the app prefers a **real reciter**: if `audio/duas/<id>.mp3` exists
-it plays that instead of the speech engine (`audio/talbiyah.mp3` for the
-Talbiyah). No recordings ship with this build — they must come from a reciter
-whose recording you have permission to distribute. Machine-spoken Arabic is off
-by default because it mispronounces.
+Arabic is **only ever played from a real recitation**, never the phone voice:
+the Qur'anic verses from everyayah.com and the Sunnah duas from the Ḥiṣn
+al-Muslim recordings at hisnmuslim.com. `npm run audio:fetch` downloads them
+into `audio/` at build time (they are not committed); see
+[audio/README.md](audio/README.md).
 
 ## Map
 
@@ -112,7 +123,9 @@ a route can cross more than one Miqat, the app alerts at whichever comes first.
 ```
 index.html, styles.css          App shell (mobile-first, light/dark)
 sw.js, asset-manifest.json      Offline pack (service worker + file list)
-capacitor.config.json           Android/iOS wrapper config (docs/MOBILE.md)
+flutter_app/                    The Android + iOS app (Flutter) — see flutter_app/README.md
+.github/workflows/              Checks, Android build, iOS build, GitHub Pages
+capacitor.config.json           Legacy web-wrapper config (superseded by flutter_app/)
 src/engine/                     Framework-free core; runs in the browser, Node or React Native
   stages.js                     Stage list, Sa'i directions, progress
   machine.js                    The ritual state machine + toRecords() for the database
@@ -124,7 +137,8 @@ src/data/                       ALL religious/practical text (draft; pending rev
 src/ui/                         Views, components, map, voice, sensors, controller
 docs/schema.sql                 One-pilgrim journey database
 docs/CONTENT_REVIEW.md          Generated sheet for scholars to sign off
-docs/MOBILE.md                  Google Play + App Store from this one codebase
+docs/MOBILE.md                  Releasing on Google Play and the App Store
+privacy.html                    Privacy policy (published with the web version)
 tests/                          node --test suites
 ```
 
@@ -160,9 +174,9 @@ Points where the schools differ are marked "Scholars differ" rather than decided
 
 ## Known limitations and next steps
 
-- **Audio**: no recitation is bundled; see [audio/README.md](audio/README.md).
-- **Background on phones**: a PWA cannot reliably track or play audio with the screen locked, especially on iOS. The app holds a Wake Lock during Tawaf and Sa'i; for true background work, build the native apps ([docs/MOBILE.md](docs/MOBILE.md)).
-- **Languages**: English UI with Arabic texts. `language` is stored on the session; Urdu, Indonesian/Malay, Turkish, French and Arabic UI are next.
+- **Audio**: recitations are fetched at build time; which Ḥiṣn al-Muslim number matches each dua still needs a person to listen and confirm.
+- **Background on phones**: the screen is kept on during Tawaf and Sa'i; tracking with the screen locked is not supported yet.
+- **Languages**: English, Hindi, Urdu, Bengali, Indonesian, Turkish, Tamil and Malayalam. The translations are drafts not yet checked by native speakers, and a few newer labels still fall back to English.
 - **Not built yet**: gates and services on the map, family/group tracking, account sync (the schema is ready), and a scholar-reviewed Madinah guide.
 - **Storage**: `localStorage` is enough for one pilgrim on one device; use IndexedDB or SQLite once sync arrives.
 - **Emergency numbers** (911 / 997 / 999 / 998) must be verified before release.

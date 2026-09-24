@@ -2,7 +2,8 @@
 // the Arabic duas, guidance text and every translation are copied by a program
 // rather than retyped — the Flutter app reads exactly what the web app shows.
 //   node scripts/export-flutter-data.mjs
-import { mkdir, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { copyFile, mkdir, readdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import * as C from '../src/data/content.js';
@@ -50,3 +51,16 @@ for (const { code } of LANGUAGES) {
 
 const keys = Object.keys(content).length;
 console.log(`Exported ${keys} content sections and ${LANGUAGES.length - 1} translation packs to flutter_app/assets/`);
+
+// Recitations: copied from audio/ when `npm run audio:fetch` has been run.
+// They are not committed (see .gitignore) — the release workflows fetch them.
+const audio = join(root, 'audio');
+if (existsSync(join(audio, 'duas', 'index.json'))) {
+  await mkdir(join(out, 'audio', 'duas'), { recursive: true });
+  if (existsSync(join(audio, 'talbiyah.mp3'))) await copyFile(join(audio, 'talbiyah.mp3'), join(out, 'audio', 'talbiyah.mp3'));
+  const files = (await readdir(join(audio, 'duas'))).filter((f) => f.endsWith('.mp3') || f === 'index.json');
+  for (const f of files) await copyFile(join(audio, 'duas', f), join(out, 'audio', 'duas', f));
+  console.log(`Copied ${files.length} recitation files to flutter_app/assets/audio/`);
+} else {
+  console.log('No recitations found in audio/ — run `npm run audio:fetch` first to include them.');
+}
