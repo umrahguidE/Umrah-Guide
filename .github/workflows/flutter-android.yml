@@ -85,7 +85,9 @@ jobs:
         run: |
           BUILD=$((100 + ${{ github.run_number }}))
           flutter pub get
-          flutter build apk --release --build-number=$BUILD
+          # The phone APK carries only the ARM builds real phones use; the .aab
+          # has every architecture and Google Play picks the right one per phone.
+          flutter build apk --release --build-number=$BUILD --target-platform android-arm,android-arm64
           flutter build appbundle --release --build-number=$BUILD
 
       - name: Check it targets a Play-accepted Android version
