@@ -265,6 +265,10 @@ function stageBody(s, ctx) {
 function homePage(ctx) {
   const prepDone = C.PREP_CHECKLIST.filter((i) => ctx.prefs.checklist[i.id]).length;
   return html`
+    <div class="scene-3d-container" id="kaaba-3d-viewport" role="img" aria-label="${t('3D Interactive Kaaba & Sanctuary')}">
+      <div class="scene-3d-badge">🕋 ${t('3D Holy Sanctuary')}</div>
+      <div class="scene-3d-hint">${t('Drag to rotate 3D view')}</div>
+    </div>
     <section class="hero">
       <div class="step-icon" aria-hidden="true">🕋</div>
       <p class="eyebrow">${t('Guided Umrah Mode')}</p>

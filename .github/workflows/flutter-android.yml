@@ -26,6 +26,8 @@ concurrency:
 jobs:
   android:
     runs-on: ubuntu-latest
+    env:
+      HAS_PLAY_KEY: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON != '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -120,6 +122,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh release create "$GITHUB_REF_NAME" out/* --title "Guided Umrah $GITHUB_REF_NAME" --generate-notes
+
+      # Sends the signed .aab of a version tag to Google Play's Internal
+      # testing track. Needs the secret PLAY_SERVICE_ACCOUNT_JSON (see
+      # docs/MOBILE.md) and the app's first .aab uploaded once by hand in Play
+      # Console. It arrives as a draft; press "Roll out" in Play Console. Set
+      # the repository variable PLAY_RELEASE_STATUS=completed to skip that.
+      - name: Upload to Google Play (internal testing)
+        if: startsWith(github.ref, 'refs/tags/') && env.HAS_PLAY_KEY == 'true'
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.guidedumrah.app
+          releaseFiles: out/*.aab
+          track: internal
+          status: ${{ vars.PLAY_RELEASE_STATUS || 'draft' }}
 
       - name: Update the "latest" test build
         if: github.ref == 'refs/heads/main'

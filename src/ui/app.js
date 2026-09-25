@@ -29,6 +29,7 @@ import { requestMotionPermission } from './sensors.js';
 import { createVoice, createClipPlayer, PLAYBACK_RATES } from './voice.js';
 import { createTrail, localOf } from './map.js';
 import { ensureRealMap, setRealMapPosition, destroyRealMap } from './realmap.js';
+import { get3DExperience } from './three-d.js';
 
 const root = document.getElementById('app');
 const talbiyahAudio = document.getElementById('talbiyah-audio');
@@ -96,10 +97,18 @@ function route() {
   return { name, arg };
 }
 
+function sync3DScene() {
+  const el = document.getElementById('kaaba-3d-viewport');
+  if (el) {
+    get3DExperience().mount(el);
+  }
+}
+
 function render() {
   pendingLiveRender = false;
   root.innerHTML = String(renderApp({ state, prefs, ui, route: route(), undoAvailable: undoDepth() > 0 }));
   syncRealMap();
+  sync3DScene();
 }
 
 // The real map's own container is destroyed and recreated by every full

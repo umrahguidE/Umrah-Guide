@@ -45,6 +45,24 @@ no Android Studio and no Mac are needed on your computer.
    not shared; no account, no analytics. The one network call is the optional
    real map (OpenStreetMap tiles) when far from Masjid al-Haram.
 
+### Automatic upload to Play (after the first manual upload)
+
+The Play API only works for an app that already has one `.aab` uploaded by hand.
+After that, every version tag can upload itself:
+
+1. Google Cloud Console → pick or create a project → enable **Google Play Android
+   Developer API** → IAM → Service accounts → **Create service account** → Keys →
+   Add key → JSON. A `.json` file downloads. Keep it secret.
+2. Play Console → **Users and permissions** → Invite new users → paste the service
+   account's email → App permissions → add Guided Umrah → allow releasing to
+   testing tracks → Invite.
+3. GitHub → Settings → Secrets and variables → Actions → new secret
+   `PLAY_SERVICE_ACCOUNT_JSON` = the whole contents of the `.json` file.
+4. Push a tag `v1.0.1`. The `.aab` arrives in **Internal testing** as a draft;
+   press *Roll out* in Play Console. (Optional variable
+   `PLAY_RELEASE_STATUS=completed` rolls it out automatically. This only works
+   once the app has left draft state.)
+
 The `.apk` on each release installs directly on a phone for testing. An `.aab`
 cannot be installed directly — it is only for Google Play.
 
