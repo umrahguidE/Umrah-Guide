@@ -616,7 +616,7 @@ export default {
   "Pending scholar review": "Âlim incelemesi bekliyor",
   "{done} of {total} completed": "{total} içinden {done} tamamlandı",
   "Miqat": "Miqat",
-  "Umrah": "Umrah",
+  "Umrah": "Umre",
   "Masjid al-Haram": "Masjid al-Haram",
   "Safa": "Safa",
   "Marwah": "Marwah",

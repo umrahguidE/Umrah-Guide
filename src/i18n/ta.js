@@ -616,7 +616,7 @@ export default {
   "Pending scholar review": "அறிஞர் மதிப்பாய்வு நிலுவையில்",
   "{done} of {total} completed": "{total} இல் {done} முடிந்தது",
   "Miqat": "Miqat",
-  "Umrah": "Umrah",
+  "Umrah": "உம்ரா",
   "Masjid al-Haram": "Masjid al-Haram",
   "Safa": "Safa",
   "Marwah": "Marwah",

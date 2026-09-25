@@ -38,8 +38,10 @@ no Android Studio and no Mac are needed on your computer.
    `.aab` to **Testing → Internal testing** first, then Closed testing.
    New personal developer accounts must run a closed test with at least 12
    testers for 14 days before Production is unlocked.
-4. **Store listing**: 512×512 icon, 1024×500 feature graphic, at least two phone
-   screenshots, short and full description, and the privacy policy URL
+4. **Store listing**: everything is ready in
+   [`store/google-play/`](../store/google-play/LISTING.md): the 512×512 icon, the
+   1024×500 feature graphic, 8 phone screenshots, the descriptions, and the
+   answers for App content and Data safety. Privacy policy URL:
    `https://umrahguide.github.io/Umrah-Guide/privacy.html`.
 5. **App content → Data safety**: location is collected *on the device only* and
    not shared; no account, no analytics. The one network call is the optional
