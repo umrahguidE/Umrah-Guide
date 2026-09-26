@@ -47,7 +47,7 @@ jobs:
         working-directory: flutter_app
         run: |
           flutter pub get
-          flutter build ios --release --no-codesign --build-number=$((100 + ${{ github.run_number }}))
+          flutter build ios --release --no-codesign --build-number=$((200 + ${{ github.run_number }}))
 
       # An .ipa is a zip with the app inside a Payload folder.
       - name: Package the .ipa

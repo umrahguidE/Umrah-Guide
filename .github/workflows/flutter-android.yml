@@ -80,12 +80,13 @@ jobs:
           exit 1
 
       # Google Play rejects a build number it has already seen, so every run
-      # gets a new one. The +100 keeps it above the numbers used by the
-      # earlier (Capacitor) builds of this app.
+      # gets a new one. The +200 keeps it above every number used before this
+      # repository: the Capacitor builds and the builds of the earlier
+      # repository wasimnawisaadi-code/umrah-app (up to 104).
       - name: Build
         working-directory: flutter_app
         run: |
-          BUILD=$((100 + ${{ github.run_number }}))
+          BUILD=$((200 + ${{ github.run_number }}))
           flutter pub get
           # The phone APK carries only the ARM builds real phones use; the .aab
           # has every architecture and Google Play picks the right one per phone.
