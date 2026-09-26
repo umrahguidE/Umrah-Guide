@@ -627,5 +627,16 @@
  "Text size": "লেখার আকার",
  "Normal": "স্বাভাবিক",
  "Large": "বড়",
- "Extra large": "অতিরিক্ত বড়"
+ "Extra large": "অতিরিক্ত বড়",
+ "This recitation could not be played.": "এই তিলাওয়াতটি চালানো যায়নি।",
+ "These recitations could not be played.": "এই তিলাওয়াতগুলো চালানো যায়নি।",
+ "Scholar-reviewed": "আলেম দ্বারা পর্যালোচিত",
+ "Close": "বন্ধ করুন",
+ "Recited by {name}": "তিলাওয়াত: {name}",
+ "This recording reads the whole hadith, including the words of the dua.": "এই রেকর্ডিংয়ে পুরো হাদিসটি পড়া হয়েছে, দুআর শব্দসহ।",
+ "Stop": "বন্ধ করুন",
+ "Listen to the recitation": "তিলাওয়াত শুনুন",
+ "Seek": "সামনে-পিছনে যান",
+ "Playing {current} of {total}": "{total}টির মধ্যে {current} নম্বর চলছে",
+ "Play all {n} recitations": "সব {n}টি তিলাওয়াত চালান"
 }

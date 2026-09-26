@@ -627,5 +627,16 @@
  "Text size": "अक्षर का आकार",
  "Normal": "सामान्य",
  "Large": "बड़ा",
- "Extra large": "अतिरिक्त बड़ा"
+ "Extra large": "अतिरिक्त बड़ा",
+ "This recitation could not be played.": "यह तिलावत चलाई नहीं जा सकी।",
+ "These recitations could not be played.": "ये तिलावतें चलाई नहीं जा सकीं।",
+ "Scholar-reviewed": "आलिम द्वारा समीक्षित",
+ "Close": "बंद करें",
+ "Recited by {name}": "{name} की आवाज़ में",
+ "This recording reads the whole hadith, including the words of the dua.": "इस रिकॉर्डिंग में पूरी हदीस पढ़ी गई है, दुआ के शब्दों सहित।",
+ "Stop": "बंद करें",
+ "Listen to the recitation": "तिलावत सुनें",
+ "Seek": "आगे-पीछे करें",
+ "Playing {current} of {total}": "{total} में से {current} चल रही है",
+ "Play all {n} recitations": "सभी {n} तिलावतें चलाएँ"
 }

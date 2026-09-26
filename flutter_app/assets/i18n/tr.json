@@ -627,5 +627,16 @@
  "Text size": "Yazı boyutu",
  "Normal": "Normal",
  "Large": "Büyük",
- "Extra large": "Çok büyük"
+ "Extra large": "Çok büyük",
+ "This recitation could not be played.": "Bu tilavet çalınamadı.",
+ "These recitations could not be played.": "Bu tilavetler çalınamadı.",
+ "Scholar-reviewed": "Âlim tarafından incelendi",
+ "Close": "Kapat",
+ "Recited by {name}": "Okuyan: {name}",
+ "This recording reads the whole hadith, including the words of the dua.": "Bu kayıtta, duanın sözleri de dahil olmak üzere hadisin tamamı okunuyor.",
+ "Stop": "Durdur",
+ "Listen to the recitation": "Tilaveti dinle",
+ "Seek": "Konum",
+ "Playing {current} of {total}": "Çalınıyor: {current} / {total}",
+ "Play all {n} recitations": "{n} tilavetin tümünü çal"
 }
