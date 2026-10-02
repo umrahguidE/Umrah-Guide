@@ -74,7 +74,7 @@ disagree.
 | `flutter-android.yml` | push to `main` | test `.apk` + `.aab` on the **latest** pre-release |
 | `flutter-android.yml` | tag `v1.2.3` | signed `.aab` (Google Play) + `.apk` on release `v1.2.3` |
 | `flutter-ios.yml` | push to `main` / tag `v1.2.3` | unsigned `.ipa` on the same release (sideload only, not App Store) |
-| `pages.yml` | push to `main` | the web version and `privacy.html` on GitHub Pages |
+| `pages.yml` | push to `main` | the website, `privacy.html` and the web version (`/app/`) on GitHub Pages |
 
 To release: raise `version:` in `pubspec.yaml` (for example `1.0.1+1` — the
 build number after `+` is replaced automatically), commit, then

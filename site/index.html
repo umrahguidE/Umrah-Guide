@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guided Umrah — your Umrah, one step at a time</title>
+  <meta name="description" content="A free, offline Umrah companion. Step-by-step guidance from Miqat to completion, a Tawaf and Sa'i counter you confirm yourself, duas with real recitations, in 8 languages.">
+  <meta name="theme-color" content="#050a07">
+  <link rel="icon" href="assets/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Guided Umrah — your Umrah, one step at a time">
+  <meta property="og:description" content="Free and offline. Counts Tawaf and Sa'i with you, duas with real recitations, 8 languages. No account, no ads.">
+  <meta property="og:image" content="https://umrahguide.github.io/Umrah-Guide/assets/og.png">
+  <meta property="og:url" content="https://umrahguide.github.io/Umrah-Guide/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="fonts/jakarta.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Living background: aurora, grain and the cursor glow. Decorative only. -->
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav" data-nav>
+    <a class="brand" href="#top" aria-label="Guided Umrah, back to top">
+      <img src="assets/icon-192.png" alt="" width="34" height="34">
+      <span>Guided Umrah</span>
+    </a>
+    <nav aria-label="Sections">
+      <ul class="nav-links">
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#languages">Languages</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-small btn-glow" href="./app/">Open app <span aria-hidden="true">→</span></a>
+  </header>
+
+  <main id="main">
+    <!-- ───────────────────────── HERO ───────────────────────── -->
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="kicker reveal"><span class="pulse-dot" aria-hidden="true"></span> Free · works offline · 8 languages</p>
+        <h1 class="display reveal">
+          <span class="line">Your Umrah,</span>
+          <span class="line serif gold-text">one step at a time.</span>
+        </h1>
+        <p class="lead reveal">From the Miqat to the moment it is complete. Guided Umrah shows where you are, what to do now, which round you are on, and what comes next. Even with no signal.</p>
+        <div class="cta-row reveal">
+          <a class="btn btn-primary magnetic" href="./app/">
+            <span>Try it in your browser</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <span class="store-badge" title="Google Play listing is in testing">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.3 13.3 12l-9.7 9.7c-.4-.2-.6-.7-.6-1.2V3.5c0-.5.2-1 .6-1.2Zm10.8 10.8 2.6 2.6-11.2 6.4 8.6-9Zm3.6-3.6 3 1.7c.9.5.9 1.7 0 2.2l-3 1.7-2.8-2.8 2.8-2.8ZM5.8 1.9 17 8.3l-2.6 2.6-8.6-9Z"/></svg>
+            <span><small>Coming soon on</small>Google Play</span>
+          </span>
+        </div>
+        <ul class="trust reveal" aria-label="Promises">
+          <li>No account</li>
+          <li>No ads</li>
+          <li>No tracking</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <svg class="tawaf-orbit" viewBox="0 0 600 600">
+          <defs>
+            <radialGradient id="dotGlow"><stop offset="0" stop-color="#7cf0b6"/><stop offset="1" stop-color="#7cf0b6" stop-opacity="0"/></radialGradient>
+            <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3b866"/><stop offset=".5" stop-color="#34d399"/><stop offset="1" stop-color="#e3b866"/></linearGradient>
+          </defs>
+          <circle class="ring ring-outer" cx="300" cy="300" r="282"/>
+          <circle class="ring ring-dash" cx="300" cy="300" r="250"/>
+          <circle class="ring ring-inner" cx="300" cy="300" r="214"/>
+          <g class="orbit">
+            <circle cx="300" cy="50" r="26" fill="url(#dotGlow)"/>
+            <circle cx="300" cy="50" r="7" fill="#7cf0b6"/>
+          </g>
+          <g class="orbit orbit-slow">
+            <circle cx="300" cy="18" r="4" fill="#e3b866"/>
+          </g>
+        </svg>
+        <div class="phone tilt" data-tilt>
+          <div class="phone-screen">
+            <img src="assets/screens/dark-tawaf.webp" alt="" width="390" height="780">
+          </div>
+        </div>
+        <div class="float-chip c1" data-depth="18"><b>Round 3</b><span>/ 7</span></div>
+        <div class="float-chip c2" data-depth="-14">🕋 Kaaba on your <b>left</b></div>
+        <div class="float-chip c3" data-depth="10"><span class="ok-dot"></span> Works offline</div>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── STEPS MARQUEE ───────────────────────── -->
+    <section class="marquee" aria-label="The steps of Umrah in the app">
+      <div class="marquee-track">
+        <ul>
+          <li>Preparation</li><li>Miqat</li><li>Ihram</li><li>Talbiyah</li><li>Masjid al-Haram</li><li>Tawaf · 7 rounds</li><li>Two rak'ahs</li><li>Zamzam</li><li>Sa'i · 7 laps</li><li>Hair</li><li class="gold">Umrah complete</li>
+        </ul>
+        <ul aria-hidden="true">
+          <li>Preparation</li><li>Miqat</li><li>Ihram</li><li>Talbiyah</li><li>Masjid al-Haram</li><li>Tawaf · 7 rounds</li><li>Two rak'ahs</li><li>Zamzam</li><li>Sa'i · 7 laps</li><li>Hair</li><li class="gold">Umrah complete</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── HOW IT WORKS (sticky story) ───────────────────────── -->
+    <section class="story" id="how">
+      <div class="section-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2 class="h2">The whole Umrah, <span class="serif gold-text">in your pocket.</span></h2>
+      </div>
+
+      <div class="story-grid">
+        <div class="story-stage" aria-hidden="true">
+          <div class="phone phone-story">
+            <div class="phone-screen">
+              <img class="story-img is-on" data-step="0" src="assets/screens/dark-home.webp" alt="" width="390" height="780">
+              <img class="story-img" data-step="1" src="assets/screens/dark-ihram.webp" alt="" width="390" height="780" loading="lazy">
+              <img class="story-img" data-step="2" src="assets/screens/dark-tawaf.webp" alt="" width="390" height="780" loading="lazy">
+              <img class="story-img" data-step="3" src="assets/screens/dark-sai.webp" alt="" width="390" height="780" loading="lazy">
+              <img class="story-img" data-step="4" src="assets/screens/dark-complete.webp" alt="" width="390" height="780" loading="lazy">
+            </div>
+          </div>
+          <ol class="story-dots"><li class="is-on"></li><li></li><li></li><li></li><li></li></ol>
+        </div>
+
+        <ol class="story-steps">
+          <li class="story-step" data-step="0">
+            <div class="phone story-inline" aria-hidden="true"><div class="phone-screen"><img src="assets/screens/dark-home.webp" alt="" width="390" height="780" loading="lazy"></div></div>
+            <span class="step-no">01</span>
+            <h3>Start, and it walks with you</h3>
+            <p>Choose guidance for men or women and press start. Every screen answers the same questions: where am I, what do I do now, what comes next.</p>
+          </li>
+          <li class="story-step" data-step="1">
+            <div class="phone story-inline" aria-hidden="true"><div class="phone-screen"><img src="assets/screens/dark-ihram.webp" alt="" width="390" height="780" loading="lazy"></div></div>
+            <span class="step-no">02</span>
+            <h3>Miqat and Ihram, checked</h3>
+            <p>A reminder before your Miqat on your route, then a short checklist: prepared, intention made, Talbiyah begun. Nothing is skipped by accident.</p>
+          </li>
+          <li class="story-step" data-step="2">
+            <div class="phone story-inline" aria-hidden="true"><div class="phone-screen"><img src="assets/screens/dark-tawaf.webp" alt="" width="390" height="780" loading="lazy"></div></div>
+            <span class="step-no">03</span>
+            <h3>Seven rounds of Tawaf, never lost</h3>
+            <p>A big counter you can read in the crowd. If you turn on location help, the phone suggests when a round may be finished — but it never counts for you. You confirm.</p>
+          </li>
+          <li class="story-step" data-step="3">
+            <div class="phone story-inline" aria-hidden="true"><div class="phone-screen"><img src="assets/screens/dark-sai.webp" alt="" width="390" height="780" loading="lazy"></div></div>
+            <span class="step-no">04</span>
+            <h3>Sa'i with direction on every lap</h3>
+            <p>Safa → Marwah, Marwah → Safa. The app shows which way you are walking, the green markers, and what to say when you arrive.</p>
+          </li>
+          <li class="story-step" data-step="4">
+            <div class="phone story-inline" aria-hidden="true"><div class="phone-screen"><img src="assets/screens/dark-complete.webp" alt="" width="390" height="780" loading="lazy"></div></div>
+            <span class="step-no">05</span>
+            <h3>Know when it is complete</h3>
+            <p>Hair, then exiting Ihram, then a clear summary of every step, round and lap. No doubt left about whether you are finished.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── TRY THE COUNTER ───────────────────────── -->
+    <section class="counter-demo" aria-labelledby="demo-title">
+      <div class="demo-copy reveal">
+        <p class="eyebrow">Try it</p>
+        <h2 class="h2" id="demo-title">You confirm. <span class="serif gold-text">It remembers.</span></h2>
+        <p class="lead">The counter is the heart of the app. Each round is saved the moment you confirm it, with its time — even if the phone restarts. Made a mistake? "Wrong count?" fixes it, and the change is logged.</p>
+        <p class="tiny">This is a demo. In the app, the Tawaf counter appears when you reach that step.</p>
+      </div>
+      <div class="demo-card reveal" data-demo>
+        <div class="demo-ring">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="track" cx="100" cy="100" r="84"/>
+            <circle class="fill" cx="100" cy="100" r="84" pathLength="7" data-demo-fill/>
+          </svg>
+          <div class="demo-num" aria-live="polite">
+            <small data-demo-label>Round</small>
+            <strong data-demo-n>1</strong>
+            <span>/ 7</span>
+          </div>
+        </div>
+        <ol class="demo-dots" aria-hidden="true" data-demo-dots>
+          <li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li>
+        </ol>
+        <button class="btn btn-primary btn-wide" type="button" data-demo-btn>✓ Confirm Round 1 complete</button>
+        <button class="btn-text" type="button" data-demo-reset>Start again</button>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── FEATURES BENTO ───────────────────────── -->
+    <section class="features" id="features">
+      <div class="section-head reveal">
+        <p class="eyebrow">Features</p>
+        <h2 class="h2">Built for the crowd, <span class="serif gold-text">the heat and no signal.</span></h2>
+      </div>
+
+      <div class="bento">
+        <article class="tile tile-xl reveal" data-glow>
+          <div class="tile-media"><img src="assets/screens/dark-duas.webp" alt="The Duas page of the app with Arabic text, meaning and source" width="390" height="780" loading="lazy"></div>
+          <div class="tile-body">
+            <span class="tile-icon" aria-hidden="true">🤲</span>
+            <h3>Duas with real recitations</h3>
+            <p>Arabic with meaning and source for every place. Arabic is played from recorded recitations — never a computer voice. Save your own personal duas to remember at the Kaaba.</p>
+          </div>
+        </article>
+
+        <article class="tile reveal" data-glow>
+          <span class="tile-icon" aria-hidden="true">📴</span>
+          <h3>Works without internet</h3>
+          <p>The guide, the map of Masjid al-Haram and the recitations are all inside the app.</p>
+        </article>
+
+        <article class="tile reveal" data-glow>
+          <span class="tile-icon" aria-hidden="true">🧭</span>
+          <h3>Suggests. You decide.</h3>
+          <p>GPS, compass and step sensor can suggest when a round or lap may be done. Nothing is ever completed on its own.</p>
+        </article>
+
+        <article class="tile tile-wide reveal" data-glow>
+          <div class="tile-row">
+            <div>
+              <span class="tile-icon" aria-hidden="true">🗺️</span>
+              <h3>Map of Masjid al-Haram</h3>
+              <p>The Mataf, Safa, Marwah and the green markers, drawn into the app so it works offline.</p>
+            </div>
+            <img class="tile-shot" src="assets/map-crop.webp" alt="The offline map of Masjid al-Haram in the app" width="538" height="655" loading="lazy">
+          </div>
+        </article>
+
+        <article class="tile reveal" data-glow>
+          <span class="tile-icon" aria-hidden="true">📍</span>
+          <h3>Miqat reminder</h3>
+          <p>Pick your route and the app warns you before you reach your Miqat.</p>
+        </article>
+
+        <article class="tile reveal" data-glow>
+          <span class="tile-icon" aria-hidden="true">📒</span>
+          <h3>Journey log</h3>
+          <p>Every round and lap with its time — to review, or to share with family.</p>
+        </article>
+
+        <article class="tile reveal" data-glow>
+          <span class="tile-icon" aria-hidden="true">🆘</span>
+          <h3>My info &amp; emergency</h3>
+          <p>Hotel, group leader and emergency contacts, plus Saudi emergency numbers.</p>
+        </article>
+
+        <article class="tile reveal" data-glow>
+          <span class="tile-icon" aria-hidden="true">🔊</span>
+          <h3>Voice guide</h3>
+          <p>Tells you the next step in your language, where your phone's voice supports it.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ───────────────────────── TALBIYAH ───────────────────────── -->
+    <section class="verse" aria-labelledby="verse-title">
+      <h2 class="sr-only" id="verse-title">The Talbiyah</h2>
+      <figure class="reveal">
+        <blockquote>
+          <p class="arabic" lang="ar" dir="rtl">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ</p>
+          <p class="translit">Labbayka Allāhumma labbayk</p>
+          <p class="meaning serif">“Here I am, O Allah, here I am.”</p>
+        </blockquote>
+        <figcaption>The Talbiyah — Ṣaḥīḥ al-Bukhārī 1549, Ṣaḥīḥ Muslim 1184. In the app, with a real recitation.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ───────────────────────── LANGUAGES ───────────────────────── -->
+    <section class="languages" id="languages">
+      <div class="section-head reveal">
+        <p class="eyebrow">Languages</p>
+        <h2 class="h2">Speaks <span class="serif gold-text">your</span> language.</h2>
+        <p class="lead">Eight languages, including Urdu written right to left. Switch any time — your progress stays.</p>
+      </div>
+      <div class="lang-stage reveal" aria-hidden="true">
+        <span class="lang-word" data-lang-word>Guided Umrah</span>
+      </div>
+      <ul class="lang-grid reveal">
+        <li data-name="Guided Umrah"><b>English</b><span>English</span></li>
+        <li data-name="गाइडेड उमराह"><b lang="hi">हिन्दी</b><span>Hindi</span></li>
+        <li data-name="گائیڈڈ عمرہ" data-rtl><b lang="ur" dir="rtl">اردو</b><span>Urdu</span></li>
+        <li data-name="গাইডেড উমরাহ"><b lang="bn">বাংলা</b><span>Bengali</span></li>
+        <li data-name="Guided Umrah"><b lang="id">Bahasa Indonesia</b><span>Indonesian</span></li>
+        <li data-name="Rehberli Umre"><b lang="tr">Türkçe</b><span>Turkish</span></li>
+        <li data-name="வழிகாட்டப்பட்ட உம்ரா"><b lang="ta">தமிழ்</b><span>Tamil</span></li>
+        <li data-name="ഗൈഡഡ് ഉംറ"><b lang="ml">മലയാളം</b><span>Malayalam</span></li>
+      </ul>
+    </section>
+
+    <!-- ───────────────────────── PRIVACY ───────────────────────── -->
+    <section class="privacy" id="privacy">
+      <div class="section-head reveal">
+        <p class="eyebrow">Private by design</p>
+        <h2 class="h2">Your Umrah is <span class="serif gold-text">between you and Allah.</span></h2>
+      </div>
+      <div class="no-grid">
+        <div class="no reveal"><strong>No</strong><span>account</span><p>Open it and start. Nothing to sign up for.</p></div>
+        <div class="no reveal"><strong>No</strong><span>ads</span><p>Free, with nothing to sell you during your worship.</p></div>
+        <div class="no reveal"><strong>No</strong><span>tracking</span><p>Progress, notes and location stay on your phone.</p></div>
+      </div>
+      <p class="center reveal"><a class="link-arrow" href="privacy.html">Read the privacy policy <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <!-- ───────────────────────── HONEST NOTE ───────────────────────── -->
+    <section class="note reveal" aria-label="Content review">
+      <span class="note-badge">In review</span>
+      <p>The religious guidance in Guided Umrah is being reviewed by scholars before the public release. It is a helper, not a replacement for learning your Umrah from a scholar. When in doubt, ask a scholar.</p>
+    </section>
+
+    <!-- ───────────────────────── FINAL CTA ───────────────────────── -->
+    <section class="final reveal">
+      <img class="final-mark" src="assets/mark.png" alt="" width="128" height="128">
+      <h2 class="display-sm">Ready when <span class="serif gold-text">you are.</span></h2>
+      <p class="lead">Try the full app in your browser today. The Android app is in testing on Google Play, and the iPhone app comes next.</p>
+      <div class="cta-row center">
+        <a class="btn btn-primary magnetic" href="./app/"><span>Open Guided Umrah</span><span class="btn-arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="https://github.com/umrahguidE/Umrah-Guide" rel="noopener">Source on GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="assets/icon-192.png" alt="" width="28" height="28">
+      <span>Guided Umrah</span>
+    </div>
+    <nav aria-label="Footer">
+      <a href="./app/">Web app</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="https://github.com/umrahguidE/Umrah-Guide/issues" rel="noopener">Feedback</a>
+      <a href="mailto:umrahguideapp@gmail.com">umrahguideapp@gmail.com</a>
+    </nav>
+    <p class="tiny">Made with care for every pilgrim. May Allah accept it from us and from you.</p>
+  </footer>
+</body>
+</html>

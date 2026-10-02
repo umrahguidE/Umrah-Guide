@@ -21,7 +21,8 @@ Preparation → Miqat → Ihram (+ niyyah) → Talbiyah → Masjid al-Haram → 
 | Folder | What it is | Where it ships |
 |---|---|---|
 | [`flutter_app/`](flutter_app/README.md) | The phone app, in Flutter — **Android and iOS from one codebase** | Google Play, Apple App Store |
-| repository root (`src/`, `index.html`) | The same app as a web app (PWA), and the **source of all religious content and translations** | GitHub Pages |
+| repository root (`src/`, `index.html`) | The same app as a web app (PWA), and the **source of all religious content and translations** | GitHub Pages, at `/app/` |
+| [`site/`](site/) | The public website: what the app is, how it works, privacy | GitHub Pages, at the root |
 
 The Flutter app never retypes religious text: `npm run flutter:data` exports
 `src/data` and `src/i18n` into `flutter_app/assets/`, and the Checks workflow
@@ -35,7 +36,7 @@ No dependencies. Node 20+ is only needed for the dev server and the tests.
 npm start                 # http://localhost:5173
                           # http://localhost:5173/?sim  → simulated GPS, compass and steps walk Tawaf and Sa'i for you
 npm test                  # engine, tracking, motion, Miqat, content and screen tests
-npm run build             # dist/ — what a static host serves and what Capacitor wraps
+npm run build             # dist/ — the website at dist/, the web app at dist/app/
 npm run review:export     # regenerate docs/CONTENT_REVIEW.md for reviewers
 ```
 

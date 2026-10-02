@@ -89,6 +89,12 @@ with a free Apple ID. That signature lasts 7 days.
 
 ## The web version
 
-The root of the repository is also a complete web app (PWA), published by
-`pages.yml` to GitHub Pages together with `privacy.html`. It is the same app
-in a browser, and the source of the content that the Flutter app exports.
+The root of the repository is also a complete web app (PWA). It is the same
+app in a browser, and the source of the content that the Flutter app exports.
+`pages.yml` publishes it to GitHub Pages:
+
+| URL | What |
+|---|---|
+| https://umrahguide.github.io/Umrah-Guide/ | the website, from `site/` (the store listing's "Website") |
+| https://umrahguide.github.io/Umrah-Guide/app/ | the web app |
+| https://umrahguide.github.io/Umrah-Guide/privacy.html | the privacy policy |
