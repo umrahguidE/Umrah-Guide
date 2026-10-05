@@ -20,7 +20,7 @@
 const REVIEWED = Object.freeze({ status: 'reviewed', by: null, at: null, confirmation: 'App owner confirmed completed scholar review on 2026-10-05.' });
 
 export const CONTENT_META = Object.freeze({
-  version: '0.1.2',
+  version: '0.1.3',
   review: REVIEWED,
   note: '',
 });

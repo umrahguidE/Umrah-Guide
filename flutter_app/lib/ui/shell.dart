@@ -110,18 +110,6 @@ class _AppShellState extends State<AppShell> {
               children: [
                 Column(
                   children: [
-                    Material(
-                      color: c.warnBg,
-                      child: InkWell(
-                        onTap: chooseLanguage ? null : () => _nav.open(AppPage.about),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.warnLine))),
-                          child: Text('⚠ ${context.t(app.content.reviewNotice)}', style: TextStyle(color: c.warnInk, fontSize: 12.5, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
-                        ),
-                      ),
-                    ),
                     Expanded(
                       child: Scrollbar(
                         controller: _scroll,

@@ -107,7 +107,6 @@ export function renderApp(ctx) {
   const page = chooseLanguage ? languagePage : (PAGES[ctx.route.name] ?? guidedPage);
   return html`
     ${topBar(ctx)}
-    <a class="review-strip" href="#/about">⚠ ${t(C.REVIEW_NOTICE)}</a>
     <main class="page" lang="${getLanguage()}" dir="${languageInfo().dir}">
       ${ctx.ui.notice ? html`<p class="alert info" role="status">${ctx.ui.notice}</p>` : ''}
       ${page(ctx)}
