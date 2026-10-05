@@ -141,7 +141,7 @@ class AboutPage extends StatelessWidget {
         ),
       ]),
       Center(child: Muted(context.t('Designed and developed by Mhd Wasim'), small: true)),
-      const Center(child: Muted('Sponsored by NIAZI AFRASIAB', small: true, center: true)),
+      const Center(child: Muted('Sponsored by Niazi Afrasiab', small: true, center: true)),
     ]);
   }
 }
