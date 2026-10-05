@@ -115,24 +115,23 @@ Sponsored by NIAZI AFRASIAB.
 
 ### Data safety
 
-The app itself sends nothing to a server. The only exception is the optional real
-map, shown when you turn on location **far from Masjid al-Haram**: it downloads
-map tiles from OpenStreetMap, and the tile requests reveal roughly which area you
-are in. So declare it, to be safe:
+The optional online map requests OpenStreetMap tiles centered on the user's
+location. Tile requests can reveal approximate and precise location, and the
+provider may retain service logs. Ritual tracking, progress and notes stay local.
 
 | Question | Answer |
 |---|---|
 | Does your app collect or share any required user data types? | Yes |
 | Is all data encrypted in transit? | Yes (map tiles use HTTPS) |
-| Can users request that data is deleted? | Yes. Everything is on the device: "End current Umrah session", clear app storage, or uninstall |
-| Data types | **Location → Approximate location** only |
-| Approximate location: collected / shared | Collected: Yes · Shared: No |
-| Processed ephemerally? | Yes |
+| Account creation | No accounts |
+| Can users request that data is deleted? | No provider-log deletion mechanism offered by the app; local storage can be cleared |
+| Data types | **Location → Approximate location and Precise location** |
+| Both location types: collected / shared | Collected: Yes · Shared: Yes |
+| Processed ephemerally? | No (provider logs may be retained) |
 | Required or optional? | Optional (users can turn location help off) |
-| Why collected | App functionality |
+| Why collected and shared | App functionality |
 
-Precise location, contacts, personal info, messages, files, app activity, device
-IDs: **not collected**. They are either not used or stay only on the device.
+Personal notes, contacts and session progress are not transmitted to the developer.
 
 ## 5. First release: Internal testing
 
