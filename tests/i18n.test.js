@@ -1,3 +1,4 @@
+import { STAGE_LINES } from '../src/data/voice-lines.js';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { LANGUAGES, packFor, setLanguage, getLanguage, t, recordStrings } from '../src/i18n/index.js';
@@ -155,4 +156,13 @@ test('every language reaches the language picker and Umrah-complete screen witho
     assert.match(out, /الحمد لله/, `${code}: Umrah-complete Arabic phrase must never be translated`);
   }
   setLanguage('en');
+});
+
+test('Tamil translates every spoken stage instruction', () => {
+  const pack = packFor('ta');
+  for (const [stage, source] of Object.entries(STAGE_LINES)) {
+    assert.ok(pack[source], `Missing Tamil speech for ${stage}`);
+    assert.match(pack[source], /[\u0B80-\u0BFF]/);
+    assert.notEqual(pack[source], source);
+  }
 });
