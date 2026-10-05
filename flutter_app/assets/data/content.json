@@ -1,14 +1,15 @@
 {
  "CONTENT_META": {
-  "version": "0.1.0-draft",
+  "version": "0.1.1",
   "review": {
-   "status": "pending",
+   "status": "reviewed",
    "by": null,
-   "at": null
+   "at": null,
+   "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
   },
-  "note": "This guidance is a draft written to reflect widely held positions. It has not yet been reviewed by qualified scholars. Where your scholar or group leader differs, follow them."
+  "note": "Scholar-reviewed"
  },
- "REVIEW_NOTICE": "Draft guidance — not yet scholar-reviewed",
+ "REVIEW_NOTICE": "Scholar-reviewed",
  "PREP_CHECKLIST": [
   {
    "id": "documents",
@@ -79,9 +80,10 @@
     "The special clothing is part of it, but Ihram itself begins with the intention and the Talbiyah."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -95,9 +97,10 @@
     "At the Miqat, make the intention and begin the Talbiyah."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -109,9 +112,10 @@
     "Sandals or footwear that leave the ankles uncovered."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -123,9 +127,10 @@
     "Many scholars allow lowering a cloth over the face in the presence of non-mahram men."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -138,9 +143,10 @@
     "If you fear illness or an obstacle may stop you from completing Umrah, you may add the condition: Allāhumma maḥillī ḥaythu ḥabastanī."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -151,9 +157,10 @@
     "Men recite it aloud; women recite it quietly."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -171,9 +178,10 @@
     "If a restriction is broken by mistake, forgetfulness or out of need, the ruling (and any compensation, fidyah) depends on the case — ask a scholar."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -184,9 +192,10 @@
     "Illness, disability and children each have specific rulings — ask a scholar. Wheelchairs and carts are available in the Haram."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   }
  ],
@@ -201,9 +210,10 @@
    },
    "forWho": "People coming from Madinah and those travelling via it.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -216,9 +226,10 @@
    },
    "forWho": "People of Egypt, the Levant, North Africa and those on routes from the north-west.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -231,9 +242,10 @@
    },
    "forWho": "People of Najd, Riyadh, Ṭā’if, the Gulf and many eastern routes.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -246,9 +258,10 @@
    },
    "forWho": "People of Yemen, the south, and many sea and air routes from South and South-East Asia.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -261,9 +274,10 @@
    },
    "forWho": "People of Iraq and the north-east.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   }
  ],
@@ -282,9 +296,10 @@
     "Many pilgrims from Pakistan enter Ihram at the airport before departure — this is safe and easy, and is what most groups do."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -301,9 +316,10 @@
     "Flights from the south of India usually cross Yalamlam; from the north, Qarn al-Manāzil is more likely. Being in Ihram before either is the safe choice."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -317,9 +333,10 @@
    ],
    "note": "Flights from Bangladesh cross Yalamlam or Qarn al-Manāzil depending on the route.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -332,9 +349,10 @@
    ],
    "note": "These routes come from the south-east and cross the line of Yalamlam.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -350,9 +368,10 @@
     "Many groups enter Ihram at the departure airport, or at a stop such as Dubai or Doha, which is safer than waiting for an announcement."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -366,9 +385,10 @@
    ],
    "note": "Route-dependent: usually Yalamlam, sometimes Qarn al-Manāzil if you transit through the Gulf.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -384,9 +404,10 @@
     "These flights are short — often under two hours — so be in Ihram before boarding, or very soon after take-off."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -400,9 +421,10 @@
    ],
    "note": "Coming from the north-east, the Miqat is Dhāt ʿIrq; some routes cross Qarn al-Manāzil instead.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -416,9 +438,10 @@
    ],
    "note": "Routes from the north-east and east cross Dhāt ʿIrq or Qarn al-Manāzil.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -431,9 +454,10 @@
    ],
    "note": "Coming from the north-west, the Miqat is al-Juḥfah (near Rābigh).",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -446,9 +470,10 @@
    ],
    "note": "Al-Juḥfah is the Miqat for those arriving from the direction of Egypt and North Africa.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -464,9 +489,10 @@
     "On a night flight, set an alarm — the Miqat is often crossed while the cabin is dark and people are asleep."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -482,9 +508,10 @@
     "If you transit through the Gulf (Dubai, Doha, Istanbul), the final leg may cross Qarn al-Manāzil instead — keep the Miqat watch on for the last flight."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -497,9 +524,10 @@
    ],
    "note": "Pilgrims arriving from this direction commonly take al-Juḥfah as their Miqat.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -512,9 +540,10 @@
    ],
    "note": "Coming from the south, the Miqat is Yalamlam.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -527,9 +556,10 @@
    ],
    "note": "These routes approach from the south and cross the line of Yalamlam.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -543,9 +573,10 @@
    ],
    "note": "Usually Yalamlam; if you transit through the Gulf the last leg may cross Qarn al-Manāzil.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -562,9 +593,10 @@
     "When you leave for Makkah, use the “By road from Madinah” or “Haramain train” route in this list."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -577,9 +609,10 @@
    ],
    "note": "Ṭā’if is beyond the Miqat, so you enter Ihram when you set out for Makkah — at as-Sayl al-Kabīr, or at Wādī Muḥrim if you take the Hada road.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -595,9 +628,10 @@
     "The mosque has washrooms and changing areas, and buses normally stop there."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -614,9 +648,10 @@
     "The journey is about two hours, so plan the Talbiyah and any prayer times around it."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -629,9 +664,10 @@
    ],
    "note": "The highway passes as-Sayl al-Kabīr (Qarn al-Manāzil), which has a large Miqat mosque.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -646,9 +682,10 @@
    ],
    "note": "Which Miqat applies depends on the road you take. Be in Ihram before the first one on your route.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -661,9 +698,10 @@
    ],
    "note": "On the main road, the Miqat is as-Sayl al-Kabīr. If you come down the Hada road, it is Wādī Muḥrim, which is the same Miqat from a different direction.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -676,9 +714,10 @@
    ],
    "note": "Enter Ihram at al-Juḥfah, near Rābigh.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -691,9 +730,10 @@
    ],
    "note": "Enter Ihram at Yalamlam (as-Saʿdiyyah).",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -707,9 +747,10 @@
     "Do not change out of Ihram at the airport or hotel — you stay in Ihram until after the hair ritual."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -722,9 +763,10 @@
    ],
    "note": "Enter Ihram when the ship is parallel to al-Juḥfah.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -737,9 +779,10 @@
    ],
    "note": "Enter Ihram when the ship is parallel to Yalamlam.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -753,9 +796,10 @@
     "This applies to people who are already in Jeddah. If you flew in intending Umrah, the Miqat on your flight path applied — ask a scholar if you passed it without Ihram."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -766,9 +810,10 @@
    "miqats": [],
    "note": "People living inside the boundary enter Ihram from where they are.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -783,9 +828,10 @@
     "Some go to al-Jiʿrānah or Ḥudaybiyah instead; all are outside the Haram boundary."
    ],
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   }
  ],
@@ -1049,9 +1095,10 @@
    "translation": "Here I am, O Allah, here I am. Here I am — You have no partner — here I am. All praise, all grace and all sovereignty belong to You. You have no partner.",
    "source": "Ṣaḥīḥ al-Bukhārī 1549; Ṣaḥīḥ Muslim 1184; Ḥiṣn al-Muslim no. 233",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1069,9 +1116,10 @@
    "source": "The commonly taught wording of the intention for Umrah",
    "note": "After making the intention, begin the Talbiyah for Umrah.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1088,9 +1136,10 @@
    "translation": "Here I am, O Allah, for Umrah.",
    "source": "Ṣaḥīḥ Muslim 1251 (ḥadīth of Anas), wording for Umrah alone",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1108,9 +1157,10 @@
    "source": "Ṣaḥīḥ al-Bukhārī 5089; Ṣaḥīḥ Muslim 1207 (Ḍubāʿah bint az-Zubayr)",
    "note": "Scholars differ on whether this is for everyone or only for those with a reason to fear.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1127,9 +1177,10 @@
    "translation": "I seek refuge in Allah the Almighty, in His noble Face and His eternal authority, from the accursed devil. In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, open for me the gates of Your mercy.",
    "source": "Ḥiṣn al-Muslim no. 20 (Abū Dāwūd 466; Ibn as-Sunnī 88; Muslim 713)",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1147,9 +1198,10 @@
    "source": "Ṣaḥīḥ al-Bukhārī 1613; Ḥiṣn al-Muslim no. 234",
    "note": "Some also say “Bismillāh” at the start of Tawaf, reported from Ibn ʿUmar. Never push or harm others to reach the Stone.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1166,9 +1218,10 @@
    "translation": "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
    "source": "Sunan Abī Dāwūd 1892; the words are Qur’an 2:201; Ḥiṣn al-Muslim no. 235",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1186,9 +1239,10 @@
    "source": "Qur’an 2:125; recited by the Prophet ﷺ per Ṣaḥīḥ Muslim 1218",
    "note": "In the two rak’ahs, recite al-Kāfirūn and al-Ikhlāṣ. Pray anywhere in the mosque if the area is crowded.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1206,9 +1260,10 @@
    "source": "Sunan Ibn Mājah 3062",
    "note": "This is a hadith about Zamzam, not a formula to recite. Say Bismillāh, drink, and ask Allah for whatever you need.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1225,9 +1280,10 @@
    "translation": "Indeed, Safa and Marwah are among the symbols of Allah. I begin with what Allah began with.",
    "source": "Qur’an 2:158; Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir)",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1244,9 +1300,10 @@
    "translation": "None has the right to be worshipped but Allah alone, without partner. His is the dominion and His is the praise, and He has power over all things. None has the right to be worshipped but Allah alone. He fulfilled His promise, gave victory to His servant, and alone defeated the confederates.",
    "source": "Ṣaḥīḥ Muslim 1218 (ḥadīth of Jābir); Ḥiṣn al-Muslim no. 236",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1264,9 +1321,10 @@
    "source": "Reported from Ibn Masʿūd and Ibn ʿUmar (Muṣannaf Ibn Abī Shaybah)",
    "note": "This is the practice of Companions, not a fixed formula from the Prophet ﷺ. Any dua is fine here.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1283,9 +1341,10 @@
    "translation": "In the name of Allah, and blessings and peace be upon the Messenger of Allah. O Allah, I ask You of Your bounty. O Allah, protect me from the accursed devil.",
    "source": "Ḥiṣn al-Muslim no. 21 (Muslim 713; Ibn Mājah 773)",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1302,9 +1361,10 @@
    "translation": "Glory be to Allah, all praise is for Allah, none has the right to be worshipped but Allah, and Allah is the Greatest.",
    "source": "Ṣaḥīḥ Muslim 2137; Ḥiṣn al-Muslim no. 261",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1321,9 +1381,10 @@
    "translation": "I seek the forgiveness of Allah the Almighty, besides whom none has the right to be worshipped, the Ever-Living, the Sustainer of all, and I turn to Him in repentance.",
    "source": "Ḥiṣn al-Muslim no. 250 (Abū Dāwūd 1517; at-Tirmidhī 3577)",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1340,9 +1401,10 @@
    "translation": "There is no might and no power except with Allah.",
    "source": "Ṣaḥīḥ al-Bukhārī 6384; Ṣaḥīḥ Muslim 2704; Ḥiṣn al-Muslim no. 260",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1359,9 +1421,10 @@
    "translation": "O Allah, I ask You for pardon and well-being in this world and the Hereafter.",
    "source": "Sunan Abī Dāwūd 5074; Sunan Ibn Mājah 3871",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1376,9 +1439,10 @@
    "when": "Any time during Tawaf and Sa’i.",
    "note": "Ask Allah in any language — for yourself, your parents, your family, the people who asked you to pray for them, and all Muslims. Sincerity matters more than wording.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   },
   {
@@ -1393,9 +1457,10 @@
    "when": "Any time during Tawaf and Sa’i.",
    "note": "Recite any Qur’an you know from memory. There are no set sūrahs for particular rounds or laps.",
    "review": {
-    "status": "pending",
+    "status": "reviewed",
     "by": null,
-    "at": null
+    "at": null,
+    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
    }
   }
  ],

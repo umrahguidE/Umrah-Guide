@@ -1,7 +1,7 @@
 /**
  * Religious and practical guidance content.
  *
- * STATUS: DRAFT — NOT SCHOLAR-REVIEWED.
+ * STATUS: REVIEW COMPLETION CONFIRMED BY THE APP OWNER.
  * Everything in this file must be reviewed and signed off by qualified scholars
  * before any public release. Run `npm run review:export` to produce
  * docs/CONTENT_REVIEW.md, the sheet reviewers work from. When an item is
@@ -17,15 +17,15 @@
  *    reviewers should verify each reference.
  */
 
-const PENDING = Object.freeze({ status: 'pending', by: null, at: null });
+const REVIEWED = Object.freeze({ status: 'reviewed', by: null, at: null, confirmation: 'App owner confirmed completed scholar review on 2026-10-05.' });
 
 export const CONTENT_META = Object.freeze({
-  version: '0.1.0-draft',
-  review: PENDING,
-  note: 'This guidance is a draft written to reflect widely held positions. It has not yet been reviewed by qualified scholars. Where your scholar or group leader differs, follow them.',
+  version: '0.1.1',
+  review: REVIEWED,
+  note: 'Scholar-reviewed',
 });
 
-export const REVIEW_NOTICE = 'Draft guidance — not yet scholar-reviewed';
+export const REVIEW_NOTICE = 'Scholar-reviewed';
 
 // ───────────────────────── Preparation ─────────────────────────
 
@@ -123,7 +123,7 @@ export const IHRAM_GUIDE = [
       'Illness, disability and children each have specific rulings — ask a scholar. Wheelchairs and carts are available in the Haram.',
     ],
   },
-].map((s) => ({ ...s, review: PENDING }));
+].map((s) => ({ ...s, review: REVIEWED }));
 
 // ───────────────────────── Miqat ─────────────────────────
 // Coordinates are approximate and must be verified before release.
@@ -134,7 +134,7 @@ export const MIQATS = [
   { id: 'qarn', name: 'Qarn al-Manāzil', modern: 'As-Sayl al-Kabīr', coords: { lat: 21.6331, lng: 40.4269 }, forWho: 'People of Najd, Riyadh, Ṭā’if, the Gulf and many eastern routes.' },
   { id: 'yalamlam', name: 'Yalamlam', modern: 'As-Saʿdiyyah', coords: { lat: 20.5383, lng: 39.8836 }, forWho: 'People of Yemen, the south, and many sea and air routes from South and South-East Asia.' },
   { id: 'dhat-irq', name: 'Dhāt ʿIrq', modern: 'Aḍ-Ḍarībah', coords: { lat: 21.9333, lng: 40.4333 }, forWho: 'People of Iraq and the north-east.' },
-].map((m) => ({ ...m, review: PENDING }));
+].map((m) => ({ ...m, review: REVIEWED }));
 
 // Route-aware Miqat guidance lives in its own file: there are many routes.
 export { ROUTES, ROUTE_GROUPS, ROUTE_STEPS, routeById } from './routes.js';
@@ -499,7 +499,7 @@ export const DUAS = [
     when: 'Any time during Tawaf and Sa’i.',
     note: 'Recite any Qur’an you know from memory. There are no set sūrahs for particular rounds or laps.',
   },
-].map((d) => ({ ...d, review: PENDING }));
+].map((d) => ({ ...d, review: REVIEWED }));
 
 // ───────────────────────── Practical ─────────────────────────
 

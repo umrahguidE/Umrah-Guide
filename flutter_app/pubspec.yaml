@@ -5,7 +5,7 @@ publish_to: 'none'
 # <name>+<build>. The release workflows override the build number on every run
 # (--build-number), because Google Play and App Store Connect both reject a
 # build number that was already uploaded.
-version: 0.1.0+1
+version: 0.1.1+1
 
 environment:
   sdk: ^3.13.4

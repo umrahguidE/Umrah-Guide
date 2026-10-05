@@ -22,9 +22,12 @@ test('every dua has what the UI needs, a known category and a review status', ()
   }
 });
 
-test('nothing is marked scholar-reviewed in this draft', () => {
+test('reviewed content records owner confirmation without invented reviewer details', () => {
   const all = [C.CONTENT_META, ...C.DUAS, ...C.IHRAM_GUIDE, ...C.MIQATS, ...C.ROUTES];
-  assert.ok(all.every((x) => x.review.status === 'pending'));
+  assert.ok(all.every((x) => x.review.status === 'reviewed'));
+  assert.ok(C.CONTENT_META.review.confirmation.includes('App owner confirmed'));
+  assert.equal(C.CONTENT_META.review.by, null);
+  assert.equal(C.CONTENT_META.review.at, null);
 });
 
 // Render every screen of a real journey, for both genders.

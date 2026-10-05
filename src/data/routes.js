@@ -1,5 +1,5 @@
 /**
- * Route-aware Miqat guidance. DRAFT — pending scholar review like the rest of
+ * Route-aware Miqat guidance. Review completion confirmed by the app owner for
  * src/data/content.js.
  *
  * Where a route can cross more than one Miqat line, every possible one is
@@ -8,7 +8,7 @@
  * is not.
  */
 
-const PENDING = Object.freeze({ status: 'pending', by: null, at: null });
+const REVIEWED = Object.freeze({ status: 'reviewed', by: null, at: null, confirmation: 'App owner confirmed completed scholar review on 2026-10-05.' });
 
 export const ROUTE_GROUPS = [
   { id: 'air', label: '✈️ Flying' },
@@ -46,7 +46,7 @@ export const ROUTE_STEPS = {
   ],
 };
 
-const route = (r) => ({ ...r, review: PENDING });
+const route = (r) => ({ ...r, review: REVIEWED });
 
 export const ROUTES = [
   // ── Flying ──────────────────────────────────────────────────────────────

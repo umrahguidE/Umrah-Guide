@@ -1,6 +1,6 @@
 # Content review sheet
 
-Generated from `src/data/content.js` (version 0.1.0-draft). Current status: **pending**.
+Generated from `src/data/content.js` (version 0.1.1). Current status: **reviewed**.
 
 For each item mark ✅ approved, ✏️ corrected (write the correction beneath it), or ❌ remove.
 Then set `review: { status: 'reviewed', by, at }` on the approved items in `content.js` and re-run `npm run review:export`.

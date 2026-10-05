@@ -74,10 +74,10 @@ class SettingsPage extends StatelessWidget {
               DropdownButtonFormField<String>(
                 isExpanded: true,
                 initialValue: voices.any((x) => x.name == v.preferredName) ? v.preferredName : '',
-                decoration: InputDecoration(labelText: context.t('Voice'), border: const OutlineInputBorder()),
+                decoration: InputDecoration(labelText: '${context.t('Voice guide')} — ${lang.native}', border: const OutlineInputBorder()),
                 items: [
                   DropdownMenuItem(value: '', child: Text(context.t('Automatic (recommended)'))),
-                  for (final o in voices) DropdownMenuItem(value: o.name, child: Text('${o.name}${o.isDefault ? ' — ${context.t('suggested')}' : ''}', overflow: TextOverflow.ellipsis)),
+                  for (final o in voices) DropdownMenuItem(value: o.name, child: Text('${lang.native} ${voices.indexOf(o) + 1}${o.isDefault ? ' — ${context.t('suggested')}' : ''}', overflow: TextOverflow.ellipsis)),
                 ],
                 onChanged: (x) => app.selectVoice(x == null || x.isEmpty ? null : x),
               ),

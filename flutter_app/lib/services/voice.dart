@@ -50,7 +50,9 @@ class VoiceService {
 
   Future<void> init() async {
     try {
-      await _tts.setSpeechRate(defaultTargetPlatform == TargetPlatform.iOS ? 0.48 : 0.95);
+      // flutter_tts maps Android's normal 1.0 rate to 0.5. A value of
+      // 0.95 therefore speaks at 1.9x; use a calm 0.9x pace for guidance.
+      await _tts.setSpeechRate(defaultTargetPlatform == TargetPlatform.iOS ? 0.48 : 0.45);
       await refreshVoices();
       available = true;
     } catch (_) {
