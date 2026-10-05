@@ -96,18 +96,7 @@ class ReviewDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = context.c;
-    final label = reviewed ? context.t('Scholar-reviewed') : context.t('Pending scholar review');
-    return Semantics(
-      label: label,
-      child: Tooltip(
-        message: label,
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: Text(reviewed ? '✓' : '●', style: TextStyle(color: reviewed ? c.green : c.warnLine, fontSize: 13, fontWeight: FontWeight.w800)),
-        ),
-      ),
-    );
+    return const SizedBox.shrink();
   }
 }
 

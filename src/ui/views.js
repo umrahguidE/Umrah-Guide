@@ -1055,9 +1055,7 @@ function guidePage(ctx) {
 
 function aboutPage() {
   return html`${pageHeader(t('About this guide'))}
-    <section class="card"><h2>${t('Content review status')}</h2>
-      <p>${reviewBadge(C.CONTENT_META.review)} ${C.CONTENT_META.review.status === 'reviewed' ? t('Scholar-reviewed') : t('Pending scholar review')} · ${t('Version')} ${C.CONTENT_META.version}</p>
-      <p>${t(C.CONTENT_META.note)}</p></section>
+    <p>${t('Version')} ${C.CONTENT_META.version}</p>
     <section class="card"><h2>${t('Your count is what counts')}</h2>
       <p>${t('The app keeps a record of your rounds and laps to help you. It is never an authority over your own count. If the app and your memory disagree, go with what you are certain of and correct the app.')}</p></section>
     <section class="card"><h2>${t('Location help')}</h2>

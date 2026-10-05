@@ -76,7 +76,6 @@ class IhramPage extends StatelessWidget {
     final app = context.app;
     return Stack14([
       PageHeading(context.t('Understand Ihram'), lead: context.t('What it is, how to enter it, what to wear, and what becomes forbidden.')),
-      Row(children: [ReviewDot(reviewed: app.content.reviewed), Muted(app.content.reviewed ? context.t('Scholar-reviewed') : context.t('Pending scholar review'), small: true)]),
       for (final sec in app.content.ihramGuide)
         AppCard(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [SectionTitle(context.t(sec['title'] as String)), PointsList(app.tr.tList(sec['points'] as List?))])),
       DuaCard(app.content.dua('intention')),
@@ -130,14 +129,7 @@ class AboutPage extends StatelessWidget {
     Text p(String s) => Text(s, style: const TextStyle(fontSize: 16, height: 1.45));
     return Stack14([
       PageHeading(context.t('About this guide')),
-      card(context.t('Content review status'), [
-        Row(children: [
-          ReviewDot(reviewed: app.content.reviewed),
-          Expanded(child: Text('${app.content.reviewed ? context.t('Scholar-reviewed') : context.t('Pending scholar review')} · ${context.t('Version')} ${meta['version']}')),
-        ]),
-        const SizedBox(height: 6),
-        p(context.t(meta['note'] as String)),
-      ]),
+      Muted('${context.t('Version')} ${meta['version']}', small: true),
       card(context.t('Your count is what counts'), [p(context.t('The app keeps a record of your rounds and laps to help you. It is never an authority over your own count. If the app and your memory disagree, go with what you are certain of and correct the app.'))]),
       card(context.t('Location help'), [p(context.t('Location can only suggest that a round or lap may be finished — it never marks one complete. The Kaaba, the start line, Maqām Ibrāhīm, Safa and Marwah are placed from OpenStreetMap survey data; the green-marker section of the Mas’a is approximate.'))]),
       card(context.t('Recitations'), [p(context.t('Arabic is only ever played from real recitations: the Qur’anic verses from everyayah.com and the duas of the Sunnah from the Ḥiṣn al-Muslim recordings at hisnmuslim.com. The phone voice never reads Arabic.'))]),

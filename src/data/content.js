@@ -20,12 +20,12 @@
 const REVIEWED = Object.freeze({ status: 'reviewed', by: null, at: null, confirmation: 'App owner confirmed completed scholar review on 2026-10-05.' });
 
 export const CONTENT_META = Object.freeze({
-  version: '0.1.1',
+  version: '0.1.2',
   review: REVIEWED,
-  note: 'Scholar-reviewed',
+  note: '',
 });
 
-export const REVIEW_NOTICE = 'Scholar-reviewed';
+export const REVIEW_NOTICE = '';
 
 // ───────────────────────── Preparation ─────────────────────────
 
@@ -525,6 +525,6 @@ export const GUIDES = {
   madinah: {
     title: 'Madinah guide',
     points: ['Visiting Madinah is not part of the Umrah rites — your Umrah is complete without it.'],
-    planned: ['Scholar-reviewed guidance for visiting Masjid an-Nabawi', 'Offline map of Masjid an-Nabawi and surroundings'],
+    planned: ['Guidance for visiting Masjid an-Nabawi', 'Offline map of Masjid an-Nabawi and surroundings'],
   },
 };

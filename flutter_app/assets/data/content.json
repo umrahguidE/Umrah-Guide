@@ -1,15 +1,15 @@
 {
  "CONTENT_META": {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "review": {
    "status": "reviewed",
    "by": null,
    "at": null,
    "confirmation": "App owner confirmed completed scholar review on 2026-10-05."
   },
-  "note": "Scholar-reviewed"
+  "note": ""
  },
- "REVIEW_NOTICE": "Scholar-reviewed",
+ "REVIEW_NOTICE": "",
  "PREP_CHECKLIST": [
   {
    "id": "documents",
@@ -1503,7 +1503,7 @@
     "Visiting Madinah is not part of the Umrah rites — your Umrah is complete without it."
    ],
    "planned": [
-    "Scholar-reviewed guidance for visiting Masjid an-Nabawi",
+    "Guidance for visiting Masjid an-Nabawi",
     "Offline map of Masjid an-Nabawi and surroundings"
    ]
   }

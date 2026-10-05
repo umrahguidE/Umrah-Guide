@@ -54,8 +54,7 @@ export function roundDots(completed, current, total) {
 // A small, quiet marker rather than a loud repeated pill — the review status still
 // tracks accurately (see docs/CONTENT_REVIEW.md), it just doesn't shout on every card.
 export function reviewBadge(review) {
-  const reviewed = review?.status === 'reviewed';
-  return html`<span class="review-dot ${reviewed ? 'ok' : 'warn'}" title="${reviewed ? t('Scholar-reviewed') : t('Pending scholar review')}" aria-label="${reviewed ? t('Scholar-reviewed') : t('Pending scholar review')}">${reviewed ? '✓' : '●'}</span>`;
+  return html``;
 }
 
 /** Plays a real recitation when one exists; the phone voice never reads Arabic. */
