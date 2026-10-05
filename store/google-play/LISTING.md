@@ -89,6 +89,9 @@ PRIVATE BY DESIGN
 No account, no ads, no analytics. Your progress and notes stay on your phone.
 
 Guided Umrah is a helper, not a replacement for learning your Umrah from a scholar. When in doubt, ask a scholar.
+
+Designed and developed by Mhd Wasim.
+Sponsored by NIAZI AFRASIAB.
 ```
 
 **App category:** Lifestyle  ·  **Tags:** Religion, Travel guide
